@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ExpensesTrackerApplication
-{
+namespace ExpenseTracker {
     public class CategoryInfo
     {
         public string Description { get; set; }

@@ -8,7 +8,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Xml.Linq;
 using System.Windows.Forms;
 
-namespace ExpensesTrackerApplication
+namespace ExpenseTracker
 {
     public class User
     {
