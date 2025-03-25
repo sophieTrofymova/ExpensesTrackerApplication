@@ -1,15 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using System.Xml.Linq;
-using System.Windows.Forms;
+﻿
+using Newtonsoft.Json;
+using System.Transactions;
 
 namespace ExpenseTracker
 {
+
+    class UserManager {
+
+        [JsonProperty] 
+        private List<User> users { get; set; }
+        public User CurrentUser { get; private set; }
+
+
+        public UserManager()
+        {
+            
+        }
+
+        public bool Login() {
+            return false;
+        }
+
+        public bool Logout() {
+            return false;
+        }
+
+        public bool Register() {
+            return false;
+        }
+
+    }
+
     public class User
     {
         public Guid Id { get; set; } = Guid.NewGuid();
@@ -43,9 +64,19 @@ namespace ExpenseTracker
         {
             return Budgets;
         }
-        public void AddAccount(Account account)
+        public bool AddAccount(Account account)
         {
-            Accounts.Add(account);
+
+            // TODO: лучше проверки сделать здесь
+            // потому что нам нужно убедится что такого аккаунта несуществует
+            if(! Accounts.Where(a => a.Name == account.Name).Any()) {
+                Accounts.Add(account);
+                return true;
+            } else {
+                return false;
+            }
+             
+            
         }
 
         public void RemoveAccount(Account account)

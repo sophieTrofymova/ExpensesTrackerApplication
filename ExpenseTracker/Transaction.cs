@@ -5,47 +5,52 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ExpenseTracker {
+
+    public enum TransactionType { Expense, Income, Transfer }
+
     public class Transaction {
-        public int ID { get; set; } // Unique Transaction Identifier
-        public TransactionType Type { get; set; } // Expense, Income, Transfer
 
-        public decimal Amount { get; set; }
-        public string Category { get; set; } // Food, Rent, Salary, etc.
+        // Unique identifier
+        public Guid ID { get; set; } = Guid.NewGuid();
 
-        // The account where the money is coming from
-        public string SourceAccount { get; set; } // Example: "Bank", "Wallet", "Credit Card"
+        // Metadata for management 
+        public DateTime CreationDate { get; private set; } = DateTime.Now;
 
-        // Only applicable if it's a transfer (null for expenses & income)
-        public string? DestinationAccount { get; set; } // Example: "Bank" → "Wallet" transfer
+        // Financial Details
+        public TransactionType Type { get; set; }
+        public decimal Amount { get; set; } // Must be positive
+        // Category: Food, Rent, Salary, etc.
+        public string Category { get; set; }
 
-        public DateTime Date { get; set; } // When the transaction occurred
-        public string? Description { get; set; }  // Optional(or null) description
+        // Accounts Involved
 
-        // -----------------------------------------------------------------------------
-        public bool Recurring { get; set; }
+
+        // income or used in transfer
+        public Guid ReceiverAccount { get; set; } // Account that receives funds
+
+        // expense or used transfer
+        public Guid SenderAccount { get; set; } // Account that sends funds
+
+        // Transaction Start Date (When it takes effect)
+        // date from which effect start/ day of first transaction
+        public DateTime EffectDate { get; set; }
+        // description can contain \r\n\t to format text
+        public string? Description { get; set; }
+
+        // does this transaction repeats
+        public bool Recurring { get; set; } = false;
+        // repeat settings
         public RecurrenceInfo? RecurrenceInfo { get; set; }
 
-
-        // public TransactionStatus Status { get; set; } // make sense only in case of actual banking app
-
-        public Transaction()
+        public Transaction(Guid creatorAccount)
         {
             
+
+
         }
-
     }
 
-    public enum TransactionType {
-        Expense,
-        Income,
-        Transfer
-    }
 
-    //public enum TransactionStatus {
-    //    Pending,
-    //    Completed,
-    //    Failed
-    //}
 
 
 }

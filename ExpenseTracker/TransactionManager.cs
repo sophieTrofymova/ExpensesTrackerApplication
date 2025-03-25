@@ -23,8 +23,8 @@ namespace ExpenseTracker {
             Transactions.Add(transaction);
         }
 
-        public List<Transaction> GetTransactionsByAccount(string accountName) {
-            return Transactions.Where(t => t.SourceAccount == accountName || t.DestinationAccount == accountName).ToList();
-        }
+        //public List<Transaction> GetTransactionsByAccount(string accountName) {
+        //    return Transactions.Where(t => t.SourceAccount == accountName || t.DestinationAccount == accountName).ToList();
+        //}
     }
 }
