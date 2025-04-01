@@ -23,11 +23,14 @@ namespace ExpenseTracker {
 
 
         public void HideElements(List<Element> elements) {
-            for (int i = 0; i < elements.Count; i++) {
-                if (elements[i].Parent != null) {
-                    elements[i].Parent.Controls.Remove(elements[i]);
+            int count = elements.Count;
+
+            while (count != 0) {
+                if (elements[count-1].Parent != null) {
+                    elements[count-1].Parent.Controls.Remove(elements[count-1]);
                 }
-                Elements.Remove(elements[i]);
+                Elements.Remove(elements[count-1]);
+                count--;
             }
         }
 

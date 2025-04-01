@@ -28,13 +28,13 @@ namespace ExpenseTracker {
             ViewNameText.Text = e.ClickedButton.TextLabel.Text;
 
             switch (e.ClickedButton.Name) {
-                case nameof(navDashboard): DashboardView(); break;
-                case nameof(navTransactions): TransactionsView(); break;
-                case nameof(navReccurent): ReccurentView(); break;
-                case nameof(navAccounts): break;
-                case nameof(navBarButton5): break;
-                case nameof(navBarButton6): break;
-                case nameof(navBarButton7): break;
+                case nameof(navDashboard):    DashboardView();      break;
+                case nameof(navTransactions): TransactionsView();   break;
+                case nameof(navReccurent):    ReccurentView();      break;
+                case nameof(navAccounts):                           break;
+                case nameof(navBarButton5):                         break;
+                case nameof(navBarButton6):                         break;
+                case nameof(navBarButton7):                         break;
 
                 default: break;
 
