@@ -22,28 +22,38 @@
         ///  Required method for Designer support - do not modify
         ///  the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             groupBox1 = new GroupBox();
+            comboBox1 = new ComboBox();
             panel1 = new Panel();
             label2 = new Label();
             label1 = new Label();
             panel2 = new Panel();
             pictureBox1 = new PictureBox();
             navDashboard = new Label();
-            comboBox1 = new ComboBox();
             groupBox2 = new GroupBox();
             label4 = new Label();
+            label7 = new Label();
+            label5 = new Label();
+            TotalBalanceText = new Label();
             label6 = new Label();
             BalanceLabel = new Label();
             label3 = new Label();
-            TotalBalanceText = new Label();
-            label5 = new Label();
-            label7 = new Label();
+            groupBox3 = new GroupBox();
+            label8 = new Label();
+            label9 = new Label();
+            label10 = new Label();
+            label11 = new Label();
+            label12 = new Label();
+            label13 = new Label();
+            label14 = new Label();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
@@ -52,12 +62,21 @@
             groupBox1.Controls.Add(comboBox1);
             groupBox1.Font = new Font("Segoe UI", 14F);
             groupBox1.ForeColor = Color.Coral;
-            groupBox1.Location = new Point(346, 124);
+            groupBox1.Location = new Point(1114, 105);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(516, 112);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "TRANSACTIONS";
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Item1", "Item2", "Item3", "Item4" });
+            comboBox1.Location = new Point(320, 38);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(151, 39);
+            comboBox1.TabIndex = 2;
             // 
             // panel1
             // 
@@ -125,15 +144,6 @@
             navDashboard.TabIndex = 0;
             navDashboard.Text = "DASHBOARD";
             // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Item1", "Item2", "Item3", "Item4" });
-            comboBox1.Location = new Point(320, 38);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 39);
-            comboBox1.TabIndex = 2;
-            // 
             // groupBox2
             // 
             groupBox2.BackColor = SystemColors.ControlDarkDark;
@@ -146,7 +156,7 @@
             groupBox2.Controls.Add(label3);
             groupBox2.Font = new Font("Segoe UI", 14F);
             groupBox2.ForeColor = Color.Coral;
-            groupBox2.Location = new Point(346, 290);
+            groupBox2.Location = new Point(344, 85);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(609, 275);
             groupBox2.TabIndex = 3;
@@ -163,6 +173,39 @@
             label4.Size = new Size(474, 32);
             label4.TabIndex = 0;
             label4.Text = "----------------------------------------------";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label7.ForeColor = Color.Black;
+            label7.Location = new Point(320, 90);
+            label7.Name = "label7";
+            label7.Size = new Size(256, 32);
+            label7.TabIndex = 0;
+            label7.Text = "<BALANCE WALETS>";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label5.ForeColor = Color.Black;
+            label5.Location = new Point(320, 135);
+            label5.Name = "label5";
+            label5.Size = new Size(248, 32);
+            label5.TabIndex = 0;
+            label5.Text = "<BALANCE CREDIT>";
+            // 
+            // TotalBalanceText
+            // 
+            TotalBalanceText.AutoSize = true;
+            TotalBalanceText.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            TotalBalanceText.ForeColor = Color.Black;
+            TotalBalanceText.Location = new Point(350, 209);
+            TotalBalanceText.Name = "TotalBalanceText";
+            TotalBalanceText.Size = new Size(157, 32);
+            TotalBalanceText.TabIndex = 0;
+            TotalBalanceText.Text = "<BALANCE>";
             // 
             // label6
             // 
@@ -197,44 +240,108 @@
             label3.TabIndex = 0;
             label3.Text = "Summary";
             // 
-            // TotalBalanceText
+            // groupBox3
             // 
-            TotalBalanceText.AutoSize = true;
-            TotalBalanceText.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            TotalBalanceText.ForeColor = Color.Black;
-            TotalBalanceText.Location = new Point(350, 209);
-            TotalBalanceText.Name = "TotalBalanceText";
-            TotalBalanceText.Size = new Size(157, 32);
-            TotalBalanceText.TabIndex = 0;
-            TotalBalanceText.Text = "<BALANCE>";
+            groupBox3.BackColor = SystemColors.ControlDarkDark;
+            groupBox3.Controls.Add(label8);
+            groupBox3.Controls.Add(label9);
+            groupBox3.Controls.Add(label10);
+            groupBox3.Controls.Add(label11);
+            groupBox3.Controls.Add(label12);
+            groupBox3.Controls.Add(label13);
+            groupBox3.Controls.Add(label14);
+            groupBox3.Font = new Font("Segoe UI", 14F);
+            groupBox3.ForeColor = Color.Coral;
+            groupBox3.Location = new Point(344, 383);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(609, 275);
+            groupBox3.TabIndex = 4;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "THIS MONTH";
             // 
-            // label5
+            // label8
             // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            label5.ForeColor = Color.Black;
-            label5.Location = new Point(320, 135);
-            label5.Name = "label5";
-            label5.Size = new Size(248, 32);
-            label5.TabIndex = 0;
-            label5.Text = "<BALANCE CREDIT>";
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label8.ForeColor = Color.Black;
+            label8.Location = new Point(33, 167);
+            label8.Name = "label8";
+            label8.Size = new Size(474, 32);
+            label8.TabIndex = 0;
+            label8.Text = "----------------------------------------------";
             // 
-            // label7
+            // label9
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            label7.ForeColor = Color.Black;
-            label7.Location = new Point(320, 90);
-            label7.Name = "label7";
-            label7.Size = new Size(256, 32);
-            label7.TabIndex = 0;
-            label7.Text = "<BALANCE WALETS>";
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label9.ForeColor = Color.Black;
+            label9.Location = new Point(320, 90);
+            label9.Name = "label9";
+            label9.Size = new Size(256, 32);
+            label9.TabIndex = 0;
+            label9.Text = "<BALANCE WALETS>";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label10.ForeColor = Color.Black;
+            label10.Location = new Point(320, 135);
+            label10.Name = "label10";
+            label10.Size = new Size(248, 32);
+            label10.TabIndex = 0;
+            label10.Text = "<BALANCE CREDIT>";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label11.ForeColor = Color.Black;
+            label11.Location = new Point(350, 209);
+            label11.Name = "label11";
+            label11.Size = new Size(157, 32);
+            label11.TabIndex = 0;
+            label11.Text = "<BALANCE>";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label12.ForeColor = Color.Black;
+            label12.Location = new Point(26, 135);
+            label12.Name = "label12";
+            label12.Size = new Size(154, 32);
+            label12.TabIndex = 0;
+            label12.Text = "Credit Cards";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label13.ForeColor = Color.Black;
+            label13.Location = new Point(26, 90);
+            label13.Name = "label13";
+            label13.Size = new Size(102, 32);
+            label13.TabIndex = 0;
+            label13.Text = "Balance";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            label14.ForeColor = Color.Black;
+            label14.Location = new Point(26, 45);
+            label14.Name = "label14";
+            label14.Size = new Size(123, 32);
+            label14.TabIndex = 0;
+            label14.Text = "Summary";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1837, 999);
+            Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -249,6 +356,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -270,5 +379,13 @@
         private Label TotalBalanceText;
         private Label label7;
         private Label label5;
+        private GroupBox groupBox3;
+        private Label label8;
+        private Label label9;
+        private Label label10;
+        private Label label11;
+        private Label label12;
+        private Label label13;
+        private Label label14;
     }
 }

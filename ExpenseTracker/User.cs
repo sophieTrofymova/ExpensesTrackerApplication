@@ -84,10 +84,20 @@ namespace ExpenseTracker
             Accounts.Remove(account);
         }
 
-        public void AddBudget(Budget budget)
+        //public void AddBudget(Budget budget)
+        //{
+        //    Budgets.Add(budget);
+        //}
+
+        public void AddBudget(Guid accountId, CategoryInfo categoryInfo, decimal limit)
         {
-            Budgets.Add(budget);
+            Budgets.Add(new Budget(accountId, categoryInfo, limit));
         }
+
+        //public Budget GetBudgetForCategory(CategoryInfo category)
+        //{
+        //    return Budgets.FirstOrDefault(b => b.CategoryInfo.Description == category);
+        //}
     }
 }
 

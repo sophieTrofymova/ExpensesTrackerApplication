@@ -7,25 +7,49 @@ using System.Threading.Tasks;
 namespace ExpenseTracker {
     public class Budget
     {
-        public Budget(string category, decimal amountLimit, BudgetPeriod period)
+        public Budget(Guid accountId, CategoryInfo categoryInfo, decimal amountLimit/*,BudgetPeriod period*/)
         {
-            Category = category;
+            AccountID = accountId;
+            CategoryInfo = categoryInfo;
             AmountLimit = amountLimit;
-            Period = period;
+            Spent = 0;
+            Month = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            //Period = period;
         }
 
-        public Budget(string category, decimal amountLimit, BudgetPeriod period, bool notifications)
-        {
-            Category = category;
-            AmountLimit = amountLimit;
-            Period = period;
-            Notifications = notifications;
-        }
+        //public Budget(CategoryType category, decimal amountLimit, /*BudgetPeriod period,*/ bool notifications)
+        //{
+        //    Category = category;
+        //    AmountLimit = amountLimit;
+        //   // Period = period;
+        //    Notifications = notifications;
+        //    Spent = 0;
+        //}
 
-        public string Category { get; set; } 
+        public Guid AccountID { get; set; }
+        public CategoryInfo CategoryInfo { get; set; }
         public decimal AmountLimit { get; set; }
-        public BudgetPeriod Period { get; set; }
+        // public BudgetPeriod Period { get; set; }
+        public decimal Spent { get; set; }
+        public DateTime Month { get; set; }
         public bool Notifications { get; set; }
+
+        public string CategoryDescription => CategoryInfo.Description;
+        public decimal GetUsagePercentage()
+        {
+            return (AmountLimit == 0) ? 0 : (Spent / AmountLimit) * 100;
+        }
+
+        public bool NeedsWarning()
+        {
+            int daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+            int today = DateTime.Now.Day;
+
+            bool over70Percent = GetUsagePercentage() >= 70;
+            bool lessThanHalfMonth = today < (daysInMonth / 2);
+
+            return over70Percent && lessThanHalfMonth;
+        }
     }
 
     public enum BudgetPeriod
