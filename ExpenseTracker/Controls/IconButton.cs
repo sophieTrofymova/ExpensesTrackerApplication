@@ -74,7 +74,7 @@ namespace ExpenseTracker {
         [Browsable(true)]
         public int IconSize {
             get { return (int)this.IconLabel.Font.Size; }
-            set { this.IconLabel.Font = Static.GetMaterialFont((value >= 12)?value:12); }
+            set { this.IconLabel.Font = Static.GetMaterialFont((value >= 12) ? value : 12); }
         }
 
         [Category("_CustomParams")]
@@ -108,6 +108,12 @@ namespace ExpenseTracker {
             horizontalAlignPanel.MouseDown += (s, e) => OnMouseDown(e);
             horizontalAlignPanel.MouseUp += (s, e) => OnMouseUp(e);
 
+
+
+            IconLabel.Click += (s, e) => OnClick(e);
+            horizontalAlignPanel.Click += (s, e) => OnClick(e);
+
+
             horizontalAlignPanel.Dock = DockStyle.Fill;
 
             // wire up events on self
@@ -128,7 +134,7 @@ namespace ExpenseTracker {
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             this.BorderStyle = BorderStyle.FixedSingle;
-            
+
         }
 
 
@@ -148,7 +154,7 @@ namespace ExpenseTracker {
 
         private void NavBarButton_BackColorChanged(object? sender, EventArgs e) {
             IconLabel.BackColor = this.BackColor;
-         
+
             horizontalAlignPanel.BackColor = this.BackColor;
         }
 

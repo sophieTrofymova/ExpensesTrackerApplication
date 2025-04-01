@@ -97,7 +97,7 @@ namespace ExpenseTracker {
                     IconLabel.Text = icon;
                     displayIconValue = value;
                     this.Invalidate();
-                } 
+                }
             }
         }
 
@@ -121,7 +121,7 @@ namespace ExpenseTracker {
             horizontalAlignPanel.MouseDown += (s, e) => OnMouseDown(e);
             horizontalAlignPanel.MouseUp += (s, e) => OnMouseUp(e);
 
-            horizontalAlignPanel.Dock = DockStyle.Fill; 
+            horizontalAlignPanel.Dock = DockStyle.Fill;
 
             // wire up events on self
             this.MouseEnter += TextButton_MouseEnter;
@@ -148,14 +148,27 @@ namespace ExpenseTracker {
         private void NavBarButton_ParentChanged(object? sender, EventArgs e) {
             if (this.Parent != null) {
                 this.Parent.SizeChanged += Parent_SizeChanged;
-            
+
             }
         }
 
         private void Parent_SizeChanged(object? sender, EventArgs e) {
             if (this.Parent != null) {
-                horizontalAlignPanel.MinimumSize = new Size(this.Parent.Size.Width- this.Parent.Padding.Horizontal, horizontalAlignPanel.Height);
-                horizontalAlignPanel.Size = new Size(this.Parent.Size.Width - this.Parent.Padding.Horizontal, horizontalAlignPanel.Height);
+
+                horizontalAlignPanel.MinimumSize =
+                    new Size(
+                        this.Parent.Size.Width - 
+                        this.Parent.Padding.Horizontal - 
+                        (((Parent as NavBar).VerticalScroll.Visible) ? 24 : 0), 
+                        horizontalAlignPanel.Height
+                    );
+                horizontalAlignPanel.Size = 
+                    new Size(
+                        this.Parent.Size.Width - 
+                        this.Parent.Padding.Horizontal - 
+                        (((Parent as NavBar).VerticalScroll.Visible) ? 24 : 0), 
+                        horizontalAlignPanel.Height
+                    );
             }
         }
 
