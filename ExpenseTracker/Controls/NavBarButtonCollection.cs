@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Windows.Forms.Design;
 
-namespace ExpenseTracker {
+namespace ExpenseTracker.Controls {
     // custom typed collection
     public class NavBarButtonCollection : Collection<NavBarButton> {
         private NavBar _owner;

@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 using System.ComponentModel;
 using System.Drawing.Design;
 
-namespace ExpenseTracker {
+namespace ExpenseTracker.Controls {
 
 
 
@@ -18,7 +18,7 @@ namespace ExpenseTracker {
         private Color _downColor = Color.FromArgb(150, 150, 150);
         private Color _normalForeColor = Color.Black;
         private bool _mouseDown = false;
-        private string displayIconValue = "e000";
+        private string displayIconValue = "error";
 
         [Browsable(true)]
         [Category("_CustomParams"), Description("is btn in toggled/active state?")]
@@ -93,11 +93,11 @@ namespace ExpenseTracker {
                 return displayIconValue;
             }
             set {
-                if (GetIcon(value, out string icon)) {
-                    IconLabel.Text = icon;
-                    displayIconValue = value;
-                    this.Invalidate();
-                }
+
+                IconLabel.Text = MaterialFont.GetIconByName(value);
+                displayIconValue = value;
+                this.Invalidate();
+
             }
         }
 
@@ -135,7 +135,7 @@ namespace ExpenseTracker {
             this.BackColorChanged += NavBarButton_BackColorChanged;
 
 
-            this.IconLabel.Font = Static.GetMaterialFont(24);
+            this.IconLabel.Font = MaterialFont.GenerateFont(24);
             this.IconLabel.Text = "\u0000";
 
             this.AutoSize = true;
@@ -157,31 +157,21 @@ namespace ExpenseTracker {
 
                 horizontalAlignPanel.MinimumSize =
                     new Size(
-                        this.Parent.Size.Width - 
-                        this.Parent.Padding.Horizontal - 
-                        (((Parent as NavBar).VerticalScroll.Visible) ? 24 : 0), 
+                        this.Parent.Size.Width -
+                        this.Parent.Padding.Horizontal -
+                        (((Parent as NavBar).VerticalScroll.Visible) ? 24 : 0),
                         horizontalAlignPanel.Height
                     );
-                horizontalAlignPanel.Size = 
+                horizontalAlignPanel.Size =
                     new Size(
-                        this.Parent.Size.Width - 
-                        this.Parent.Padding.Horizontal - 
-                        (((Parent as NavBar).VerticalScroll.Visible) ? 24 : 0), 
+                        this.Parent.Size.Width -
+                        this.Parent.Padding.Horizontal -
+                        (((Parent as NavBar).VerticalScroll.Visible) ? 24 : 0),
                         horizontalAlignPanel.Height
                     );
             }
         }
 
-        private bool GetIcon(string codepoint, out string result) {
-            if (int.TryParse(codepoint, System.Globalization.NumberStyles.HexNumber, null, out int code)) {
-                result = char.ConvertFromUtf32(code);
-                return true;
-            }
-            else {
-                result = "\u0000";
-                return false;
-            }
-        }
 
 
         private void NavBarButton_BackColorChanged(object? sender, EventArgs e) {

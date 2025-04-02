@@ -1,4 +1,4 @@
-﻿namespace ExpenseTracker {
+﻿namespace ExpenseTracker.Controls {
     // event args to hold clicked text button & its index
     public class NavBarButtonClickEventArgs : EventArgs {
         public NavBarButton ClickedButton { get; }

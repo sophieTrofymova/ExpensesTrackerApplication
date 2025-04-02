@@ -5,6 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ExpenseTracker {
+
+
+    // this is just to stop IDE from gereating resource file for form
+    // cause for forms classes to work as forms they need to be a first class in file
+    public class PreventResourceFileGeneration { }
+
+
     public partial class MainForm {
 
         private void TotalBalance_Submit(object? sender, EventArgs e) {
@@ -18,6 +25,7 @@ namespace ExpenseTracker {
         private void DashboardView() {
         
             ViewContainer.HideElements(ViewContainer.Elements);
+
             timer.Interval = 100;
 
             var totalBalance = new TotalBalanceElement();
@@ -39,21 +47,8 @@ namespace ExpenseTracker {
 
             timer.Start();
 
-            var newelem = new NewElement();
-            newelem.GroupBox.Text = "New Transaction";
-            newelem.tbSomeField.Text = "Some Text";
-            newelem.bAddTransaction.Click += (object? sender, EventArgs e) => {
-                newelem.tbSomeField.Text = "Added";
-            };
 
-            newelem.Location = new System.Drawing.Point(totalBalance.Location.X+totalBalance.Width, 0);
-
-            var elem3 = new Element3();
-            elem3.GroupBox.Text = "Reccurent";
-
-
-
-            ViewContainer.ShowElements(new List<Element> { totalBalance, newelem, elem3 }, ViewContainer);
+            ViewContainer.ShowElements(new List<Element> { totalBalance });
         
         }
 
@@ -66,14 +61,9 @@ namespace ExpenseTracker {
 
             ViewContainer.HideElements(ViewContainer.Elements);
 
-            var newelem = new NewElement();
-            newelem.GroupBox.Text = "New Transaction";  
-            newelem.tbSomeField.Text = "Some Text";
-            newelem.bAddTransaction.Click += (object? sender, EventArgs e) => {
-                newelem.tbSomeField.Text = "Added";
-            };
 
-            ViewContainer.ShowElements(new List<Element> { newelem }, ViewContainer);
+
+            ViewContainer.ShowElements(new List<Element> {  });
         
         }
         
@@ -82,13 +72,45 @@ namespace ExpenseTracker {
             ViewContainer.HideElements(ViewContainer.Elements);
 
 
-            var elem3 = new Element3();
-            elem3.GroupBox.Text = "Reccurent";
-
            
-            ViewContainer.ShowElements(new List<Element> { elem3 }, ViewContainer);
+            ViewContainer.ShowElements(new List<Element> {  });
         
         }
+
+        private void AccountsView() {
+            ViewContainer.HideElements(ViewContainer.Elements);
+
+
+
+            ViewContainer.ShowElements(new List<Element> { });
+        }
+
+        private void BudgetsView() {
+            ViewContainer.HideElements(ViewContainer.Elements);
+
+
+
+            ViewContainer.ShowElements(new List<Element> {  });
+        }
+
+        private void ChartsView() {
+            ViewContainer.HideElements(ViewContainer.Elements);
+
+
+
+            ViewContainer.ShowElements(new List<Element> { });
+        }
+
+        private void SettingsView() {
+            ViewContainer.HideElements(ViewContainer.Elements);
+
+
+
+            ViewContainer.ShowElements(new List<Element> { });
+        }
+
+
+
 
 
     }
