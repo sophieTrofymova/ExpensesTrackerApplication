@@ -20,10 +20,12 @@ namespace ExpenseTracker {
         private Point startOffset;
 
         int rows = 1, cols = 1;
-
+        int row = 0, col = 0;
         public int Rows { get { return rows; } set { rows = (value > 0) ? value : 1; } }
         public int Cols { get { return cols; } set { cols = (value > 0) ? value : 1; } }
 
+        public int Row { get { return row; } set { row = (value >= 0) ? value : 0; } }
+        public int Collumn { get { return col; } set { col = (value >= 0) ? value : 0; } }
 
         public bool AllowDrag { get; set; } = true;
         public Element() {

@@ -151,7 +151,7 @@ namespace ExpenseTracker {
             MaterialFont.UseEmbeddedLoad = true;
             MaterialFont.Initialize();
 
-            ViewContainer.Cols = 6;
+            ViewContainer.NumCollumns = 6;
 
             // set icons for navigation bar manually in case of design time failure
             // and for quick reference

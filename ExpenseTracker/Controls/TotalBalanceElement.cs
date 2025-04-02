@@ -15,9 +15,10 @@ namespace ExpenseTracker {
             InitializeComponent();
 
             GroupBox.Text = "BALANCE";
+            this.Collumn = 0;
+            this.Row = 0;
             this.Cols = 3;
-
-
+            this.Rows = 2;
 
         }
 

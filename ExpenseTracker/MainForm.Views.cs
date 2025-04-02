@@ -25,6 +25,7 @@ namespace ExpenseTracker {
         private void DashboardView() {
         
             ViewContainer.HideElements(ViewContainer.Elements);
+            ViewContainer.LayoutType = ElementContainerLayout.GridManual;
 
             timer.Interval = 100;
 
@@ -37,6 +38,12 @@ namespace ExpenseTracker {
             totalBalance.BalanceInCreditsText.ForeColor = Color.Red;
             totalBalance.TotalBalanceText.Text = $"${bal}";
             totalBalance.TotalBalanceText.ForeColor = Color.GreenYellow;
+            totalBalance.Collumn = 0;
+            totalBalance.Row = 1;
+            totalBalance.Cols = 2;
+            totalBalance.Rows = 1;
+            totalBalance.AllowDrag = false;
+
 
             timer.Tick += (object? sender, EventArgs e) => {
                 bal += 100;
@@ -45,10 +52,22 @@ namespace ExpenseTracker {
 
             totalBalance.Disposed += TotalBalance_Disposed;
 
-            timer.Start();
+            //timer.Start();
+
+            var thisMonth = new Element();
+            thisMonth.GroupBox.Text = "This Month";
+            thisMonth.Collumn = 2;
+            thisMonth.Cols = 2;
+            thisMonth.AllowDrag = false;
+
+            var lastMonth = new Element();
+            lastMonth.GroupBox.Text = "Last Month";
+            lastMonth.Collumn = 4;
+            lastMonth.Cols = 2;
+            lastMonth.AllowDrag = false;
 
 
-            ViewContainer.ShowElements(new List<Element> { totalBalance });
+            ViewContainer.AddElements(new List<Element> { totalBalance, thisMonth, lastMonth });
         
         }
 
@@ -60,20 +79,46 @@ namespace ExpenseTracker {
         private void TransactionsView() {
 
             ViewContainer.HideElements(ViewContainer.Elements);
+            ViewContainer.LayoutType = ElementContainerLayout.GridManual;
+            ViewContainer.NumCollumns = 9;
+            ViewContainer.NumRows = 8;
 
 
 
-            ViewContainer.ShowElements(new List<Element> {  });
-        
+            //timer.Start();
+
+            var Filter = new Element();
+            Filter.GroupBox.Text = "Filter";
+            Filter.Collumn = 1;
+            Filter.Row = 1;
+
+            Filter.Cols = 2;
+            Filter.Rows = ViewContainer.NumRows - 2;
+            Filter.AllowDrag = false;
+
+            var transactions = new Element();
+            transactions.GroupBox.Text = "Transactions";
+
+            transactions.Collumn = 3;
+            transactions.Row =1 ;
+
+            transactions.Cols = 5;
+            transactions.Rows = ViewContainer.NumRows - 2;
+            transactions.AllowDrag = false;
+
+
+            ViewContainer.AddElements(new List<Element> { Filter, transactions });
+
+
         }
-        
+
         private void ReccurentView() {
         
             ViewContainer.HideElements(ViewContainer.Elements);
 
 
            
-            ViewContainer.ShowElements(new List<Element> {  });
+            ViewContainer.AddElements(new List<Element> {  });
         
         }
 
@@ -82,7 +127,7 @@ namespace ExpenseTracker {
 
 
 
-            ViewContainer.ShowElements(new List<Element> { });
+            ViewContainer.AddElements(new List<Element> { });
         }
 
         private void BudgetsView() {
@@ -90,7 +135,7 @@ namespace ExpenseTracker {
 
 
 
-            ViewContainer.ShowElements(new List<Element> {  });
+            ViewContainer.AddElements(new List<Element> {  });
         }
 
         private void ChartsView() {
@@ -98,7 +143,7 @@ namespace ExpenseTracker {
 
 
 
-            ViewContainer.ShowElements(new List<Element> { });
+            ViewContainer.AddElements(new List<Element> { });
         }
 
         private void SettingsView() {
@@ -106,7 +151,7 @@ namespace ExpenseTracker {
 
 
 
-            ViewContainer.ShowElements(new List<Element> { });
+            ViewContainer.AddElements(new List<Element> { });
         }
 
 
