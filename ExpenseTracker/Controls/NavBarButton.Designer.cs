@@ -1,4 +1,4 @@
-﻿namespace ExpenseTracker {
+﻿namespace ExpenseTracker.Controls {
     partial class NavBarButton {
         /// <summary> 
         /// Required designer variable.

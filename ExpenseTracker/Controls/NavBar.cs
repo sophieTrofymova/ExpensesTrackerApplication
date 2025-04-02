@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace ExpenseTracker {
+namespace ExpenseTracker.Controls {
     [DesignerCategory("code")]
     public class NavBar : FlowLayoutPanel {
         // event fired when a child button is clicked
