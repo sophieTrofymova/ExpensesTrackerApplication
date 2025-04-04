@@ -421,7 +421,7 @@ namespace ExpenseTracker
 
             foreach (var account in testUser.Accounts)
             {
-                tblAccountsSummary2.RowCount++; // Add a new row
+                tblAccountsSummary2.RowCount++; 
                 tblAccountsSummary2.RowStyles.Add(new RowStyle(SizeType.AutoSize));
 
                 // Account Name Label
@@ -455,10 +455,10 @@ namespace ExpenseTracker
             foreach (var account in testUser.Accounts)
             {
                 ListViewItem item = new ListViewItem(account.Name);
-                item.SubItems.Add(account.Balance.ToString("C")); // Format balance as currency
-                item.SubItems.Add(account.Currency.ToString()); // Show currency
+                item.SubItems.Add(account.Balance.ToString("C"));
+                item.SubItems.Add(account.Currency.ToString()); 
 
-                listViewAccounts.Items.Add(item); // Add row to ListView
+                listViewAccounts.Items.Add(item); 
             }
         }
 
@@ -549,7 +549,6 @@ namespace ExpenseTracker
 
                     if (budget.NeedsWarning())
                     {
-                        //ShowNotification("Test Notification", "Test Message");
                         MessageBox.Show($"Warning! You have spent 70% of your {selectedCategoryDescription} budget within the first half of the month.");
                     }
                 }
