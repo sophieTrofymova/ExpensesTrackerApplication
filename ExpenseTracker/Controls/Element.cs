@@ -27,7 +27,9 @@ namespace ExpenseTracker {
         public int Row { get { return row; } set { row = (value >= 0) ? value : 0; } }
         public int Collumn { get { return col; } set { col = (value >= 0) ? value : 0; } }
 
-        public bool AllowDrag { get; set; } = true;
+
+        bool isDragAllowed = false;
+        public bool AllowDrag { get { return isDragAllowed; } set { isDragAllowed = value; DragAdjust(); } }
         public Element() {
             InitializeComponent();
 
@@ -41,9 +43,24 @@ namespace ExpenseTracker {
         }
 
 
-        private void draggablePanel_MouseDown(object sender, MouseEventArgs e) {
+        private void DragAdjust() {
+            if (isDragAllowed) {
+                this.Padding = new Padding(5, 35, 5, 5);
+                this.GroupBox.Dock = DockStyle.None;
+                this.GroupBox.Location = new Point(5, 35);
+            }
+            else {
 
-            if (AllowDrag) {
+                this.Padding = new Padding(5);
+                this.GroupBox.Dock = DockStyle.Fill;
+                this.GroupBox.Location = new Point(0, 35);
+            }
+        }
+
+
+            private void draggablePanel_MouseDown(object sender, MouseEventArgs e) {
+
+            if (isDragAllowed) {
                 // we do drag now
                 isDragging = true;
                 // store start pos of mouse relative to panel
@@ -53,7 +70,7 @@ namespace ExpenseTracker {
 
         private void draggablePanel_MouseMove(object sender, MouseEventArgs e) {
 
-            if (AllowDrag) {
+            if (isDragAllowed) {
                 if (isDragging) {
                     // get the new location based on the offset
                     var newLoc = this.Location;
@@ -73,7 +90,7 @@ namespace ExpenseTracker {
 
         private void draggablePanel_MouseUp(object sender, MouseEventArgs e) {
 
-            if (AllowDrag) {
+            if (isDragAllowed) {
                 // stop dragging
                 isDragging = false;
             }
