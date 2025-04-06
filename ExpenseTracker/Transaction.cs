@@ -20,7 +20,10 @@ namespace ExpenseTracker {
         public TransactionType Type { get; set; }
         public decimal Amount { get; set; } // Must be positive
         // Category: Food, Rent, Salary, etc.
-        public string Category { get; set; }
+        //public string Category { get; set; }
+        public CategoryInfo CategoryInfo { get; set; }
+
+        public string CategoryDescription => CategoryInfo.Description;
 
         // Accounts Involved
 
@@ -42,9 +45,8 @@ namespace ExpenseTracker {
         // repeat settings
         public RecurrenceInfo? RecurrenceInfo { get; set; }
 
-        public Transaction(Guid creatorAccount)
-        {
-            
+        public Transaction(Guid creatorAccount) {
+
 
 
         }

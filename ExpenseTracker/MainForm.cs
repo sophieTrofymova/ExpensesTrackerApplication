@@ -1,12 +1,19 @@
 using ExpenseTracker.Controls;
 using ExpenseTracker.Views.ExpenseTracker;
 using ExpenseTracker.Views;
-using System.Runtime.InteropServices;
+using ExpenseTracker.Storage;
+using System.Net.NetworkInformation;
 
 namespace ExpenseTracker {
 
 
+    
+
     public partial class MainForm : Form {
+
+
+       public static ApplicationState AppState; // singleton instance of application state
+
 
         public MainForm() {
 
@@ -64,6 +71,8 @@ namespace ExpenseTracker {
             //  initialize icons fonts in case they arent loaded
             MaterialFont.UseEmbeddedLoad = true; // use embedded font
             MaterialFont.Initialize(); // initialize Google Material Icons font 
+
+            AppState = new ApplicationState();
 
             // initilize views
             InitViews();

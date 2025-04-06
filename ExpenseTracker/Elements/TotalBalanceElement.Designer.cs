@@ -1,5 +1,5 @@
 ﻿namespace ExpenseTracker {
-    partial class Element {
+    partial class TotalBalanceElement {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -23,37 +23,38 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            GroupBox = new GroupBox();
+            AccountList = new ListView();
+            GroupBox.SuspendLayout();
             SuspendLayout();
             // 
             // GroupBox
             // 
-            GroupBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            GroupBox.BackColor = Color.FromArgb(41, 41, 41);
-            GroupBox.FlatStyle = FlatStyle.Flat;
-            GroupBox.Font = new Font("Segoe UI", 14F);
-            GroupBox.ForeColor = Color.FromArgb(223, 107, 12);
-            GroupBox.Location = new Point(5, 35);
-            GroupBox.Name = "GroupBox";
-            GroupBox.Size = new Size(724, 421);
-            GroupBox.TabIndex = 0;
-            GroupBox.TabStop = false;
-            GroupBox.Text = "GroupBoxText";
+            GroupBox.Controls.Add(AccountList);
+            GroupBox.Padding = new Padding(20);
+            GroupBox.Size = new Size(762, 370);
             // 
-            // Element
+            // AccountList
+            // 
+            AccountList.Dock = DockStyle.Fill;
+            AccountList.Location = new Point(20, 52);
+            AccountList.Name = "AccountList";
+            AccountList.Size = new Size(722, 298);
+            AccountList.TabIndex = 0;
+            AccountList.UseCompatibleStateImageBehavior = false;
+            // 
+            // TotalBalanceElement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(224, 224, 224);
-            Controls.Add(GroupBox);
-            Name = "Element";
-            Padding = new Padding(5, 35, 5, 15);
-            Size = new Size(734, 471);
+            Location = new Point(0, 0);
+            Name = "TotalBalanceElement";
+            Size = new Size(775, 445);
+            GroupBox.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        public GroupBox GroupBox;
+        public ListView AccountList;
     }
 }

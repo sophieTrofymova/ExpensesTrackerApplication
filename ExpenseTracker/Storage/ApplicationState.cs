@@ -1,19 +1,17 @@
-﻿using Microsoft.VisualBasic.Logging;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+﻿
 
 namespace ExpenseTracker.Storage {
-    public class ApplicationState {
+    public partial class ApplicationState {
+
+        // Settings
 
         private readonly string pathsDefaultLocation = "app.paths.json";
         public ApplicationSettings Settings { get; set; }
         public PathsRegistry Paths { get; set; }
         public List<Theme> Themes { get; set; }
+
+
+
 
         public ApplicationState() {
             InitPathRegistry();
@@ -46,7 +44,6 @@ namespace ExpenseTracker.Storage {
         }
 
 
-
         /// <summary>
         /// Loads all necessary application data.
         /// </summary>
@@ -56,6 +53,9 @@ namespace ExpenseTracker.Storage {
 
             // Load settings
             Settings = LoadOrCreate<ApplicationSettings>("Settings");
+
+
+            InitializeTestData();
 
             //// Load accounts
             //var accs = LoadOrCreate<List<Account>>("Accounts");
@@ -115,8 +115,6 @@ namespace ExpenseTracker.Storage {
 
             return data;
         }
-
-
 
 
         public void ResetData() {
