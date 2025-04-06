@@ -28,10 +28,11 @@
             // 
             // GroupBox
             // 
+            GroupBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             GroupBox.BackColor = Color.FromArgb(41, 41, 41);
-            GroupBox.Dock = DockStyle.Fill;
+            GroupBox.FlatStyle = FlatStyle.Flat;
             GroupBox.Font = new Font("Segoe UI", 14F);
-            GroupBox.ForeColor = Color.Coral;
+            GroupBox.ForeColor = Color.FromArgb(223, 107, 12);
             GroupBox.Location = new Point(5, 35);
             GroupBox.Name = "GroupBox";
             GroupBox.Size = new Size(724, 421);
@@ -43,7 +44,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveCaption;
+            BackColor = Color.FromArgb(27, 27, 27);
             Controls.Add(GroupBox);
             Name = "Element";
             Padding = new Padding(5, 35, 5, 15);

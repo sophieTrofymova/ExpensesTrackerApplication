@@ -1,4 +1,6 @@
 using ExpenseTracker.Controls;
+using ExpenseTracker.Views.ExpenseTracker;
+using ExpenseTracker.Views;
 using System.Runtime.InteropServices;
 
 namespace ExpenseTracker {
@@ -6,168 +8,68 @@ namespace ExpenseTracker {
 
     public partial class MainForm : Form {
 
-
-        [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-
-        private const int WM_NCLBUTTONDOWN = 0xA1;
-        private const int HTCAPTION = 0x2;
-
-
         public MainForm() {
 
-
+            // windows form constructor
             InitializeComponent();
 
+            // separate logic for borderless form
+            InitializeBorderlessWindow();
 
+            // actual logic initialization
             InitializeApplication();
 
-
- 
-            // attach to your top panel (title bar)
-            customTitleBar.MouseDown += (s, e) => {
-                if (e.Button == MouseButtons.Left) {
-                    ReleaseCapture();
-                    SendMessage(this.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
-                }
-            };
-            bMainFormClose.Click += (s, e) => Close();
-            bMainFormMinimize.Click += (s, e) => WindowState = FormWindowState.Minimized;
-            bMainFormState.Click += (s, e) => {
-                WindowState = WindowState == FormWindowState.Maximized ? FormWindowState.Normal : FormWindowState.Maximized;
-            };
-
-            this.Resize += (s, e) => {
-
-                if (this.WindowState == FormWindowState.Maximized) {
-                    var screen = Screen.FromHandle(this.Handle);
-                    this.MaximumSize = screen.WorkingArea.Size;
-                    this.Location = screen.WorkingArea.Location;
-                }
-                else {
-                    this.MaximumSize = new Size(0, 0); // reset when un-maximized
-                }
-
-
-            };
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.DoubleBuffered = true;
-            this.SetStyle(ControlStyles.ResizeRedraw, true);
-
         }
 
-        protected override void WndProc(ref Message m) {
-            const int RESIZE_HANDLE_SIZE = 10;
-            const int WM_NCHITTEST = 0x84;
-            const int HTCLIENT = 1;
-            const int HTLEFT = 10;
-            const int HTRIGHT = 11;
-            const int HTTOP = 12;
-            const int HTTOPLEFT = 13;
-            const int HTTOPRIGHT = 14;
-            const int HTBOTTOM = 15;
-            const int HTBOTTOMLEFT = 16;
-            const int HTBOTTOMRIGHT = 17;
+        // this allows to control anything from anywhere
+        // and concerns are still separated
+        DashboardView dashboardView;
+        TransactionsView transactionsView;
+        ReccurentView reccurentView;
+        AccountsView accountsView;
+        BudgetsView budgetsView;
+        ChartsView chartsView;
+        SettingsView settingsView;
 
-            const int WM_GETMINMAXINFO = 0x24;
 
-            if (m.Msg == WM_GETMINMAXINFO) {
-                WmGetMinMaxInfo(this.Handle, m.LParam);
-            }
-
-            if (this.WindowState != FormWindowState.Maximized)
-            if (m.Msg == WM_NCHITTEST) {
-                base.WndProc(ref m);
-                var pos = this.PointToClient(new Point(m.LParam.ToInt32()));
-                var width = this.ClientSize.Width;
-                var height = this.ClientSize.Height;
-
-                if (pos.X <= RESIZE_HANDLE_SIZE) {
-                    if (pos.Y <= RESIZE_HANDLE_SIZE)
-                        m.Result = (IntPtr)HTTOPLEFT;
-                    else if (pos.Y >= height - RESIZE_HANDLE_SIZE)
-                        m.Result = (IntPtr)HTBOTTOMLEFT;
-                    else
-                        m.Result = (IntPtr)HTLEFT;
-                }
-                else if (pos.X >= width - RESIZE_HANDLE_SIZE) {
-                    if (pos.Y <= RESIZE_HANDLE_SIZE)
-                        m.Result = (IntPtr)HTTOPRIGHT;
-                    else if (pos.Y >= height - RESIZE_HANDLE_SIZE)
-                        m.Result = (IntPtr)HTBOTTOMRIGHT;
-                    else
-                        m.Result = (IntPtr)HTRIGHT;
-                }
-                else if (pos.Y <= RESIZE_HANDLE_SIZE)
-                    m.Result = (IntPtr)HTTOP;
-                else if (pos.Y >= height - RESIZE_HANDLE_SIZE)
-                    m.Result = (IntPtr)HTBOTTOM;
-                else
-                    m.Result = (IntPtr)HTCLIENT;
-
-                return;
-            }
-
-            base.WndProc(ref m);
-        }
-
-        private void WmGetMinMaxInfo(IntPtr hwnd, IntPtr lParam) {
-            var mmi = Marshal.PtrToStructure<MINMAXINFO>(lParam)!;
-
-            var screen = Screen.FromHandle(hwnd);
-            var workingArea = screen.WorkingArea;
-            var monitorArea = screen.Bounds;
-
-            mmi.ptMaxPosition.x = workingArea.Left - monitorArea.Left;
-            mmi.ptMaxPosition.y = workingArea.Top - monitorArea.Top;
-            mmi.ptMaxSize.x = workingArea.Width;
-            mmi.ptMaxSize.y = workingArea.Height;
-
-            Marshal.StructureToPtr(mmi, lParam, true);
+        /// <summary>
+        ///  Here we can initialize starting views params
+        ///  by accessing their public controls
+        /// </summary>
+        private void InitViews() {
+            dashboardView = new DashboardView(ViewContainer);
+            transactionsView = new TransactionsView(ViewContainer);
+            reccurentView = new ReccurentView(ViewContainer);
+            accountsView = new AccountsView(ViewContainer);
+            budgetsView = new BudgetsView(ViewContainer);
+            chartsView = new ChartsView(ViewContainer);
+            settingsView = new SettingsView(ViewContainer);
         }
 
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct POINT {
-            public int x;
-            public int y;
-        }
 
-        [StructLayout(LayoutKind.Sequential)]
-        public struct MINMAXINFO {
-            public POINT ptReserved;
-            public POINT ptMaxSize;
-            public POINT ptMaxPosition;
-            public POINT ptMinTrackSize;
-            public POINT ptMaxTrackSize;
-        }
 
+        /// <summary>
+        /// This method is used to initialize Actual application concerns   
+        /// </summary>
         public void InitializeApplication() {
 
+            // force container to update its size corretly when form returns from
+            // maximized view
+            this.Resize += (s, e) => {
+                ViewContainer.PerformLayout();
+                ViewContainer.Invalidate();
+            };
+
             //  initialize icons fonts in case they arent loaded
-            MaterialFont.UseEmbeddedLoad = true;
-            MaterialFont.Initialize();
+            MaterialFont.UseEmbeddedLoad = true; // use embedded font
+            MaterialFont.Initialize(); // initialize Google Material Icons font 
 
-            ViewContainer.NumCollumns = 6;
-
-            // set icons for navigation bar manually in case of design time failure
-            // and for quick reference
-
-            // for reference watch icons database at https://fonts.google.com/icons
-            // look for Icon name at the bottom of selected icon properties
-
-            //navDashboard.DisplayIcon = MaterialFont.GetIconCodepoint("dashboard");
-            //navTransactions.DisplayIcon = MaterialFont.GetIconCodepoint("sync_alt");
-            //navReccurent.DisplayIcon = MaterialFont.GetIconCodepoint("update");
-            //navAccounts.DisplayIcon = MaterialFont.GetIconCodepoint("account_balance");
-
-            //navBudgets.DisplayIcon = MaterialFont.GetIconCodepoint("account_balance");
-            //navCharts.DisplayIcon = MaterialFont.GetIconCodepoint("bar_chart");
-            //navSettings.DisplayIcon = MaterialFont.GetIconCodepoint("settings");
+            // initilize views
+            InitViews();
         }
+
+
 
         private void bNavBarToogle_Click(object sender, EventArgs e) {
             NavBar.Visible = !NavBar.Visible;
@@ -178,38 +80,34 @@ namespace ExpenseTracker {
             ViewNameText.Text = e.ClickedButton.TextLabel.Text;
 
             switch (e.ClickedButton.Name) {
-                case nameof(navDashboard): DashboardView(); break;
-                case nameof(navTransactions): TransactionsView(); break;
-                case nameof(navReccurent): ReccurentView(); break;
-                case nameof(navAccounts): AccountsView(); break;
-                case nameof(navBudgets): BudgetsView(); break;
-                case nameof(navCharts): ChartsView(); break;
-                case nameof(navSettings): SettingsView(); break;
 
-                default: DefaultView(); break;
+                case nameof(navDashboard): ViewContainer.SetView(dashboardView); break;
+                case nameof(navTransactions): ViewContainer.SetView(transactionsView); break;
+                case nameof(navReccurent): ViewContainer.SetView(reccurentView); break;
+                case nameof(navAccounts): ViewContainer.SetView(accountsView); break;
+                case nameof(navBudgets): ViewContainer.SetView(budgetsView); break;
+                case nameof(navCharts): ViewContainer.SetView(chartsView); break;
+                case nameof(navSettings): ViewContainer.SetView(settingsView); break;
+                default: ViewContainer.SetView(dashboardView); break;
 
             }
+
         }
 
         public void DefaultView() {
-            DashboardView();
+            ViewContainer.SetView(dashboardView);
         }
-
-
-
-
 
         private void ViewContainer_Load(object sender, EventArgs e) {
 
             ViewNameText.Text = navDashboard.TextLabel.Text;
-            DashboardView();
+            ViewContainer.SetView(dashboardView);
 
         }
 
         private void navTransactions_Load(object sender, EventArgs e) {
 
         }
-
 
     }
 }

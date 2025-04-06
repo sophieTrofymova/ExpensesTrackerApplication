@@ -1,82 +1,86 @@
-﻿
-using Newtonsoft.Json;
-using System.Transactions;
+﻿using Newtonsoft.Json;
+
 
 namespace ExpenseTracker
 {
 
-    class UserManager {
-
-        [JsonProperty] 
-        private List<User> users { get; set; }
-        public User CurrentUser { get; private set; }
-
-
-        public UserManager()
-        {
-            
-        }
-
-        public bool Login() {
-            return false;
-        }
-
-        public bool Logout() {
-            return false;
-        }
-
-        public bool Register() {
-            return false;
-        }
-
-    }
 
     public class User
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public string Name { get; set; }
-        public List<Account> Accounts { get; set; } = new List<Account>();
-        public List<Budget> Budgets { get; set; } = new List<Budget>();
 
-        public User(Guid id, string username, string password, string email, string name, List<Account> accounts, List<Budget> budgets)
-        {   
-            Id = id;
-            Username = username;
-            Password = password;
-            Email = email;
-            Name = name;
-            Accounts = accounts;
-            Budgets = budgets;
+        public Guid ID { get; } = Guid.NewGuid();  // unique user id
+        public string Username { get; set; }
+        public string Email { get; set; }
+
+        // display name, full name or whatever user wants, "John Doe" for example, for other users to see
+        public string DisplayName { get; set; }
+
+        [JsonProperty]
+        private string PasswordHash { get; set; }
+        public List<Account> Accounts { get; set; }
+        public List<Budget> Budgets { get; set; }
+
+        /// <summary>
+        /// for serializer only
+        /// </summary>
+        public User()
+        {
+
         }
-        public User(string username, string password, string email, string name)
+
+        public User(string username, string email, string displayName, string password)
         {
             Username = username;
-            Password = password;
+            PasswordHash = HashPassword(password);
             Email = email;
-            Name = name;
+            DisplayName = displayName;
+            Accounts = new List<Account>();
+            Budgets = new List<Budget>();
         }
-        public User() { }
-        
-        public List<Budget> GetUsersBudget()
+
+
+        private string HashPassword(string password)
         {
-            return Budgets;
+            return BCrypt.Net.BCrypt.HashPassword(password);
         }
+
+        public bool VerifyPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, PasswordHash);
+        }
+
+        public bool SetPassword(string oldPassword, string newPassword)
+        {
+
+            if (string.IsNullOrEmpty(newPassword))
+                return false;
+
+
+            if (string.IsNullOrEmpty(PasswordHash) || VerifyPassword(oldPassword))
+            {
+                PasswordHash = HashPassword(newPassword);
+                return true;
+            }
+
+            return false;
+        }
+
         public bool AddAccount(Account account)
         {
 
             // TODO: лучше проверки сделать здесь
             // потому что нам нужно убедится что такого аккаунта несуществует
-            if(! Accounts.Where(a => a.Name == account.Name).Any()) {
+            if (!Accounts.Where(a => a.Name == account.Name).Any())
+            {
                 Accounts.Add(account);
                 return true;
-            } else {
+            }
+            else
+            {
                 return false;
             }
-             
-            
+
+
         }
 
         public void RemoveAccount(Account account)
@@ -88,6 +92,11 @@ namespace ExpenseTracker
         {
             Budgets.Add(budget);
         }
+
+        public List<Budget> GetUsersBudget()
+        {
+            return Budgets;
+        }
+
     }
 }
-

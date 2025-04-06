@@ -1,4 +1,4 @@
-﻿namespace ExpenseTracker {
+﻿namespace ExpenseTracker.Controls {
     partial class ElementContainer {
         /// <summary> 
         /// Required designer variable.
