@@ -14,34 +14,36 @@ namespace ExpenseTracker.Views {
         public override void Build() {
 
 
-            var filter = new Element();
-            filter.GroupBox.Text = "Filter by Month";
-            filter.Col = 1;
-            filter.Row = 1;
-
-            filter.Cols = 20;
-            filter.Rows = 3;
-            filter.AllowDrag = false;
-
-            var monthDropDown = new WF.ComboBox {
-                Name = "MonthDropDown",
-                DropDownStyle = WF.ComboBoxStyle.DropDownList,
-                Items = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
-                //SelectedIndex = DateTime.Now.Month - 1
+            var filter = new FilterTransactionsElement() {
+                Title = "Filter Transactions",
+                Col = 1,
+                Cols = 20,
+                Row = 1,
+                Rows = 3,
+                AllowDrag = false
             };
-            int centerX = (filter.GroupBox.Width - monthDropDown.Width) / 2;
-            monthDropDown.Location = new System.Drawing.Point(centerX, 30);
-            monthDropDown.SelectedIndexChanged += MonthDropDown_SelectedIndexChanged;
-            filter.GroupBox.Controls.Add(monthDropDown);
 
-            var incomeGroupBox = new Element();
-            incomeGroupBox.GroupBox.Text = "Add Income";
-            incomeGroupBox.Col = 1;
-            incomeGroupBox.Row = 4;
+            filter.monthDropDown.SelectedIndexChanged += (object sender, EventArgs e) => {
+                var selectedMonth = ((WF.ComboBox)sender).SelectedItem?.ToString();
+                if (!string.IsNullOrEmpty(selectedMonth)) {
+                    LoadTransactions(transactionListView, selectedMonth);
+                }
+                else {
+                    MessageBox.Show("Please select a month.");
+                }
+            };
 
-            incomeGroupBox.Cols = 6;
-            incomeGroupBox.Rows = 4;
-            incomeGroupBox.AllowDrag = false;
+
+
+
+            var incomeGroupBox = new Element() {
+                Title = "Add Income",
+                Col = 1,
+                Cols = 6,
+                Row = 4,
+                Rows = 4,
+                AllowDrag = false
+            };
 
             var lblCategoryIncome = new WF.Label {
                 Text = "Category:",
@@ -179,7 +181,7 @@ namespace ExpenseTracker.Views {
             expenseGroupBox.GroupBox.Controls.Add(btnAddExpense);
 
 
-            string selectedMonthName = monthDropDown.SelectedItem?.ToString() ?? "Current Month";
+            string selectedMonthName = filter.monthDropDown.SelectedItem?.ToString() ?? "Current Month";
 
             var transactionsGroupBox = new Element();
             transactionsGroupBox.GroupBox.Text = $"Transactions for {selectedMonthName}";
@@ -215,18 +217,10 @@ namespace ExpenseTracker.Views {
         }
 
 
-        private void MonthDropDown_SelectedIndexChanged(object sender, EventArgs e) {
-            var selectedMonth = ((WF.ComboBox)sender).SelectedItem?.ToString();
-            if (!string.IsNullOrEmpty(selectedMonth)) {
-                LoadTransactions(null, selectedMonth);
-            }
-            else {
-                MessageBox.Show("Please select a month.");
-            }
-        }
 
         private void LoadTransactions(ListView transactionListView, string selectedMonthName) {
             var transactionManager = new TransactionManager();
+            transactionManager.Transactions = MainForm.AppState.UserManager.LoggedUser.Transactions;
             transactionManager.DisplayTransactions(transactionListView, selectedMonthName);
         }
 
