@@ -7,6 +7,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
+
 namespace ExpenseTracker {
     public partial class MainForm : Form {
 
@@ -87,7 +89,7 @@ namespace ExpenseTracker {
             }
 
 
-            AppState.UserManager.Login(users[0]);
+     
             // initilize views
             InitViews();
         }
