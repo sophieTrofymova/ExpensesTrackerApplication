@@ -46,9 +46,7 @@ namespace ExpenseTracker {
         public RecurrenceInfo? RecurrenceInfo { get; set; }
 
         public Transaction(Guid creatorAccount) {
-
-
-
+            SenderAccount = creatorAccount;
         }
     }
 
