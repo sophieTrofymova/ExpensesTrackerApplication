@@ -43,6 +43,9 @@ namespace ExpenseTracker {
             this.MouseDown += draggablePanel_MouseDown;
             this.MouseMove += draggablePanel_MouseMove;
             this.MouseUp += draggablePanel_MouseUp;
+            //this.BackColor = MainForm.AppState.Settings.CurrentTheme.GetColor( Storage.ThemeColor.ElementBackColor);
+            //this.GroupBox.BackColor =  MainForm.AppState.Settings.CurrentTheme.GetColor(Storage.ThemeColor.ElementBackColor);
+            //this.GroupBox.ForeColor = MainForm.AppState.Settings.CurrentTheme.GetColor(Storage.ThemeColor.CaptionColor);
         }
 
 

@@ -1,6 +1,7 @@
 ﻿
 
 using ExpenseTracker.Controls;
+using ExpenseTracker.Elements;
 using WF = System.Windows.Forms;
 
 namespace ExpenseTracker.Views {
@@ -8,10 +9,31 @@ namespace ExpenseTracker.Views {
 
         private ListView transactionListView;
         public TransactionsView(ElementContainer container, string name = "Transactions") : base(name, container) {
-            this.NumRows = 13;
-            this.NumCols = 22;
+            this.NumRows = 10;
+            this.NumCols = 20;
+
+            Padding = new System.Windows.Forms.Padding(25);
         }
+
         public override void Build() {
+            this.ClearElements();
+            var transactionsElement = new TransactionsElement() {
+                Title = "Transactions View",
+                Col = 0,
+                Cols = 20,
+                Row = 0,
+                Rows = 10,
+                AllowDrag = false
+            };
+
+
+
+
+            AddElements(new List<Element> { transactionsElement });
+
+        }
+
+        public  void Build2() {
 
 
             var filter = new FilterTransactionsElement() {

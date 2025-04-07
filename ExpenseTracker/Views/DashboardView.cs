@@ -19,6 +19,7 @@ namespace ExpenseTracker.Views {
             public DashboardView(ElementContainer container, string name = "Dashboard") : base(name, container) { }
 
             public override void Build() {
+                
                 ClearElements();
 
                 // view layout

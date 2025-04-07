@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 
 namespace ExpenseTracker.Controls {
@@ -41,18 +42,24 @@ namespace ExpenseTracker.Controls {
         }
 
  
+        public Size DesiredSize { get; set; } 
+        public Padding Padding { get; set; }
+        private ElementContainer? container = null;
 
+        public ElementView(string name, ElementContainer _container) {
 
-        private ElementContainer Container { get; set; }
-
-        public ElementView(string name, ElementContainer container) {
-            if (container == null)
-                throw new ArgumentNullException();
-
+            this.container = _container; 
             Name = name;
             elements = new List<Element>();
-            Container = container;
-            Container.SizeChanged += (s, e) => ApplyLayout();
+            container.SizeChanged += Container_SizeChanged;
+            DesiredSize = new Size(1920,1080);
+            Padding = new Padding(5);
+
+        }
+
+        private void Container_SizeChanged(object? sender, EventArgs e) {
+            this.DesiredSize = this.container.Size;
+            ApplyLayout();
         }
 
         /// <summary>
@@ -87,7 +94,7 @@ namespace ExpenseTracker.Controls {
         private void RearrangeElementsOnGrid() {
             if (elements.Count == 0) return;
 
-            int colWidth = (Container.ClientSize.Width - Container.Padding.Left - Container.Padding.Right) / numCols;
+            int colWidth = (DesiredSize.Width - Padding.Left - Padding.Right) / numCols;
             int rowHeight = CalculateRowHeight();
 
             // Clear existing positions
@@ -117,8 +124,8 @@ namespace ExpenseTracker.Controls {
                 }
 
                 element.Location = new Point(
-                    col * colWidth + Container.Padding.Left,
-                    row * rowHeight + Container.Padding.Top
+                    col * colWidth + Padding.Left,
+                    row * rowHeight + Padding.Top
                 );
                 element.Width = colWidth * element.Cols;
                 element.Height = rowHeight * element.Rows;
@@ -127,7 +134,7 @@ namespace ExpenseTracker.Controls {
 
         private bool IsPositionOccupied(int row, int col, int cols, int rows) {
             foreach (var element in elements) {
-                if (element.Location.X == col * (Container.ClientSize.Width / numCols) &&
+                if (element.Location.X == col * (DesiredSize.Width / numCols) &&
                     element.Location.Y == row * (CalculateRowHeight())) {
                     return true;
                 }
@@ -137,14 +144,14 @@ namespace ExpenseTracker.Controls {
 
         private int CalculateRowHeight() {
             if (elements.Count == 0 || numRows == 0)
-                return Container.ClientSize.Height;
+                return DesiredSize.Height;
 
-            int totalHeight = Container.ClientSize.Height - Container.Padding.Top - Container.Padding.Bottom;
+            int totalHeight = DesiredSize.Height - Padding.Top - Padding.Bottom;
             return totalHeight / numRows;
         }
 
         protected void ApplyLayout() {
-            if (Container.ClientSize.Width <= 0 || Container.ClientSize.Height <= 0)
+            if (DesiredSize.Width <= 0 || DesiredSize.Height <= 0)
                 return;
 
             switch (LayoutType) {
@@ -165,7 +172,7 @@ namespace ExpenseTracker.Controls {
         private void UpdateLayout() { ApplyLayout(); }
 
         private void ArrangeManualGrid() {
-            int colWidth = (Container.ClientSize.Width - Container.Padding.Left - Container.Padding.Right) / numCols;
+            int colWidth = (DesiredSize.Width - Padding.Left - Padding.Right) / numCols;
             int rowHeight = CalculateRowHeight();
 
             foreach (var element in elements) {
@@ -173,8 +180,8 @@ namespace ExpenseTracker.Controls {
                 int row = Math.Min(element.Row, numRows - 1);
 
                 element.Location = new Point(
-                    col * colWidth + Container.Padding.Left,
-                    row * rowHeight + Container.Padding.Top
+                    col * colWidth + Padding.Left,
+                    row * rowHeight + Padding.Top
                 );
                 element.Width = colWidth * element.Cols;
                 element.Height = rowHeight * element.Rows;
