@@ -9,6 +9,11 @@ namespace ExpenseTracker
     {
 
         public Guid ID { get; } = Guid.NewGuid();  // unique user id
+
+        public DateTime CreatedAt { get; private set; } = DateTime.Now;
+        public DateTime? LastLoginAt { get; set; }
+
+
         public string Username { get; set; }
         public string Email { get; set; }
 
@@ -19,6 +24,8 @@ namespace ExpenseTracker
         private string PasswordHash { get; set; }
         public List<Account> Accounts { get; set; }
         public List<Budget> Budgets { get; set; }
+        public List<Transaction> Transactions { get; private set; } = new List<Transaction>();
+
 
         /// <summary>
         /// for serializer only
@@ -28,7 +35,7 @@ namespace ExpenseTracker
 
         }
 
-        public User(string username, string email, string displayName, string password)
+        public User(string displayName, string username, string email, string password)
         {
             Username = username;
             PasswordHash = HashPassword(password);
@@ -36,6 +43,7 @@ namespace ExpenseTracker
             DisplayName = displayName;
             Accounts = new List<Account>();
             Budgets = new List<Budget>();
+            Transactions  = new List<Transaction>();
         }
 
 
@@ -67,20 +75,22 @@ namespace ExpenseTracker
 
         public bool AddAccount(Account account)
         {
+            if (account == null || string.IsNullOrWhiteSpace(account.Name))
+                return false;
 
-            // TODO: лучше проверки сделать здесь
-            // потому что нам нужно убедится что такого аккаунта несуществует
-            if (!Accounts.Where(a => a.Name == account.Name).Any())
-            {
+            string newName = account.Name.Trim().ToLowerInvariant();
+
+            bool alreadyExists = Accounts.Any(a =>
+                !string.IsNullOrWhiteSpace(a.Name) &&
+                a.Name.Trim().ToLowerInvariant() == newName
+            );
+
+            if (!alreadyExists) {
                 Accounts.Add(account);
                 return true;
             }
-            else
-            {
-                return false;
-            }
 
-
+            return false;
         }
 
         public void RemoveAccount(Account account)
@@ -97,6 +107,21 @@ namespace ExpenseTracker
         {
             return Budgets;
         }
+
+
+        public override bool Equals(object? obj) {
+            return obj is User other && other.ID == this.ID;
+        }
+
+        public override int GetHashCode() {
+            return ID.GetHashCode();
+        }
+
+
+        public override string ToString() {
+            return $"{DisplayName} ({Username})";
+        }
+
 
     }
 }

@@ -10,9 +10,12 @@ namespace ExpenseTracker.Storage {
         public bool TestMode { get; set; }
 
         public Theme CurrentTheme { get; set; }
+        public CurrencyType CurrencyType { get; set; }
 
         public ApplicationSettings() {
-            
+            CurrencyType = CurrencyType.EUR; //default currency
+            TestMode = true; //default test mode
+            CurrentTheme = new Theme(); 
         }
 
     }

@@ -3,16 +3,16 @@ using ExpenseTracker.Views.ExpenseTracker;
 using ExpenseTracker.Views;
 using ExpenseTracker.Storage;
 using System.Net.NetworkInformation;
-
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 namespace ExpenseTracker {
-
-
-    
-
     public partial class MainForm : Form {
 
 
-       public static ApplicationState AppState; // singleton instance of application state
+
+        public static ApplicationState AppState;
 
 
         public MainForm() {
@@ -53,9 +53,6 @@ namespace ExpenseTracker {
             settingsView = new SettingsView(ViewContainer);
         }
 
-
-
-
         /// <summary>
         /// This method is used to initialize Actual application concerns   
         /// </summary>
@@ -73,7 +70,19 @@ namespace ExpenseTracker {
             MaterialFont.Initialize(); // initialize Google Material Icons font 
 
             AppState = new ApplicationState();
+           var users = AppState.UserManager.GetAllUsers();
 
+            LoginForm loginForm = new LoginForm(AppState.UserManager, AppState.Settings.TestMode);
+            if (loginForm.ShowDialog() != DialogResult.OK) {
+                // or close the Application 
+                this.Close();
+                // and exit this method
+                // cause Form.Close() doesn't ensure immediate closure
+                return;
+            }
+
+
+            AppState.UserManager.Login(users[0]);
             // initilize views
             InitViews();
         }

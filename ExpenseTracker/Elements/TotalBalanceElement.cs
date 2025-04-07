@@ -9,18 +9,40 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ExpenseTracker {
-    public partial class TotalBalanceElement : Element {
+
+    public partial class BalanceSummaryElement : Element {
 
 
 
-        public TotalBalanceElement() {
+        public BalanceSummaryElement() {
 
             InitializeComponent();
 
-            GroupBox.Text = "BALANCE";
-
+   
         }
 
 
+
+
+        public void DisplayAccounts(List<Account> accounts) {
+
+            this.AccountList.Clear();
+
+            // Set ListView to show columns
+            this.AccountList.View = View.Details;
+            this.AccountList.FullRowSelect = true;
+
+            // Add columns
+            this.AccountList.Columns.Add("Account Name", 250);
+            this.AccountList.Columns.Add("Balance", 250);
+
+            this.AccountList.Items.Clear();
+
+            foreach (var acc in accounts) {
+                var item = new ListViewItem(acc.Name);
+                item.SubItems.Add(acc.Balance.ToCurrencyString(MainForm.AppState.Settings.CurrencyType));
+                this.AccountList.Items.Add(item);
+            }
+        }
     }
 }

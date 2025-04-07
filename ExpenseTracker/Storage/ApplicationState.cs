@@ -9,8 +9,7 @@ namespace ExpenseTracker.Storage {
         public ApplicationSettings Settings { get; set; }
         public PathsRegistry Paths { get; set; }
         public List<Theme> Themes { get; set; }
-
-
+        public UserManager UserManager { get; set; }
 
 
         public ApplicationState() {
@@ -34,7 +33,7 @@ namespace ExpenseTracker.Storage {
 
             // Ensure all necessary paths exist
             Paths.EnsurePathRegistered("Settings", "app.settings.json");
-            Paths.EnsurePathRegistered("Accounts", "app.accounts.json");
+            Paths.EnsurePathRegistered("Users", "app.users.json");
             Paths.EnsurePathRegistered("Log", "app.log.txt");
             Paths.EnsurePathRegistered("Themes", "app.themes.json");
 
@@ -54,26 +53,15 @@ namespace ExpenseTracker.Storage {
             // Load settings
             Settings = LoadOrCreate<ApplicationSettings>("Settings");
 
+            // Load users
+            var users = LoadOrCreate<List<User>>("Users");
+            // Initialize UserManager by default
+            UserManager = new UserManager(users);
+            // If no accounts exist and test mode is enabled, register test accounts
+            if (users.Count == 0 && Settings.TestMode) {
+                TestData.GenerateTestUsers(UserManager);
+            }
 
-            InitializeTestData();
-
-            //// Load accounts
-            //var accs = LoadOrCreate<List<Account>>("Accounts");
-            //// Initialize AccountManager by default
-            //AccountManager = new AccountManager(accs);
-            //// If no accounts exist and test mode is enabled, register test accounts
-            //if (accs.Count == 0 && Settings.TestMode) {
-            //    TestData.RegisterAccounts(AccountManager);
-            //}
-
-
-            //// Load market
-            //Market = LoadOrCreate<Market>("Market");
-
-            //// Only add test stocks if the market has no stocks
-            //if (Market.IsEmpty() && Settings.TestMode) {
-            //    TestData.AddStocksToMarket(Market);
-            //}
         }
 
 
@@ -88,8 +76,8 @@ namespace ExpenseTracker.Storage {
             if (Settings != null)
                 Serializer.SaveData(Settings, Paths.GetFilename("Settings"));
 
-            //if (AccountManager != null)
-            //    Serializer.SaveData(AccountManager.GetAllAccounts(), Paths.GetFilename("Accounts"));
+            if (UserManager != null)
+                Serializer.SaveData(UserManager.GetAllUsers(), Paths.GetFilename("Users"));
 
             //if (Market != null)
             //    Serializer.SaveData(Market, Paths.GetFilename("Market"));
@@ -118,20 +106,15 @@ namespace ExpenseTracker.Storage {
 
 
         public void ResetData() {
-            //var accountsFilename = Paths.GetFilename("Accounts");
-            //if (File.Exists(accountsFilename)) {
-            //    File.Delete(accountsFilename);
-            //}
+            var usersFilename = Paths.GetFilename("Users");
+            if (File.Exists(usersFilename)) {
+                File.Delete(usersFilename);
+            }
 
-            //AccountManager = new AccountManager();
-            //TestData.RegisterAccounts(AccountManager);
+            UserManager = new UserManager();
+            TestData.GenerateTestUsers(UserManager);
 
-            //var marketFilename = Paths.GetFilename("Market");
-            //if (File.Exists(marketFilename)) {
-            //    File.Delete(marketFilename);
-            //}
-            //Market = new Market();
-            //TestData.AddStocksToMarket(Market);
+
         }
 
 
