@@ -65,6 +65,11 @@ namespace ExpenseTracker {
                 ViewContainer.Invalidate();
             };
 
+            Application.ApplicationExit += (s, e) => {
+                // save on exit
+                AppState.SaveData();
+            };
+
             //  initialize icons fonts in case they arent loaded
             MaterialFont.UseEmbeddedLoad = true; // use embedded font
             MaterialFont.Initialize(); // initialize Google Material Icons font 
