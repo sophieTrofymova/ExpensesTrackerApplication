@@ -40,6 +40,9 @@ namespace ExpenseTracker.Controls {
             set { numCols = (value > 0) ? value : 1; }
         }
 
+ 
+
+
         private ElementContainer Container { get; set; }
 
         public ElementView(string name, ElementContainer container) {
@@ -93,12 +96,12 @@ namespace ExpenseTracker.Controls {
             }
 
             // Sort elements by their desired position (if they have position properties)
-            var sortedElements = elements.OrderBy(e => e.Row).ThenBy(e => e.Collumn).ToList();
+            var sortedElements = elements.OrderBy(e => e.Row).ThenBy(e => e.Col).ToList();
 
             // Place elements in grid
             foreach (var element in sortedElements) {
                 int row = Math.Min(element.Row, numRows - 1);
-                int col = Math.Min(element.Collumn, numCols - 1);
+                int col = Math.Min(element.Col, numCols - 1);
 
                 // Find next available spot if the position is occupied
                 while (IsPositionOccupied(row, col, element.Cols, element.Rows)) {
@@ -166,7 +169,7 @@ namespace ExpenseTracker.Controls {
             int rowHeight = CalculateRowHeight();
 
             foreach (var element in elements) {
-                int col = Math.Min(element.Collumn, numCols - 1);
+                int col = Math.Min(element.Col, numCols - 1);
                 int row = Math.Min(element.Row, numRows - 1);
 
                 element.Location = new Point(

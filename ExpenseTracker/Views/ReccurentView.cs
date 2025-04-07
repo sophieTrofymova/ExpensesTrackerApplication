@@ -23,7 +23,7 @@ namespace ExpenseTracker.Views
 
             var Filter = new Element();
             Filter.GroupBox.Text = "Filter";
-            Filter.Collumn = 1;
+            Filter.Col = 1;
             Filter.Row = 1;
             Filter.Cols = 2;
             Filter.Rows = NumRows - 2;
@@ -33,7 +33,7 @@ namespace ExpenseTracker.Views
             var transactions = new Element();
             transactions.GroupBox.Text = "Transactions";
 
-            transactions.Collumn = 3;
+            transactions.Col = 3;
             transactions.Row = 1;
             transactions.Cols = 5;
             transactions.Rows = NumRows - 2;

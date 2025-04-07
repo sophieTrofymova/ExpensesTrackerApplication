@@ -14,7 +14,7 @@ namespace ExpenseTracker.Views {
 
                 var settings = new Element();
                 settings.GroupBox.Text = "Settings";
-                settings.Collumn = 1;
+                settings.Col = 1;
                 settings.Row = 1;
 
                 settings.Cols = 2;

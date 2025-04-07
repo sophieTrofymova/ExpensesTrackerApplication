@@ -25,7 +25,7 @@ namespace ExpenseTracker {
         public int Cols { get { return cols; } set { cols = (value > 0) ? value : 1; } }
 
         public int Row { get { return row; } set { row = (value >= 0) ? value : 0; } }
-        public int Collumn { get { return col; } set { col = (value >= 0) ? value : 0; } }
+        public int Col { get { return col; } set { col = (value >= 0) ? value : 0; } }
 
 
         bool isDragAllowed = false;

@@ -14,7 +14,7 @@ namespace ExpenseTracker.Views {
 
                 var accounts = new Element {
                     GroupBox = { Text = "Accounts" },
-                    Collumn = 0,
+                    Col = 0,
                     Cols = 6,
                     AllowDrag = false
                 };

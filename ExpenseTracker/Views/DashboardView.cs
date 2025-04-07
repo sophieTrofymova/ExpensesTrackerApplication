@@ -31,7 +31,7 @@ namespace ExpenseTracker.Views {
                 BalanceSummary.Title = "Summary";
                 
                 // pos
-                BalanceSummary.Collumn = 1;
+                BalanceSummary.Col = 1;
                 BalanceSummary.Row = 1;
 
                 // how many cols and rows it takes

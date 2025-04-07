@@ -1,103 +1,56 @@
-﻿//using ExpenseTracker.Controls;
-
-//namespace ExpenseTracker.Views
-//{
-//    public class TransactionsView : ElementView
-//    {
-//        public TransactionsView(ElementContainer container, string name = "Transactions") : base(name, container)
-//        {
-//            this.NumRows = 8;
-//            this.NumCols = 9;
-
-//        }
-
-
-//        public override void Build()
-//        {
-//            ClearElements();
-
-//            var filter = new Element();
-//            filter.GroupBox.Text = "Filter";
-//            filter.Collumn = 1;
-//            filter.Row = 1;
-
-//            filter.Cols = 2;
-//            filter.Rows = 6;
-//            filter.AllowDrag = false;
-
-//            var transactions = new Element();
-//            transactions.GroupBox.Text = "Transactions";
-//            transactions.Collumn = 3;
-//            transactions.Row = 1;
-
-//            transactions.Cols = 5;
-//            transactions.Rows = 6;
-//            transactions.AllowDrag = false;
-
-//            AddElements(new List<Element> { filter, transactions });
-//        }
-//    }
-//}
+﻿
 
 using ExpenseTracker.Controls;
-using System;
-using System.Globalization;
-using System.Linq;
 using WF = System.Windows.Forms;
 
-namespace ExpenseTracker.Views
-{
-    public class TransactionsView : ElementView
-    {
+namespace ExpenseTracker.Views {
+    public class TransactionsView : ElementView {
 
         private ListView transactionListView;
-        public TransactionsView(ElementContainer container, string name = "Transactions") : base(name, container)
-        {
-            this.NumRows = 12;
-            this.NumCols = 12;
+        public TransactionsView(ElementContainer container, string name = "Transactions") : base(name, container) {
+            this.NumRows = 13;
+            this.NumCols = 22;
         }
-        public override void Build()
-        {
-            
+        public override void Build() {
 
-        var filter = new Element();
+
+            var filter = new Element();
             filter.GroupBox.Text = "Filter by Month";
-            filter.Collumn = 1;
+            filter.Col = 1;
             filter.Row = 1;
-            filter.Cols = 2;
+
+            filter.Cols = 20;
             filter.Rows = 3;
             filter.AllowDrag = false;
 
-            var monthDropDown = new WF.ComboBox
-            {
+            var monthDropDown = new WF.ComboBox {
                 Name = "MonthDropDown",
                 DropDownStyle = WF.ComboBoxStyle.DropDownList,
                 Items = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }
                 //SelectedIndex = DateTime.Now.Month - 1
             };
             int centerX = (filter.GroupBox.Width - monthDropDown.Width) / 2;
-            monthDropDown.Location = new System.Drawing.Point(centerX, 30); 
+            monthDropDown.Location = new System.Drawing.Point(centerX, 30);
             monthDropDown.SelectedIndexChanged += MonthDropDown_SelectedIndexChanged;
             filter.GroupBox.Controls.Add(monthDropDown);
 
             var incomeGroupBox = new Element();
             incomeGroupBox.GroupBox.Text = "Add Income";
-            incomeGroupBox.Collumn = 1;
+            incomeGroupBox.Col = 1;
             incomeGroupBox.Row = 4;
+
             incomeGroupBox.Cols = 6;
             incomeGroupBox.Rows = 4;
             incomeGroupBox.AllowDrag = false;
 
-            var lblCategoryIncome = new WF.Label
-            {
+            var lblCategoryIncome = new WF.Label {
                 Text = "Category:",
                 Location = new System.Drawing.Point(30, 50),
                 AutoSize = true
             };
 
             // ComboBox for Category
-            var dropDownCategoryIncome = new WF.ComboBox
-            {
+            var dropDownCategoryIncome = new WF.ComboBox {
                 Name = "DropDownCategoryIncome",
                 Location = new System.Drawing.Point(180, 50),
                 Width = 150,
@@ -106,16 +59,14 @@ namespace ExpenseTracker.Views
             dropDownCategoryIncome.Items.AddRange(CategoryInfo.IncomeCategories.Select(c => c.Description).ToArray());
 
             // Label for Account
-            var lblAccountIncome = new WF.Label
-            {
+            var lblAccountIncome = new WF.Label {
                 Text = "Account:",
                 Location = new System.Drawing.Point(30, 120),
                 AutoSize = true
             };
 
             // ComboBox for Account
-            var dropDownAccountIncome = new WF.ComboBox
-            {
+            var dropDownAccountIncome = new WF.ComboBox {
                 Name = "DropDownAccountIncome",
                 Location = new System.Drawing.Point(180, 120),
                 Width = 150,
@@ -124,24 +75,21 @@ namespace ExpenseTracker.Views
             PopulateAccountsToAddIncome(dropDownAccountIncome);
 
             // Label for Amount
-            var lblValueIncome = new WF.Label
-            {
+            var lblValueIncome = new WF.Label {
                 Text = "Amount (€):",
                 Location = new System.Drawing.Point(30, 190),
                 AutoSize = true
             };
 
             // TextBox for Value
-            var txtValueAddIncome = new WF.TextBox
-            {
+            var txtValueAddIncome = new WF.TextBox {
                 Location = new System.Drawing.Point(200, 190),
                 Width = 100,
                 BackColor = System.Drawing.Color.White
             };
 
             // Button to Add Income
-            var btnAddIncome = new WF.Button
-            {
+            var btnAddIncome = new WF.Button {
                 Text = "Add Income",
                 Location = new System.Drawing.Point(480, 220),
                 BackColor = System.Drawing.Color.LightGreen,
@@ -160,23 +108,21 @@ namespace ExpenseTracker.Views
 
             var expenseGroupBox = new Element();
             expenseGroupBox.GroupBox.Text = "Add Expense";
-            expenseGroupBox.Collumn = 1;
+            expenseGroupBox.Col = 1;
             expenseGroupBox.Row = 8;
             expenseGroupBox.Cols = 6;
             expenseGroupBox.Rows = 4;
             expenseGroupBox.AllowDrag = false;
 
             // Label for Category
-            var lblCategoryExpense = new WF.Label
-            {
+            var lblCategoryExpense = new WF.Label {
                 Text = "Category:",
                 Location = new System.Drawing.Point(30, 50),
                 AutoSize = true
             };
 
             // ComboBox for Category
-            var dropDownCategoryExpense = new WF.ComboBox
-            {
+            var dropDownCategoryExpense = new WF.ComboBox {
                 Name = "DropDownCategoryExpense",
                 Location = new System.Drawing.Point(180, 50),
                 Width = 180,
@@ -185,16 +131,14 @@ namespace ExpenseTracker.Views
             dropDownCategoryExpense.Items.AddRange(CategoryInfo.ExpenseCategories.Select(c => c.Description).ToArray());
 
             // Label for Account
-            var lblAccountExpense = new WF.Label
-            {
+            var lblAccountExpense = new WF.Label {
                 Text = "Account:",
                 Location = new System.Drawing.Point(30, 120),
                 AutoSize = true
             };
 
             // ComboBox for Account
-            var dropDownAccountExpense = new WF.ComboBox
-            {
+            var dropDownAccountExpense = new WF.ComboBox {
                 Name = "DropDownAccountExpense",
                 Location = new System.Drawing.Point(180, 120),
                 Width = 180,
@@ -203,24 +147,21 @@ namespace ExpenseTracker.Views
             PopulateAccountsToAddExpense(dropDownAccountExpense);
 
             // Label for Amount
-            var lblAmountExpense = new WF.Label
-            {
+            var lblAmountExpense = new WF.Label {
                 Text = "Amount:",
                 Location = new System.Drawing.Point(30, 190),
                 AutoSize = true
             };
 
             // TextBox for Value
-            var txtValueAddExpense = new WF.TextBox
-            {
+            var txtValueAddExpense = new WF.TextBox {
                 Location = new System.Drawing.Point(200, 190),
                 Width = 100,
                 BackColor = System.Drawing.Color.White
             };
 
             // Button to Add Expense
-            var btnAddExpense = new WF.Button
-            {
+            var btnAddExpense = new WF.Button {
                 Text = "Add Expense",
                 Location = new System.Drawing.Point(480, 220),
                 BackColor = System.Drawing.Color.Red,
@@ -242,14 +183,13 @@ namespace ExpenseTracker.Views
 
             var transactionsGroupBox = new Element();
             transactionsGroupBox.GroupBox.Text = $"Transactions for {selectedMonthName}";
-            transactionsGroupBox.Collumn = 7;
-            transactionsGroupBox.Row = 1;
-            transactionsGroupBox.Cols = 6;
-            transactionsGroupBox.Rows = 10;
+            transactionsGroupBox.Col = 7;
+            transactionsGroupBox.Row = 4;
+            transactionsGroupBox.Cols = 14;
+            transactionsGroupBox.Rows = 8;
             transactionsGroupBox.AllowDrag = false;
 
-            transactionListView = new ListView
-            {
+            transactionListView = new ListView {
                 View = View.Details,
                 FullRowSelect = true,
                 GridLines = true,
@@ -274,88 +214,70 @@ namespace ExpenseTracker.Views
 
         }
 
-        
-        private void MonthDropDown_SelectedIndexChanged(object sender, EventArgs e)
-        {
+
+        private void MonthDropDown_SelectedIndexChanged(object sender, EventArgs e) {
             var selectedMonth = ((WF.ComboBox)sender).SelectedItem?.ToString();
-            if (!string.IsNullOrEmpty(selectedMonth))
-            {
+            if (!string.IsNullOrEmpty(selectedMonth)) {
                 LoadTransactions(null, selectedMonth);
             }
-            else
-            {
+            else {
                 MessageBox.Show("Please select a month.");
             }
         }
 
-        private void LoadTransactions(ListView transactionListView, string selectedMonthName)
-        {
+        private void LoadTransactions(ListView transactionListView, string selectedMonthName) {
             var transactionManager = new TransactionManager();
             transactionManager.DisplayTransactions(transactionListView, selectedMonthName);
         }
 
-        private void PopulateAccountsToAddIncome(WF.ComboBox dropDownAccountIncome)
-        {
-            if (MainForm.AppState.currentUser?.Accounts == null || MainForm.AppState.currentUser.Accounts.Count == 0)
-            {
+        private void PopulateAccountsToAddIncome(WF.ComboBox dropDownAccountIncome) {
+            if (MainForm.AppState.UserManager.LoggedUser?.Accounts == null || MainForm.AppState.UserManager.LoggedUser.Accounts.Count == 0) {
                 MessageBox.Show("No accounts found. Please add an account first.");
                 return;
             }
 
             dropDownAccountIncome.Items.Clear();
 
-            foreach (var account in MainForm.AppState.currentUser.Accounts)
-            {
+            foreach (var account in MainForm.AppState.UserManager.LoggedUser.Accounts) {
                 dropDownAccountIncome.Items.Add(account.Name);
             }
 
-            if (dropDownAccountIncome.Items.Count > 0)
-            {
+            if (dropDownAccountIncome.Items.Count > 0) {
                 dropDownAccountIncome.SelectedIndex = 0;
             }
         }
 
-        private void PopulateAccountsToAddExpense(WF.ComboBox dropDownAccountExpense)
-        {
-            if (MainForm.AppState.currentUser?.Accounts == null || MainForm.AppState.currentUser.Accounts.Count == 0)
-            {
+        private void PopulateAccountsToAddExpense(WF.ComboBox dropDownAccountExpense) {
+            if (MainForm.AppState.UserManager.LoggedUser?.Accounts == null || MainForm.AppState.UserManager.LoggedUser.Accounts.Count == 0) {
                 MessageBox.Show("No accounts found. Please add an account first.");
                 return;
             }
 
             dropDownAccountExpense.Items.Clear();
 
-            foreach (var account in MainForm.AppState.currentUser.Accounts)
-            {
+            foreach (var account in MainForm.AppState.UserManager.LoggedUser.Accounts) {
                 dropDownAccountExpense.Items.Add(account.Name);
             }
 
-            if (dropDownAccountExpense.Items.Count > 0)
-            {
+            if (dropDownAccountExpense.Items.Count > 0) {
                 dropDownAccountExpense.SelectedIndex = 0;
             }
         }
 
-        private void btnAddIncome_Click(object sender, EventArgs e, WF.ComboBox dropDownCategoryIncome, WF.TextBox txtValueAddIncome, WF.ComboBox dropDownAccountIncome)
-        {
-            if (dropDownCategoryIncome.SelectedItem != null)
-            {
+        private void btnAddIncome_Click(object sender, EventArgs e, WF.ComboBox dropDownCategoryIncome, WF.TextBox txtValueAddIncome, WF.ComboBox dropDownAccountIncome) {
+            if (dropDownCategoryIncome.SelectedItem != null) {
                 string selectedCategoryDescription = dropDownCategoryIncome.SelectedItem.ToString();
                 var selectedCategory = CategoryInfo.IncomeCategories
                                                     .FirstOrDefault(c => c.Description == selectedCategoryDescription);
 
-                if (dropDownAccountIncome.SelectedItem != null)
-                {
+                if (dropDownAccountIncome.SelectedItem != null) {
                     string selectedAccountName = dropDownAccountIncome.SelectedItem.ToString();
-                    var selectedAccount = MainForm.AppState.currentUser.Accounts.FirstOrDefault(a => a.Name == selectedAccountName);
+                    var selectedAccount = MainForm.AppState.UserManager.LoggedUser.Accounts.FirstOrDefault(a => a.Name == selectedAccountName);
 
-                    if (selectedAccount != null)
-                    {
+                    if (selectedAccount != null) {
                         decimal amount;
-                        if (decimal.TryParse(txtValueAddIncome.Text, out amount))
-                        {
-                            Transaction newTransaction = new Transaction(creatorAccount: MainForm.AppState.currentUser.Accounts.First().ID)
-                            {
+                        if (decimal.TryParse(txtValueAddIncome.Text, out amount)) {
+                            Transaction newTransaction = new Transaction(creatorAccount: MainForm.AppState.UserManager.LoggedUser.Accounts.First().ID) {
                                 Type = TransactionType.Income,
                                 Amount = amount,
                                 CategoryInfo = selectedCategory,
@@ -371,48 +293,38 @@ namespace ExpenseTracker.Views
                             dropDownCategoryIncome.SelectedIndex = -1;
                             dropDownAccountIncome.SelectedIndex = -1;
                         }
-                        else
-                        {
+                        else {
                             MessageBox.Show("Please enter a valid amount.");
                         }
                     }
-                    else
-                    {
+                    else {
                         MessageBox.Show("Selected account is not valid.");
                     }
                 }
-                else
-                {
+                else {
                     MessageBox.Show("Please select an account.");
                 }
             }
-            else
-            {
+            else {
                 MessageBox.Show("Please select a category.");
             }
         }
 
-        private void btnAddExpense_Click(object sender, EventArgs e, WF.ComboBox dropDownCategoryExpense, WF.TextBox txtValueAddExpense, WF.ComboBox dropDownAccountExpense)
-        {
-            if (dropDownCategoryExpense.SelectedItem != null)
-            {
+        private void btnAddExpense_Click(object sender, EventArgs e, WF.ComboBox dropDownCategoryExpense, WF.TextBox txtValueAddExpense, WF.ComboBox dropDownAccountExpense) {
+            if (dropDownCategoryExpense.SelectedItem != null) {
                 string selectedCategoryDescription = dropDownCategoryExpense.SelectedItem.ToString();
                 var selectedCategory = CategoryInfo.ExpenseCategories
                                                     .FirstOrDefault(c => c.Description == selectedCategoryDescription);
 
-                if (dropDownAccountExpense.SelectedItem != null)
-                {
+                if (dropDownAccountExpense.SelectedItem != null) {
                     string selectedAccountName = dropDownAccountExpense.SelectedItem.ToString();
-                    var selectedAccount = MainForm.AppState.currentUser.Accounts.FirstOrDefault(a => a.Name == selectedAccountName);
+                    var selectedAccount = MainForm.AppState.UserManager.LoggedUser.Accounts.FirstOrDefault(a => a.Name == selectedAccountName);
 
-                    if (selectedAccount != null)
-                    {
+                    if (selectedAccount != null) {
                         decimal amount;
-                        if (decimal.TryParse(txtValueAddExpense.Text, out amount))
-                        {
-                            Transaction newTransaction = new Transaction(creatorAccount: MainForm.AppState.currentUser.Accounts.First().ID)
-                            {
-                                Type = TransactionType.Expense,  
+                        if (decimal.TryParse(txtValueAddExpense.Text, out amount)) {
+                            Transaction newTransaction = new Transaction(creatorAccount: MainForm.AppState.UserManager.LoggedUser.Accounts.First().ID) {
+                                Type = TransactionType.Expense,
                                 Amount = amount,
                                 CategoryInfo = selectedCategory,
                                 ReceiverAccount = selectedAccount.ID,
@@ -427,29 +339,25 @@ namespace ExpenseTracker.Views
                             dropDownCategoryExpense.SelectedIndex = -1;
                             dropDownAccountExpense.SelectedIndex = -1;
                         }
-                        else
-                        {
+                        else {
                             MessageBox.Show("Please enter a valid amount.");
                         }
                     }
-                    else
-                    {
+                    else {
                         MessageBox.Show("Selected account is not valid.");
                     }
                 }
-                else
-                {
+                else {
                     MessageBox.Show("Please select an account.");
                 }
             }
-            else
-            {
+            else {
                 MessageBox.Show("Please select a category.");
             }
         }
 
-     
+
     }
-    }
+}
 
 
