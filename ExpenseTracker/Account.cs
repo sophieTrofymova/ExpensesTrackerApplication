@@ -12,12 +12,10 @@ namespace ExpenseTracker {
         public Guid ID { get; private set; } = Guid.NewGuid(); // Unique account ID
         public string Name { get; set; }  // Example: "Bank", "Wallet", "Credit Card"
         public decimal Balance { get; set; }  // Current balance in the account
-        public CurrencyType Currency { get; set; } // Example: "USD", "EUR", "GBP"
 
-        public Account(string name, decimal balance, CurrencyType currency) {
+        public Account(string name, decimal balance) {
             Name = name;
             Balance = balance;
-            Currency = currency;
         }
 
         private void UpdateBalance(Transaction transaction) {

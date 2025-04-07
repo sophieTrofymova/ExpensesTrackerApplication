@@ -24,6 +24,8 @@ namespace ExpenseTracker.Controls {
             if (view == null)
                 throw new ArgumentNullException(nameof(view));
 
+            this.SuspendLayout(); // pause UI updates
+
             // hide current elems
             if (currentView != null) {
                 foreach (var el in currentView.GetAllElements()) {
@@ -37,6 +39,8 @@ namespace ExpenseTracker.Controls {
             foreach (var el in view.GetAllElements()) {
                 Controls.Add(el);
             }
+
+            this.ResumeLayout(true); // resume UI updates
         }
 
     }

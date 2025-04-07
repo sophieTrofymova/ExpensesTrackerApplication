@@ -1,7 +1,7 @@
 ﻿namespace ExpenseTracker
 {
     // its just a quick solution, it should be split later to separate contexts
-    public enum ValidationResult { Success, WrongPassword, WrongLogin, AccountDontExist, InvalidFormat, AlreadyExist }
+    public enum ValidationResult { Success, WrongPassword, WrongLogin, UserDontExist, InvalidFormat, AlreadyExist }
     public class UserManager
     {
 
@@ -31,9 +31,13 @@
 
         public ValidationResult Register(string displayName, string username, string email, string password)
         {
+
+            if (string.IsNullOrWhiteSpace(username))
+                return ValidationResult.InvalidFormat;
+
+
             if (users.Any(a => a.Username == username))
             {
-
                 return ValidationResult.AlreadyExist;
             }
             if (users.Any(a => a.Email == email))
@@ -113,12 +117,12 @@
         }
 
 
-        public ValidationResult Authenticate(User user)
+        public ValidationResult Login(User user)
         {
 
             if (user == null || !users.Contains(user))
             {
-                return ValidationResult.AccountDontExist;
+                return ValidationResult.UserDontExist;
             }
 
             LoggedUser = user; // Store the logged-in user
@@ -127,12 +131,16 @@
             return ValidationResult.Success;
         }
 
-        public ValidationResult Authenticate(string usernameOrEmail, string password)
+
+        private User? FindUser(string usernameOrEmail) {
+            return GetUserByUsername(usernameOrEmail) ?? GetUserByEmail(usernameOrEmail);
+        }
+
+
+        public ValidationResult Login(string usernameOrEmail, string password)
         {
 
-            var user = GetUserByUsername(usernameOrEmail);
-
-            user ??= GetUserByEmail(usernameOrEmail);
+            var user = FindUser(usernameOrEmail);
 
             if (user == null)
             {
@@ -166,7 +174,12 @@
                 error = "ERROR: User not found.";
                 return false;
             }
+
+            if (LoggedUser == user)
+                LoggedUser = null;
+
             users.Remove(user);
+
             error = "User deleted successfully.";
             return true;
         }

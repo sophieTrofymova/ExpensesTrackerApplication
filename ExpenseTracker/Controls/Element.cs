@@ -30,6 +30,9 @@ namespace ExpenseTracker {
 
         bool isDragAllowed = false;
         public bool AllowDrag { get { return isDragAllowed; } set { isDragAllowed = value; DragAdjust(); } }
+
+        public string Title { get { return GroupBox.Text; } set { GroupBox.Text = value; } }
+
         public Element() {
             InitializeComponent();
 
@@ -58,7 +61,7 @@ namespace ExpenseTracker {
         }
 
 
-            private void draggablePanel_MouseDown(object sender, MouseEventArgs e) {
+        private void draggablePanel_MouseDown(object sender, MouseEventArgs e) {
 
             if (isDragAllowed) {
                 // we do drag now

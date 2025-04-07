@@ -7,26 +7,10 @@ using System.Threading.Tasks;
 namespace ExpenseTracker {
     public class Budget
     {
-        public Budget(Guid accountId, CategoryInfo categoryInfo, decimal amountLimit/*,BudgetPeriod period*/)
-        {
-            AccountID = accountId;
-            CategoryInfo = categoryInfo;
-            AmountLimit = amountLimit;
-            Spent = 0;
-            Month = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-            //Period = period;
-        }
 
-        //public Budget(CategoryType category, decimal amountLimit, /*BudgetPeriod period,*/ bool notifications)
-        //{
-        //    Category = category;
-        //    AmountLimit = amountLimit;
-        //   // Period = period;
-        //    Notifications = notifications;
-        //    Spent = 0;
-        //}
 
-        public Guid AccountID { get; set; }
+        public string Name { get; set; }
+        public List<Guid> AccountsIDs { get; set; }
         public CategoryInfo CategoryInfo { get; set; }
         public decimal AmountLimit { get; set; }
         // public BudgetPeriod Period { get; set; }
@@ -34,7 +18,16 @@ namespace ExpenseTracker {
         public DateTime Month { get; set; }
         public bool Notifications { get; set; }
 
-        public string CategoryDescription => CategoryInfo.Description;
+
+        public Budget(string name, CategoryInfo categoryInfo, decimal amountLimit, List<Guid> accountsIDs) {
+            Name = name;
+            CategoryInfo = categoryInfo;
+            AmountLimit = amountLimit;
+            Spent = 0;
+            Month = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            AccountsIDs = accountsIDs;
+        }
+
         public decimal GetUsagePercentage()
         {
             return (AmountLimit == 0) ? 0 : (Spent / AmountLimit) * 100;

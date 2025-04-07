@@ -52,7 +52,9 @@ namespace ExpenseTracker.Controls {
             Container.SizeChanged += (s, e) => ApplyLayout();
         }
 
-        // override this in child views
+        /// <summary>
+        /// Called everytime the view is swithced to.
+        /// </summary>
         public virtual void Build() {
             // just clear n noop here
             elements.Clear();

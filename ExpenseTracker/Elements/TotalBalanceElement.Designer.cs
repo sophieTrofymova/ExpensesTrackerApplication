@@ -1,5 +1,5 @@
 ﻿namespace ExpenseTracker {
-    partial class TotalBalanceElement {
+    partial class BalanceSummaryElement {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
