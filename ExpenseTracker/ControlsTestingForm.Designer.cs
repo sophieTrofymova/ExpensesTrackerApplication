@@ -1,4 +1,6 @@
-﻿namespace ExpenseTracker {
+﻿using ExpenseTracker.Controls;
+
+namespace ExpenseTracker {
     partial class ControlsTestingForm {
         /// <summary>
         /// Required designer variable.
@@ -23,8 +25,10 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            themedComboBox1 = new Controls.ThemedComboBox();
-            themedGroupBox1 = new Controls.ThemedGroupBox();
+            themedComboBox1 = new ThemedComboBox();
+            themedGroupBox1 = new ThemedGroupBox();
+            textBox1 = new ThemedTextBox();
+            themedCheckBox1 = new ThemedCheckBox();
             SuspendLayout();
             // 
             // themedComboBox1
@@ -48,21 +52,57 @@
             themedGroupBox1.TabStop = false;
             themedGroupBox1.Text = "themedGroupBox1";
             // 
+            // textBox1
+            // 
+            textBox1.AutoCompleteMode = AutoCompleteMode.None;
+            textBox1.AutoCompleteSource = AutoCompleteSource.None;
+            textBox1.AutoSize = true;
+            textBox1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            textBox1.BorderThickness = 2;
+            textBox1.CharacterCasing = CharacterCasing.Normal;
+            textBox1.InnerPadding = new Padding(4);
+            textBox1.Location = new Point(335, 304);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(177, 27);
+            textBox1.TabIndex = 2;
+            textBox1.TextAlign = HorizontalAlignment.Left;
+            textBox1.UseSystemPasswordChar = false;
+            // 
+            // themedCheckBox1
+            // 
+            themedCheckBox1.AutoSize = true;
+            themedCheckBox1.CheckBoxSize = 24;
+            themedCheckBox1.Checked = true;
+            themedCheckBox1.CheckState = CheckState.Checked;
+            themedCheckBox1.Location = new Point(452, 175);
+            themedCheckBox1.Margin = new Padding(5);
+            themedCheckBox1.Name = "themedCheckBox1";
+            themedCheckBox1.Padding = new Padding(5);
+            themedCheckBox1.Size = new Size(164, 34);
+            themedCheckBox1.TabIndex = 3;
+            themedCheckBox1.Text = "themedCheckBox1";
+            themedCheckBox1.UseVisualStyleBackColor = true;
+            // 
             // ControlsTestingForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(themedCheckBox1);
+            Controls.Add(textBox1);
             Controls.Add(themedGroupBox1);
             Controls.Add(themedComboBox1);
             Name = "ControlsTestingForm";
             Text = "Custom Controls Testing Form";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private Controls.ThemedComboBox themedComboBox1;
-        private Controls.ThemedGroupBox themedGroupBox1;
+        private ThemedComboBox themedComboBox1;
+        private ThemedGroupBox themedGroupBox1;
+        private ThemedTextBox textBox1;
+        private ThemedCheckBox themedCheckBox1;
     }
 }

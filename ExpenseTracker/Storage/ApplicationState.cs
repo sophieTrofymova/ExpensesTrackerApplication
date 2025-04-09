@@ -81,7 +81,7 @@ namespace ExpenseTracker.Storage {
             GenerateDefaultThemes();
 
             // save default theme
-            Serializer.SaveData(Themes, "Themes");
+            Serializer.SaveData(Themes, Paths.GetFilename("Themes"));
 
             // generate new settings
             Settings = new ApplicationSettings() {
@@ -92,12 +92,12 @@ namespace ExpenseTracker.Storage {
 
             // try to set default theme
             // sanity check to ensure that default theme is present
-            CurrentTheme = Themes.FirstOrDefault(t => t.Name == Settings.ThemeName);
+            CurrentTheme = Themes.FirstOrDefault(t => t.Name == "Default");
             if (CurrentTheme == null) {
                 throw new InvalidOperationException("Default theme not found!");
             }
 
-            Serializer.SaveData(Settings, "Settings");
+            Serializer.SaveData(Settings, Paths.GetFilename("Settings"));
 
             // create new user manager
             UserManager = new UserManager();
@@ -108,7 +108,7 @@ namespace ExpenseTracker.Storage {
                 TestData.GenerateTestUsers(UserManager); // we do not use direct serialization because we need to ensure that user test data still within expected parameters   
             }
             // save regardless, it just going to be empty in release mode, and users can register new account
-            Serializer.SaveData(UserManager.GetAllUsers(), "Users");
+            Serializer.SaveData(UserManager.GetAllUsers(), Paths.GetFilename("Users"));
 
         }
 
@@ -260,7 +260,7 @@ namespace ExpenseTracker.Storage {
             }
 
             // save regardless, it just going to be empty in release mode, and users can register new account
-            Serializer.SaveData(UserManager.GetAllUsers(), "Users");
+            Serializer.SaveData(UserManager.GetAllUsers(), Paths.GetFilename("Users"));
             if (File.Exists(Paths.GetFilename("Users"))) {
                 Log.Message($"File: {nameof(UserManager)} at < {Paths.GetFilename("Users")} >, saved successfuly!");
             }

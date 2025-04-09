@@ -66,7 +66,7 @@ namespace ExpenseTracker.Elements {
                     new WF.ColumnHeader { Text = "Category", Width = 180 },
                     new WF.ColumnHeader { Text = "Amount", Width = 100 },
                     new WF.ColumnHeader { Text = "Sender Account", Width = 100 },
-                       new WF.ColumnHeader { Text = "Receiver Account", Width = 100 }
+                    new WF.ColumnHeader { Text = "Receiver Account", Width = 100 }
                 }
             );
         }

@@ -29,15 +29,15 @@ namespace ExpenseTracker.Elements {
             monthDropDown = new ThemedComboBox();
             groupBox1 = new ThemedGroupBox();
             bResetFilter = new Button();
-            cbTransfers = new CheckBox();
-            cbIncome = new CheckBox();
-            cbExpenses = new CheckBox();
+            cbTransfers = new ThemedCheckBox();
+            cbIncome = new ThemedCheckBox();
+            cbExpenses = new ThemedCheckBox();
             accountsDropDown = new ThemedComboBox();
             label5 = new Label();
             categoriesDropDown = new ThemedComboBox();
             label4 = new Label();
             groupBox2 = new ThemedGroupBox();
-            tbExpenseAmount = new TextBox();
+            tbExpenseAmount = new ThemedTextBox();
             bAddExpense = new Button();
             dtpAffectDate = new DateTimePicker();
             label6 = new Label();
@@ -64,7 +64,7 @@ namespace ExpenseTracker.Elements {
             ThemedGroupBox.Controls.Add(groupBox1);
             ThemedGroupBox.Controls.Add(groupBox4);
             ThemedGroupBox.Controls.Add(groupBox2);
-            ThemedGroupBox.Size = new Size(1293, 797);
+            ThemedGroupBox.Size = new Size(1293, 758);
             ThemedGroupBox.Text = "Transactions";
             // 
             // label1
@@ -106,9 +106,9 @@ namespace ExpenseTracker.Elements {
             groupBox1.Controls.Add(monthDropDown);
             groupBox1.Controls.Add(label1);
             groupBox1.ForeColor = Color.White;
-            groupBox1.Location = new Point(35, 47);
+            groupBox1.Location = new Point(23, 47);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1229, 180);
+            groupBox1.Size = new Size(1250, 180);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Filter";
@@ -129,6 +129,7 @@ namespace ExpenseTracker.Elements {
             // cbTransfers
             // 
             cbTransfers.AutoSize = true;
+            cbTransfers.CheckBoxSize = 24;
             cbTransfers.Checked = true;
             cbTransfers.CheckState = CheckState.Checked;
             cbTransfers.Font = new Font("Segoe UI", 12F);
@@ -143,6 +144,7 @@ namespace ExpenseTracker.Elements {
             // cbIncome
             // 
             cbIncome.AutoSize = true;
+            cbIncome.CheckBoxSize = 24;
             cbIncome.Checked = true;
             cbIncome.CheckState = CheckState.Checked;
             cbIncome.Font = new Font("Segoe UI", 12F);
@@ -157,6 +159,7 @@ namespace ExpenseTracker.Elements {
             // cbExpenses
             // 
             cbExpenses.AutoSize = true;
+            cbExpenses.CheckBoxSize = 24;
             cbExpenses.Checked = true;
             cbExpenses.CheckState = CheckState.Checked;
             cbExpenses.Font = new Font("Segoe UI", 12F);
@@ -230,7 +233,7 @@ namespace ExpenseTracker.Elements {
             groupBox2.Controls.Add(cbTransactionType);
             groupBox2.Controls.Add(newTransactionCategoryDropDown);
             groupBox2.ForeColor = Color.White;
-            groupBox2.Location = new Point(35, 233);
+            groupBox2.Location = new Point(23, 233);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(347, 511);
             groupBox2.TabIndex = 4;
@@ -239,12 +242,19 @@ namespace ExpenseTracker.Elements {
             // 
             // tbExpenseAmount
             // 
-            tbExpenseAmount.BackColor = SystemColors.WindowFrame;
-            tbExpenseAmount.ForeColor = Color.WhiteSmoke;
+            tbExpenseAmount.AutoCompleteMode = AutoCompleteMode.None;
+            tbExpenseAmount.AutoCompleteSource = AutoCompleteSource.None;
+            tbExpenseAmount.AutoSize = true;
+            tbExpenseAmount.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tbExpenseAmount.BorderThickness = 1;
+            tbExpenseAmount.CharacterCasing = CharacterCasing.Normal;
+            tbExpenseAmount.InnerPadding = new Padding(4);
             tbExpenseAmount.Location = new Point(40, 297);
             tbExpenseAmount.Name = "tbExpenseAmount";
-            tbExpenseAmount.Size = new Size(289, 39);
+            tbExpenseAmount.Size = new Size(223, 39);
             tbExpenseAmount.TabIndex = 6;
+            tbExpenseAmount.TextAlign = HorizontalAlignment.Left;
+            tbExpenseAmount.UseSystemPasswordChar = false;
             // 
             // bAddExpense
             // 
@@ -366,9 +376,9 @@ namespace ExpenseTracker.Elements {
             groupBox4.BorderPadding = 8;
             groupBox4.Controls.Add(transactionsList);
             groupBox4.ForeColor = Color.White;
-            groupBox4.Location = new Point(399, 233);
+            groupBox4.Location = new Point(376, 233);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(865, 511);
+            groupBox4.Size = new Size(897, 511);
             groupBox4.TabIndex = 4;
             groupBox4.TabStop = false;
             groupBox4.Text = "Transactions";
@@ -383,7 +393,7 @@ namespace ExpenseTracker.Elements {
             transactionsList.GridLines = true;
             transactionsList.Location = new Point(24, 45);
             transactionsList.Name = "transactionsList";
-            transactionsList.Size = new Size(821, 442);
+            transactionsList.Size = new Size(853, 442);
             transactionsList.TabIndex = 0;
             transactionsList.UseCompatibleStateImageBehavior = false;
             transactionsList.View = View.Details;
@@ -406,7 +416,7 @@ namespace ExpenseTracker.Elements {
             AutoScaleMode = AutoScaleMode.Font;
             Location = new Point(0, 0);
             Name = "TransactionsElement";
-            Size = new Size(1306, 847);
+            Size = new Size(1306, 808);
             Title = "Transactions";
             ThemedGroupBox.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
@@ -433,14 +443,14 @@ namespace ExpenseTracker.Elements {
         private ColumnHeader chDate;
         private ColumnHeader chCategory;
         private ColumnHeader chAmount;
-        private CheckBox cbIncome;
-        private CheckBox cbExpenses;
-        private CheckBox cbTransfers;
+        private ThemedCheckBox cbIncome;
+        private ThemedCheckBox cbExpenses;
+        private ThemedCheckBox cbTransfers;
         private Button bResetFilter;
         private Button bAddExpense;
         private DateTimePicker dtpAffectDate;
         private Label bCategory;
-        private TextBox tbExpenseAmount;
+        private ThemedTextBox tbExpenseAmount;
         private Label label6;
         public ThemedComboBox newTransactionCategoryDropDown;
         public ThemedComboBox cbUserAccounts;

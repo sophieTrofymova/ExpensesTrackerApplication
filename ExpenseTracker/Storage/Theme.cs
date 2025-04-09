@@ -8,33 +8,65 @@ namespace ExpenseTracker.Storage {
         ElementBackColor,
         CaptionColor,
         ControlBack,
+
         ComboBoxBackColor,
         ComboBoxForeColor,
         ComboBoxSelectedItemBackColor,
         ComboBoxSelectedItemForeColor,
+
         GroupBoxHeaderForeColor,
         GroupBoxHeaderBorderColor,
         GroupBoxBackColor,
-        GroupBoxForeColor
+        GroupBoxForeColor,
+
+        TextBoxBackColor,
+        TextBoxForeColor,
+        TextBoxBorderColor,
+        TextBoxFocusedBorderColor,
+
+        CheckBoxBackColor,
+        CheckBoxForeColor,
+        CheckBoxBorderColor, 
+        CheckBoxCheckedColor,
+        CheckBoxFocusedColor
+
     }
+
+
     public class Theme {
 
         public string Name { get; set; }
 
+        private static Color GeneralBackColor = Color.FromArgb(30,30,30);
+        private static Color GeneralForeColor = Color.WhiteSmoke;
+
         private static Dictionary<ThemeColor, Color> defaultColors = new() {
+
             { ThemeColor.AccentColor, Color.Coral },
             { ThemeColor.ElementBackColor, Color.FromArgb(61, 61, 61) },
-            { ThemeColor.CaptionColor, Color.WhiteSmoke },
-            { ThemeColor.ControlBack, Color.FromArgb(30, 30, 30) },
-            { ThemeColor.ComboBoxBackColor, Color.FromArgb(30, 30, 30) },
-            { ThemeColor.ComboBoxForeColor, Color.Orange },
+            { ThemeColor.CaptionColor, GeneralForeColor },
+            { ThemeColor.ControlBack, GeneralBackColor },
+
+            { ThemeColor.ComboBoxBackColor, GeneralBackColor },
+            { ThemeColor.ComboBoxForeColor, GeneralForeColor },
             { ThemeColor.ComboBoxSelectedItemBackColor, Color.Coral },
             { ThemeColor.ComboBoxSelectedItemForeColor, Color.Black },
 
-            { ThemeColor.GroupBoxHeaderForeColor, Color.WhiteSmoke },
+            { ThemeColor.GroupBoxHeaderForeColor, GeneralForeColor },
             { ThemeColor.GroupBoxHeaderBorderColor, Color.Coral },
-            { ThemeColor.GroupBoxBackColor, Color.FromArgb(30, 30, 30) },
-            { ThemeColor.GroupBoxForeColor, Color.WhiteSmoke }
+            { ThemeColor.GroupBoxBackColor, GeneralBackColor },
+            { ThemeColor.GroupBoxForeColor, GeneralForeColor },
+
+            { ThemeColor.TextBoxBackColor,GeneralBackColor },
+            { ThemeColor.TextBoxForeColor, GeneralForeColor },
+            { ThemeColor.TextBoxBorderColor, Color.Coral },
+            { ThemeColor.TextBoxFocusedBorderColor, Color.YellowGreen },
+
+            { ThemeColor.CheckBoxBackColor, GeneralBackColor },
+            { ThemeColor.CheckBoxForeColor, GeneralForeColor },
+            { ThemeColor.CheckBoxBorderColor, Color.Coral },
+            { ThemeColor.CheckBoxCheckedColor, Color.Coral },
+            { ThemeColor.CheckBoxFocusedColor, Color.YellowGreen }
         };
 
 
