@@ -1,31 +1,4 @@
-﻿//using global::ExpenseTracker.Controls;
-
-//namespace ExpenseTracker.Views {
-
-//    namespace ExpenseTracker {
-//        public class AccountsView: ElementView {
-//            public AccountsView(ElementContainer container, string name = "Accounts") : base(name, container) { }
-
-//            public override void Build() {
-//                base.Build();
-
-//                this.NumCols = 6;
-//                this.NumRows = 2;
-
-//                var accounts = new Element {
-//                    GroupBox = { Text = "Accounts" },
-//                    Col = 0,
-//                    Cols = 6,
-//                    AllowDrag = false
-//                };
-
-//                this.AddElements(new List<Element> { accounts });
-//            }
-//        }
-
-//    }
-
-//}
+﻿
 using ExpenseTracker;
 using ExpenseTracker.Elements;
 using ExpenseTracker.Controls;
@@ -152,7 +125,7 @@ namespace ExpenseTracker.Views
             }
 
             var newAccount = new Account(name, balance);
-            MainForm.AppState.UserManager.LoggedUser.Accounts.Add(newAccount);
+            App.State.UserManager.LoggedUser.Accounts.Add(newAccount);
 
             WF.MessageBox.Show($"Account '{name}' added with €{balance:F2} balance.");
 
@@ -167,9 +140,9 @@ namespace ExpenseTracker.Views
         private void LoadUserAccounts(WF.ListView listView)
         {
             listView.Items.Clear();
-            if (MainForm.AppState.UserManager.LoggedUser?.Accounts != null)
+            if (App.State.UserManager.LoggedUser?.Accounts != null)
             {
-                foreach (var acc in MainForm.AppState.UserManager.LoggedUser.Accounts)
+                foreach (var acc in App.State.UserManager.LoggedUser.Accounts)
                 {
                     var item = new WF.ListViewItem(new[] { acc.Name, acc.Balance.ToString("F2") });
                     listView.Items.Add(item);

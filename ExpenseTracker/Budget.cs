@@ -19,6 +19,11 @@ namespace ExpenseTracker {
         public bool Notifications { get; set; }
 
 
+        public Budget()
+        {
+            
+        }
+
         public Budget(string name, CategoryInfo categoryInfo, decimal amountLimit, List<Guid> accountsIDs) {
             Name = name;
             CategoryInfo = categoryInfo;

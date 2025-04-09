@@ -17,7 +17,7 @@ namespace ExpenseTracker.Views {
 
         public override void Build() {
 
-            var user = MainForm.AppState.UserManager.LoggedUser;
+            var user = App.State.UserManager.LoggedUser;
 
             this.ClearElements();
             var transactionsElement = new TransactionsElement() {
@@ -243,19 +243,19 @@ namespace ExpenseTracker.Views {
 
         private void LoadTransactions(ListView transactionListView, string selectedMonthName) {
             var transactionManager = new TransactionManager();
-            transactionManager.Transactions = MainForm.AppState.UserManager.LoggedUser.Transactions;
+            transactionManager.Transactions = App.State.UserManager.LoggedUser.Transactions;
             transactionManager.DisplayTransactions(transactionListView, selectedMonthName);
         }
 
         private void PopulateAccountsToAddIncome(WF.ComboBox dropDownAccountIncome) {
-            if (MainForm.AppState.UserManager.LoggedUser?.Accounts == null || MainForm.AppState.UserManager.LoggedUser.Accounts.Count == 0) {
+            if (App.State.UserManager.LoggedUser?.Accounts == null || App.State.UserManager.LoggedUser.Accounts.Count == 0) {
                 MessageBox.Show("No accounts found. Please add an account first.");
                 return;
             }
 
             dropDownAccountIncome.Items.Clear();
 
-            foreach (var account in MainForm.AppState.UserManager.LoggedUser.Accounts) {
+            foreach (var account in App.State.UserManager.LoggedUser.Accounts) {
                 dropDownAccountIncome.Items.Add(account.Name);
             }
 
@@ -265,14 +265,14 @@ namespace ExpenseTracker.Views {
         }
 
         private void PopulateAccountsToAddExpense(WF.ComboBox dropDownAccountExpense) {
-            if (MainForm.AppState.UserManager.LoggedUser?.Accounts == null || MainForm.AppState.UserManager.LoggedUser.Accounts.Count == 0) {
+            if (App.State.UserManager.LoggedUser?.Accounts == null || App.State.UserManager.LoggedUser.Accounts.Count == 0) {
                 MessageBox.Show("No accounts found. Please add an account first.");
                 return;
             }
 
             dropDownAccountExpense.Items.Clear();
 
-            foreach (var account in MainForm.AppState.UserManager.LoggedUser.Accounts) {
+            foreach (var account in App.State.UserManager.LoggedUser.Accounts) {
                 dropDownAccountExpense.Items.Add(account.Name);
             }
 
@@ -289,12 +289,12 @@ namespace ExpenseTracker.Views {
 
                 if (dropDownAccountIncome.SelectedItem != null) {
                     string selectedAccountName = dropDownAccountIncome.SelectedItem.ToString();
-                    var selectedAccount = MainForm.AppState.UserManager.LoggedUser.Accounts.FirstOrDefault(a => a.Name == selectedAccountName);
+                    var selectedAccount = App.State.UserManager.LoggedUser.Accounts.FirstOrDefault(a => a.Name == selectedAccountName);
 
                     if (selectedAccount != null) {
                         decimal amount;
                         if (decimal.TryParse(txtValueAddIncome.Text, out amount)) {
-                            Transaction newTransaction = new Transaction(creatorAccount: MainForm.AppState.UserManager.LoggedUser.Accounts.First().ID) {
+                            Transaction newTransaction = new Transaction(creatorAccount: App.State.UserManager.LoggedUser.Accounts.First().ID) {
                                 Type = TransactionType.Income,
                                 Amount = amount,
                                 CategoryInfo = selectedCategory,
@@ -335,12 +335,12 @@ namespace ExpenseTracker.Views {
 
                 if (dropDownAccountExpense.SelectedItem != null) {
                     string selectedAccountName = dropDownAccountExpense.SelectedItem.ToString();
-                    var selectedAccount = MainForm.AppState.UserManager.LoggedUser.Accounts.FirstOrDefault(a => a.Name == selectedAccountName);
+                    var selectedAccount = App.State.UserManager.LoggedUser.Accounts.FirstOrDefault(a => a.Name == selectedAccountName);
 
                     if (selectedAccount != null) {
                         decimal amount;
                         if (decimal.TryParse(txtValueAddExpense.Text, out amount)) {
-                            Transaction newTransaction = new Transaction(creatorAccount: MainForm.AppState.UserManager.LoggedUser.Accounts.First().ID) {
+                            Transaction newTransaction = new Transaction(creatorAccount: App.State.UserManager.LoggedUser.Accounts.First().ID) {
                                 Type = TransactionType.Expense,
                                 Amount = amount,
                                 CategoryInfo = selectedCategory,

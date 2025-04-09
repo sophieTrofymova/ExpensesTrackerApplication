@@ -1,4 +1,6 @@
-﻿namespace ExpenseTracker.Elements {
+﻿using ExpenseTracker.Controls;
+
+namespace ExpenseTracker.Elements {
     partial class TransactionsElement: Element {
         /// <summary> 
         /// Required designer variable.
@@ -24,28 +26,28 @@
         /// </summary>
         private void InitializeComponent() {
             label1 = new Label();
-            monthDropDown = new ComboBox();
+            monthDropDown = new ThemedComboBox();
             groupBox1 = new GroupBox();
             bResetFilter = new Button();
             cbTransfers = new CheckBox();
             cbIncome = new CheckBox();
             cbExpenses = new CheckBox();
-            accountsDropDown = new ComboBox();
+            accountsDropDown = new ThemedComboBox();
             label5 = new Label();
-            categoriesDropDown = new ComboBox();
+            categoriesDropDown = new ThemedComboBox();
             label4 = new Label();
             groupBox2 = new GroupBox();
             tbExpenseAmount = new TextBox();
             bAddExpense = new Button();
             dtpAffectDate = new DateTimePicker();
             label6 = new Label();
-            cbUserAccounts = new ComboBox();
+            cbUserAccounts = new ThemedComboBox();
             label7 = new Label();
             label3 = new Label();
             bCategory = new Label();
             label2 = new Label();
-            cbTransactionType = new ComboBox();
-            newTransactionCategoryDropDown = new ComboBox();
+            cbTransactionType = new ThemedComboBox();
+            newTransactionCategoryDropDown = new ThemedComboBox();
             groupBox4 = new GroupBox();
             transactionsList = new ListView();
             chDate = new ColumnHeader();
@@ -162,11 +164,13 @@
             // accountsDropDown
             // 
             accountsDropDown.BackColor = SystemColors.WindowFrame;
+            accountsDropDown.DrawMode = DrawMode.OwnerDrawFixed;
+            accountsDropDown.DropDownStyle = ComboBoxStyle.DropDownList;
             accountsDropDown.ForeColor = Color.WhiteSmoke;
             accountsDropDown.FormattingEnabled = true;
             accountsDropDown.Location = new Point(276, 70);
             accountsDropDown.Name = "accountsDropDown";
-            accountsDropDown.Size = new Size(197, 39);
+            accountsDropDown.Size = new Size(197, 40);
             accountsDropDown.TabIndex = 2;
             accountsDropDown.SelectedIndexChanged += accountsDropDown_SelectedIndexChanged;
             // 
@@ -183,11 +187,13 @@
             // categoriesDropDown
             // 
             categoriesDropDown.BackColor = SystemColors.WindowFrame;
+            categoriesDropDown.DrawMode = DrawMode.OwnerDrawFixed;
+            categoriesDropDown.DropDownStyle = ComboBoxStyle.DropDownList;
             categoriesDropDown.ForeColor = Color.WhiteSmoke;
             categoriesDropDown.FormattingEnabled = true;
             categoriesDropDown.Location = new Point(40, 70);
             categoriesDropDown.Name = "categoriesDropDown";
-            categoriesDropDown.Size = new Size(197, 39);
+            categoriesDropDown.Size = new Size(197, 40);
             categoriesDropDown.TabIndex = 2;
             categoriesDropDown.SelectedIndexChanged += categoriesDropDown_SelectedIndexChanged;
             // 
@@ -266,11 +272,13 @@
             // cbUserAccounts
             // 
             cbUserAccounts.BackColor = SystemColors.WindowFrame;
+            cbUserAccounts.DrawMode = DrawMode.OwnerDrawFixed;
+            cbUserAccounts.DropDownStyle = ComboBoxStyle.DropDownList;
             cbUserAccounts.ForeColor = Color.WhiteSmoke;
             cbUserAccounts.FormattingEnabled = true;
             cbUserAccounts.Location = new Point(40, 151);
             cbUserAccounts.Name = "cbUserAccounts";
-            cbUserAccounts.Size = new Size(289, 39);
+            cbUserAccounts.Size = new Size(289, 40);
             cbUserAccounts.TabIndex = 2;
             cbUserAccounts.SelectedIndexChanged += accountsDropDown_SelectedIndexChanged;
             // 
@@ -320,22 +328,26 @@
             // cbTransactionType
             // 
             cbTransactionType.BackColor = SystemColors.WindowFrame;
+            cbTransactionType.DrawMode = DrawMode.OwnerDrawFixed;
+            cbTransactionType.DropDownStyle = ComboBoxStyle.DropDownList;
             cbTransactionType.ForeColor = Color.WhiteSmoke;
             cbTransactionType.FormattingEnabled = true;
             cbTransactionType.Location = new Point(40, 78);
             cbTransactionType.Name = "cbTransactionType";
-            cbTransactionType.Size = new Size(289, 39);
+            cbTransactionType.Size = new Size(289, 40);
             cbTransactionType.TabIndex = 2;
             cbTransactionType.SelectedIndexChanged += cbTransactionType_SelectedIndexChanged;
             // 
-            // expenseCategoriesDropDown
+            // newTransactionCategoryDropDown
             // 
             newTransactionCategoryDropDown.BackColor = SystemColors.WindowFrame;
+            newTransactionCategoryDropDown.DrawMode = DrawMode.OwnerDrawFixed;
+            newTransactionCategoryDropDown.DropDownStyle = ComboBoxStyle.DropDownList;
             newTransactionCategoryDropDown.ForeColor = Color.WhiteSmoke;
             newTransactionCategoryDropDown.FormattingEnabled = true;
             newTransactionCategoryDropDown.Location = new Point(40, 224);
-            newTransactionCategoryDropDown.Name = "expenseCategoriesDropDown";
-            newTransactionCategoryDropDown.Size = new Size(289, 39);
+            newTransactionCategoryDropDown.Name = "newTransactionCategoryDropDown";
+            newTransactionCategoryDropDown.Size = new Size(289, 40);
             newTransactionCategoryDropDown.TabIndex = 2;
             newTransactionCategoryDropDown.SelectedIndexChanged += categoriesDropDown_SelectedIndexChanged;
             // 
@@ -398,14 +410,14 @@
         #endregion
 
         private GroupBox groupBox1;
-        public ComboBox monthDropDown;
+        public ThemedComboBox monthDropDown;
         private Label label1;
         private GroupBox groupBox4;
         private GroupBox groupBox2;
         private Label label2;
-        public ComboBox categoriesDropDown;
+        public ThemedComboBox categoriesDropDown;
         private Label label4;
-        public ComboBox accountsDropDown;
+        public ThemedComboBox accountsDropDown;
         private Label label5;
         public ListView transactionsList;
         private ColumnHeader chDate;
@@ -420,10 +432,10 @@
         private Label bCategory;
         private TextBox tbExpenseAmount;
         private Label label6;
-        public ComboBox newTransactionCategoryDropDown;
-        public ComboBox cbUserAccounts;
+        public ThemedComboBox newTransactionCategoryDropDown;
+        public ThemedComboBox cbUserAccounts;
         private Label label7;
         private Label label3;
-        public ComboBox cbTransactionType;
+        public ThemedComboBox cbTransactionType;
     }
 }

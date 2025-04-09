@@ -34,7 +34,7 @@ namespace ExpenseTracker.Elements {
         }
 
 
-        User user = MainForm.AppState.UserManager.LoggedUser;
+        User user = App.State.UserManager.LoggedUser;
 
         public TransactionsElement() {
             InitializeComponent();
@@ -147,7 +147,7 @@ namespace ExpenseTracker.Elements {
 
                 var item = new ListViewItem(transaction.EffectDate.ToString("dd MMM yyyy"));
                 item.SubItems.Add(transaction.CategoryDescription);
-                item.SubItems.Add(transaction.Amount.ToCurrencyString(MainForm.AppState.Settings.CurrencyType));
+                item.SubItems.Add(transaction.Amount.ToCurrencyString(App.State.Settings.CurrencyType));
 
 
                 Account? sender = user.Accounts.Select(a => a).Where(a => a.ID == transaction.SenderAccount).FirstOrDefault();
@@ -250,6 +250,8 @@ namespace ExpenseTracker.Elements {
 
 
             user.Transactions.Add( new Transaction(accountID) { Amount = decimal.Parse(tbExpenseAmount.Text), EffectDate = dtpAffectDate.Value, CategoryInfo = categoryInfo, Type = TransactionType.Income });
+
+            FillTransactions();
 
         }
 
