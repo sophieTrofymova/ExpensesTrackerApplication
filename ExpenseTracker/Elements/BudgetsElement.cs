@@ -30,7 +30,7 @@ namespace ExpenseTracker.Elements
         {
             dgvBudgets.Rows.Clear();
 
-            var budgets = MainForm.AppState.UserManager.LoggedUser?.Budgets;
+            var budgets = App.State.UserManager.LoggedUser?.Budgets;
             if (budgets != null)
             {
                 foreach (var budget in budgets)

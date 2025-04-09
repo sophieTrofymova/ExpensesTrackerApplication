@@ -14,7 +14,7 @@
 ////                this.NumRows = 2;
 
 ////                var accounts = new Element {
-////                    GroupBox = { Text = "Accounts" },
+////                    ThemedGroupBox = { Text = "Accounts" },
 ////                    Col = 0,
 ////                    Cols = 6,
 ////                    AllowDrag = false
@@ -73,7 +73,7 @@
 //        {
 
 //            var accountsGroupBox = new Element();
-//            accountsGroupBox.GroupBox.Text = $"";
+//            accountsGroupBox.ThemedGroupBox.Text = $"";
 //            accountsGroupBox.Col = 7;
 //            accountsGroupBox.Row = 4;
 //            accountsGroupBox.Cols = 14;
@@ -95,11 +95,11 @@
 //                }
 //            };
 
-//            accountsGroupBox.GroupBox.Controls.Add(accountsListView);
+//            accountsGroupBox.ThemedGroupBox.Controls.Add(accountsListView);
 //            LoadUserAccounts(accountsListView);
 
 
-//            // GroupBox to add new account
+//            // ThemedGroupBox to add new account
 //            var addAccountElement = new Element()
 //            {
 //                Title = "Add Account",
@@ -145,11 +145,11 @@
 //            };
 //            btnAdd.Click += (sender, e) => btnAdd_Click(sender, e, txtName, txtBalance);
 
-//            addAccountElement.GroupBox.Controls.Add(lblName);
-//            addAccountElement.GroupBox.Controls.Add(txtName);
-//            addAccountElement.GroupBox.Controls.Add(lblBalance);
-//            addAccountElement.GroupBox.Controls.Add(txtBalance);
-//            addAccountElement.GroupBox.Controls.Add(btnAdd);
+//            addAccountElement.ThemedGroupBox.Controls.Add(lblName);
+//            addAccountElement.ThemedGroupBox.Controls.Add(txtName);
+//            addAccountElement.ThemedGroupBox.Controls.Add(lblBalance);
+//            addAccountElement.ThemedGroupBox.Controls.Add(txtBalance);
+//            addAccountElement.ThemedGroupBox.Controls.Add(btnAdd);
 
 //            AddElements(new List<Element> { accountsElement, addAccountElement });
 //        }
@@ -200,6 +200,7 @@
 //        }
 
 //    }
+
 using ExpenseTracker;
 using ExpenseTracker.Elements;
 using ExpenseTracker.Controls;
@@ -245,6 +246,9 @@ namespace ExpenseTracker.Views
                 BackgroundColor = Color.White
             };
 
+
+            // ThemedGroupBox to add new account
+            var addAccountElement = new Element();
             dgvAccounts.Columns.Add("AccountName", "Account Name");
             dgvAccounts.Columns.Add("Balance", "Balance");
 
@@ -268,9 +272,9 @@ namespace ExpenseTracker.Views
                 {
                     string accountName = dgvAccounts.Rows[e.RowIndex].Cells[0].Value.ToString();
 
-                    var accountToRemove = MainForm.AppState.UserManager.LoggedUser.Accounts.FirstOrDefault(a => a.Name == accountName);
+                    var accountToRemove = App.State.UserManager.LoggedUser.Accounts.FirstOrDefault(a => a.Name == accountName);
                     if (accountToRemove != null)
-                        MainForm.AppState.UserManager.LoggedUser.Accounts.Remove(accountToRemove);
+                        App.State.UserManager.LoggedUser.Accounts.Remove(accountToRemove);
 
                     dgvAccounts.Rows.RemoveAt(e.RowIndex);
                 }
@@ -308,12 +312,17 @@ namespace ExpenseTracker.Views
             {
                 Text = "+",
                 Size = new Size(40, 40),
-                Location = new Point(accountsElement.GroupBox.Width - 60, accountsElement.GroupBox.Height - 60),
+                Location = new Point(accountsElement.ThemedGroupBox.Width - 60, accountsElement.ThemedGroupBox.Height - 60),
                 BackColor = Color.LightGreen,
                 FlatStyle = FlatStyle.Flat,
                 Font = new Font("Segoe UI", 14, FontStyle.Bold)
             };
 
+            //addAccountElement.ThemedGroupBox.Controls.Add(lblName);
+            //addAccountElement.ThemedGroupBox.Controls.Add(txtName);
+            //addAccountElement.ThemedGroupBox.Controls.Add(lblBalance);
+            //addAccountElement.ThemedGroupBox.Controls.Add(txtBalance);
+            //addAccountElement.ThemedGroupBox.Controls.Add(btnAdd);
             btnToggleAddForm.FlatAppearance.BorderSize = 0;
 
             GraphicsPath path = new GraphicsPath();
@@ -323,9 +332,9 @@ namespace ExpenseTracker.Views
             btnToggleAddForm.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnToggleAddForm.Click += (s, e) => pnlAddAccount.Visible = !pnlAddAccount.Visible;
 
-            accountsElement.GroupBox.Controls.Add(dgvAccounts);
-            accountsElement.GroupBox.Controls.Add(pnlAddAccount);
-            accountsElement.GroupBox.Controls.Add(btnToggleAddForm);
+            accountsElement.ThemedGroupBox.Controls.Add(dgvAccounts);
+            accountsElement.ThemedGroupBox.Controls.Add(pnlAddAccount);
+            accountsElement.ThemedGroupBox.Controls.Add(btnToggleAddForm);
 
             AddElements(new List<Element> { accountsElement });
             RefreshDataGrid();
@@ -349,7 +358,7 @@ namespace ExpenseTracker.Views
             }
 
             var newAccount = new Account(name, balance);
-            MainForm.AppState.UserManager.LoggedUser.Accounts.Add(newAccount);
+            App.State.UserManager.LoggedUser.Accounts.Add(newAccount);
 
             WF.MessageBox.Show($"Account '{name}' added with €{balance:F2} balance.");
 
@@ -362,7 +371,7 @@ namespace ExpenseTracker.Views
         private void RefreshDataGrid()
         {
             dgvAccounts.Rows.Clear();
-            var accounts = MainForm.AppState.UserManager.LoggedUser?.Accounts;
+            var accounts = App.State.UserManager.LoggedUser?.Accounts;
             if (accounts != null)
             {
                 foreach (var acc in accounts)

@@ -1,4 +1,6 @@
-﻿namespace ExpenseTracker.Elements {
+﻿using ExpenseTracker.Controls;
+
+namespace ExpenseTracker.Elements {
     partial class TransactionsElement: Element {
         /// <summary> 
         /// Required designer variable.
@@ -25,58 +27,54 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            monthDropDown = new ComboBox();
-            comboBox3 = new ComboBox();
-            comboBox4 = new ComboBox();
-            groupBox1 = new GroupBox();
-
+            monthDropDown = new ThemedComboBox();
+            groupBox1 = new ThemedGroupBox();
+            comboBox3 = new ThemedComboBox();
+            comboBox4 = new ThemedComboBox();
             bResetFilter = new Button();
-            cbTransfers = new CheckBox();
-            cbIncome = new CheckBox();
-            cbExpenses = new CheckBox();
-            accountsDropDown = new ComboBox();
+            cbTransfers = new ThemedCheckBox();
+            cbIncome = new ThemedCheckBox();
+            cbExpenses = new ThemedCheckBox();
+            accountsDropDown = new ThemedComboBox();
             label5 = new Label();
-            categoriesDropDown = new ComboBox();
-
+            categoriesDropDown = new ThemedComboBox();
             label4 = new Label();
-            groupBox2 = new GroupBox();
-            tbExpenseAmount = new TextBox();
+            groupBox2 = new ThemedGroupBox();
+            tbExpenseAmount = new ThemedTextBox();
             bAddExpense = new Button();
             dtpAffectDate = new DateTimePicker();
             label6 = new Label();
-            cbUserAccounts = new ComboBox();
+            cbUserAccounts = new ThemedComboBox();
             label7 = new Label();
             label3 = new Label();
             bCategory = new Label();
             label2 = new Label();
-            cbTransactionType = new ComboBox();
-            newTransactionCategoryDropDown = new ComboBox();
-            groupBox4 = new GroupBox();
-
+            cbTransactionType = new ThemedComboBox();
+            newTransactionCategoryDropDown = new ThemedComboBox();
+            groupBox4 = new ThemedGroupBox();
             transactionsList = new ListView();
             chDate = new ColumnHeader();
             chCategory = new ColumnHeader();
             chAmount = new ColumnHeader();
-
-            GroupBox.SuspendLayout();
+            ThemedGroupBox.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox4.SuspendLayout();
             SuspendLayout();
             // 
-            // GroupBox
+            // ThemedGroupBox
             // 
-            GroupBox.Controls.Add(groupBox1);
-            GroupBox.Controls.Add(groupBox4);
-            GroupBox.Controls.Add(groupBox2);
-            GroupBox.Size = new Size(1293, 797);
-            GroupBox.Text = "Transactions";
+            ThemedGroupBox.Controls.Add(groupBox1);
+            ThemedGroupBox.Controls.Add(groupBox4);
+            ThemedGroupBox.Controls.Add(groupBox2);
+            ThemedGroupBox.Size = new Size(1293, 758);
+            ThemedGroupBox.Text = "Transactions";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(490, 35);
+            label1.Location = new Point(466, 39);
             label1.Name = "label1";
             label1.Size = new Size(75, 28);
             label1.TabIndex = 3;
@@ -85,18 +83,21 @@
             // monthDropDown
             // 
             monthDropDown.BackColor = SystemColors.WindowFrame;
+            monthDropDown.DrawMode = DrawMode.OwnerDrawFixed;
+            monthDropDown.DropDownStyle = ComboBoxStyle.DropDownList;
             monthDropDown.ForeColor = Color.WhiteSmoke;
             monthDropDown.FormattingEnabled = true;
             monthDropDown.Items.AddRange(new object[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" });
-            monthDropDown.Location = new Point(508, 70);
+            monthDropDown.Location = new Point(466, 70);
             monthDropDown.Name = "monthDropDown";
-            monthDropDown.Size = new Size(197, 39);
+            monthDropDown.Size = new Size(197, 40);
             monthDropDown.TabIndex = 2;
             monthDropDown.SelectedIndexChanged += monthDropDown_SelectedIndexChanged;
             // 
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.BorderPadding = 8;
             groupBox1.Controls.Add(bResetFilter);
             groupBox1.Controls.Add(cbTransfers);
             groupBox1.Controls.Add(cbIncome);
@@ -108,9 +109,9 @@
             groupBox1.Controls.Add(monthDropDown);
             groupBox1.Controls.Add(label1);
             groupBox1.ForeColor = Color.White;
-            groupBox1.Location = new Point(35, 47);
+            groupBox1.Location = new Point(23, 47);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1229, 203);
+            groupBox1.Size = new Size(1250, 180);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Filter";
@@ -119,22 +120,25 @@
             // bResetFilter
             // 
             bResetFilter.FlatStyle = FlatStyle.Flat;
-            bResetFilter.Location = new Point(570, 138);
+            bResetFilter.Font = new Font("Segoe UI", 12F);
+            bResetFilter.Location = new Point(1074, 39);
             bResetFilter.Name = "bResetFilter";
             bResetFilter.Size = new Size(135, 42);
             bResetFilter.TabIndex = 5;
-            bResetFilter.Text = "Reset";
+            bResetFilter.Text = "Reset Filter";
             bResetFilter.UseVisualStyleBackColor = true;
             bResetFilter.Click += bResetFilter_Click;
             // 
             // cbTransfers
             // 
             cbTransfers.AutoSize = true;
+            cbTransfers.CheckBoxSize = 24;
             cbTransfers.Checked = true;
             cbTransfers.CheckState = CheckState.Checked;
-            cbTransfers.Location = new Point(364, 144);
+            cbTransfers.Font = new Font("Segoe UI", 12F);
+            cbTransfers.Location = new Point(273, 127);
             cbTransfers.Name = "cbTransfers";
-            cbTransfers.Size = new Size(120, 36);
+            cbTransfers.Size = new Size(101, 32);
             cbTransfers.TabIndex = 4;
             cbTransfers.Text = "Transfer";
             cbTransfers.UseVisualStyleBackColor = true;
@@ -143,11 +147,13 @@
             // cbIncome
             // 
             cbIncome.AutoSize = true;
+            cbIncome.CheckBoxSize = 24;
             cbIncome.Checked = true;
             cbIncome.CheckState = CheckState.Checked;
-            cbIncome.Location = new Point(214, 144);
+            cbIncome.Font = new Font("Segoe UI", 12F);
+            cbIncome.Location = new Point(158, 127);
             cbIncome.Name = "cbIncome";
-            cbIncome.Size = new Size(115, 36);
+            cbIncome.Size = new Size(98, 32);
             cbIncome.TabIndex = 4;
             cbIncome.Text = "Income";
             cbIncome.UseVisualStyleBackColor = true;
@@ -156,11 +162,13 @@
             // cbExpenses
             // 
             cbExpenses.AutoSize = true;
+            cbExpenses.CheckBoxSize = 24;
             cbExpenses.Checked = true;
             cbExpenses.CheckState = CheckState.Checked;
-            cbExpenses.Location = new Point(52, 144);
+            cbExpenses.Font = new Font("Segoe UI", 12F);
+            cbExpenses.Location = new Point(28, 127);
             cbExpenses.Name = "cbExpenses";
-            cbExpenses.Size = new Size(133, 36);
+            cbExpenses.Size = new Size(112, 32);
             cbExpenses.TabIndex = 4;
             cbExpenses.Text = "Expenses";
             cbExpenses.UseVisualStyleBackColor = true;
@@ -169,11 +177,13 @@
             // accountsDropDown
             // 
             accountsDropDown.BackColor = SystemColors.WindowFrame;
+            accountsDropDown.DrawMode = DrawMode.OwnerDrawFixed;
+            accountsDropDown.DropDownStyle = ComboBoxStyle.DropDownList;
             accountsDropDown.ForeColor = Color.WhiteSmoke;
             accountsDropDown.FormattingEnabled = true;
-            accountsDropDown.Location = new Point(276, 70);
+            accountsDropDown.Location = new Point(247, 71);
             accountsDropDown.Name = "accountsDropDown";
-            accountsDropDown.Size = new Size(197, 39);
+            accountsDropDown.Size = new Size(197, 40);
             accountsDropDown.TabIndex = 2;
             accountsDropDown.SelectedIndexChanged += accountsDropDown_SelectedIndexChanged;
             // 
@@ -181,20 +191,23 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(258, 35);
+            label5.Location = new Point(247, 40);
             label5.Name = "label5";
             label5.Size = new Size(88, 28);
             label5.TabIndex = 3;
             label5.Text = "Account:";
+            label5.Click += label5_Click;
             // 
             // categoriesDropDown
             // 
             categoriesDropDown.BackColor = SystemColors.WindowFrame;
+            categoriesDropDown.DrawMode = DrawMode.OwnerDrawFixed;
+            categoriesDropDown.DropDownStyle = ComboBoxStyle.DropDownList;
             categoriesDropDown.ForeColor = Color.WhiteSmoke;
             categoriesDropDown.FormattingEnabled = true;
-            categoriesDropDown.Location = new Point(40, 70);
+            categoriesDropDown.Location = new Point(28, 71);
             categoriesDropDown.Name = "categoriesDropDown";
-            categoriesDropDown.Size = new Size(197, 39);
+            categoriesDropDown.Size = new Size(197, 40);
             categoriesDropDown.TabIndex = 2;
             categoriesDropDown.SelectedIndexChanged += categoriesDropDown_SelectedIndexChanged;
             // 
@@ -202,7 +215,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(22, 35);
+            label4.Location = new Point(27, 40);
             label4.Name = "label4";
             label4.Size = new Size(96, 28);
             label4.TabIndex = 3;
@@ -248,6 +261,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.BorderPadding = 8;
             groupBox2.Controls.Add(tbExpenseAmount);
             groupBox2.Controls.Add(bAddExpense);
             groupBox2.Controls.Add(dtpAffectDate);
@@ -260,21 +274,28 @@
             groupBox2.Controls.Add(cbTransactionType);
             groupBox2.Controls.Add(newTransactionCategoryDropDown);
             groupBox2.ForeColor = Color.White;
-            groupBox2.Location = new Point(35, 266);
+            groupBox2.Location = new Point(23, 233);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(347, 478);
+            groupBox2.Size = new Size(347, 511);
             groupBox2.TabIndex = 4;
             groupBox2.TabStop = false;
             groupBox2.Text = "Add Transaction";
             // 
             // tbExpenseAmount
             // 
-            tbExpenseAmount.BackColor = SystemColors.WindowFrame;
-            tbExpenseAmount.ForeColor = Color.WhiteSmoke;
+            tbExpenseAmount.AutoCompleteMode = AutoCompleteMode.None;
+            tbExpenseAmount.AutoCompleteSource = AutoCompleteSource.None;
+            tbExpenseAmount.AutoSize = true;
+            tbExpenseAmount.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tbExpenseAmount.BorderThickness = 1;
+            tbExpenseAmount.CharacterCasing = CharacterCasing.Normal;
+            tbExpenseAmount.InnerPadding = new Padding(4);
             tbExpenseAmount.Location = new Point(40, 297);
             tbExpenseAmount.Name = "tbExpenseAmount";
-            tbExpenseAmount.Size = new Size(289, 39);
+            tbExpenseAmount.Size = new Size(223, 39);
             tbExpenseAmount.TabIndex = 6;
+            tbExpenseAmount.TextAlign = HorizontalAlignment.Left;
+            tbExpenseAmount.UseSystemPasswordChar = false;
             // 
             // bAddExpense
             // 
@@ -311,11 +332,13 @@
             // cbUserAccounts
             // 
             cbUserAccounts.BackColor = SystemColors.WindowFrame;
+            cbUserAccounts.DrawMode = DrawMode.OwnerDrawFixed;
+            cbUserAccounts.DropDownStyle = ComboBoxStyle.DropDownList;
             cbUserAccounts.ForeColor = Color.WhiteSmoke;
             cbUserAccounts.FormattingEnabled = true;
             cbUserAccounts.Location = new Point(40, 151);
             cbUserAccounts.Name = "cbUserAccounts";
-            cbUserAccounts.Size = new Size(289, 39);
+            cbUserAccounts.Size = new Size(289, 40);
             cbUserAccounts.TabIndex = 2;
             cbUserAccounts.SelectedIndexChanged += accountsDropDown_SelectedIndexChanged;
             // 
@@ -365,33 +388,38 @@
             // cbTransactionType
             // 
             cbTransactionType.BackColor = SystemColors.WindowFrame;
+            cbTransactionType.DrawMode = DrawMode.OwnerDrawFixed;
+            cbTransactionType.DropDownStyle = ComboBoxStyle.DropDownList;
             cbTransactionType.ForeColor = Color.WhiteSmoke;
             cbTransactionType.FormattingEnabled = true;
             cbTransactionType.Location = new Point(40, 78);
             cbTransactionType.Name = "cbTransactionType";
-            cbTransactionType.Size = new Size(289, 39);
+            cbTransactionType.Size = new Size(289, 40);
             cbTransactionType.TabIndex = 2;
             cbTransactionType.SelectedIndexChanged += cbTransactionType_SelectedIndexChanged;
             // 
-            // expenseCategoriesDropDown
+            // newTransactionCategoryDropDown
             // 
             newTransactionCategoryDropDown.BackColor = SystemColors.WindowFrame;
+            newTransactionCategoryDropDown.DrawMode = DrawMode.OwnerDrawFixed;
+            newTransactionCategoryDropDown.DropDownStyle = ComboBoxStyle.DropDownList;
             newTransactionCategoryDropDown.ForeColor = Color.WhiteSmoke;
             newTransactionCategoryDropDown.FormattingEnabled = true;
             newTransactionCategoryDropDown.Location = new Point(40, 224);
-            newTransactionCategoryDropDown.Name = "expenseCategoriesDropDown";
-            newTransactionCategoryDropDown.Size = new Size(289, 39);
+            newTransactionCategoryDropDown.Name = "newTransactionCategoryDropDown";
+            newTransactionCategoryDropDown.Size = new Size(289, 40);
             newTransactionCategoryDropDown.TabIndex = 2;
             newTransactionCategoryDropDown.SelectedIndexChanged += categoriesDropDown_SelectedIndexChanged;
             // 
             // groupBox4
             // 
             groupBox4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox4.BorderPadding = 8;
             groupBox4.Controls.Add(transactionsList);
             groupBox4.ForeColor = Color.White;
-            groupBox4.Location = new Point(399, 266);
+            groupBox4.Location = new Point(376, 233);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(865, 478);
+            groupBox4.Size = new Size(897, 511);
             groupBox4.TabIndex = 4;
             groupBox4.TabStop = false;
             groupBox4.Text = "Transactions";
@@ -404,9 +432,9 @@
             transactionsList.ForeColor = Color.WhiteSmoke;
             transactionsList.FullRowSelect = true;
             transactionsList.GridLines = true;
-            transactionsList.Location = new Point(18, 38);
+            transactionsList.Location = new Point(24, 45);
             transactionsList.Name = "transactionsList";
-            transactionsList.Size = new Size(830, 422);
+            transactionsList.Size = new Size(853, 442);
             transactionsList.TabIndex = 0;
             transactionsList.UseCompatibleStateImageBehavior = false;
             transactionsList.View = View.Details;
@@ -430,9 +458,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             Location = new Point(0, 0);
             Name = "TransactionsElement";
-            Size = new Size(1306, 847);
+            Size = new Size(1306, 808);
             Title = "Transactions";
-            GroupBox.ResumeLayout(false);
+            ThemedGroupBox.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
@@ -443,35 +471,36 @@
 
         #endregion
 
-        private GroupBox groupBox1;
-        public ComboBox monthDropDown;
-        private Label label1; 
-        public ComboBox comboBox3;
-        public ComboBox comboBox4;
-        private GroupBox groupBox4;
-        private GroupBox groupBox2;
+
+        private ThemedGroupBox groupBox1;
+        public ThemedComboBox monthDropDown;
+        private Label label1;
+        private ThemedGroupBox groupBox4;
+        private ThemedGroupBox groupBox2;
+        public ThemedComboBox comboBox3;
+        public ThemedComboBox comboBox4;
         private Label label2;
-        public ComboBox categoriesDropDown;
+        public ThemedComboBox categoriesDropDown;
         private Label label4;
-        public ComboBox accountsDropDown;
+        public ThemedComboBox accountsDropDown;
         private Label label5;
         public ListView transactionsList;
         private ColumnHeader chDate;
         private ColumnHeader chCategory;
         private ColumnHeader chAmount;
-        private CheckBox cbIncome;
-        private CheckBox cbExpenses;
-        private CheckBox cbTransfers;
+        private ThemedCheckBox cbIncome;
+        private ThemedCheckBox cbExpenses;
+        private ThemedCheckBox cbTransfers;
         private Button bResetFilter;
         private Button bAddExpense;
         private DateTimePicker dtpAffectDate;
         private Label bCategory;
-        private TextBox tbExpenseAmount;
+        private ThemedTextBox tbExpenseAmount;
         private Label label6;
-        public ComboBox newTransactionCategoryDropDown;
-        public ComboBox cbUserAccounts;
+        public ThemedComboBox newTransactionCategoryDropDown;
+        public ThemedComboBox cbUserAccounts;
         private Label label7;
         private Label label3;
-        public ComboBox cbTransactionType;
+        public ThemedComboBox cbTransactionType;
     }
 }

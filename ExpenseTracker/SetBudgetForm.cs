@@ -21,7 +21,7 @@ namespace ExpenseTracker
 
         private void PopulateAccounts(ComboBox cmbAccountBudget)
         {
-            if (MainForm.AppState.UserManager.LoggedUser?.Accounts == null || MainForm.AppState.UserManager.LoggedUser.Accounts.Count == 0)
+            if (App.State.UserManager.LoggedUser?.Accounts == null || App.State.UserManager.LoggedUser.Accounts.Count == 0)
             {
                 MessageBox.Show("No accounts found. Please add an account first.");
                 return;
@@ -29,7 +29,7 @@ namespace ExpenseTracker
 
             cmbAccountBudget.Items.Clear();
 
-            foreach (var account in MainForm.AppState.UserManager.LoggedUser.Accounts)
+            foreach (var account in App.State.UserManager.LoggedUser.Accounts)
             {
                 cmbAccountBudget.Items.Add(account.Name);
             }
@@ -67,7 +67,7 @@ namespace ExpenseTracker
                     if (cmbAccountBudget.SelectedItem != null)
                     {
                         string selectedAccountName = cmbAccountBudget.SelectedItem.ToString();
-                        var selectedAccount = MainForm.AppState.UserManager.LoggedUser
+                        var selectedAccount = App.State.UserManager.LoggedUser
                             .Accounts.FirstOrDefault(a => a.Name == selectedAccountName);
 
                         if (selectedAccount != null)
@@ -82,7 +82,7 @@ namespace ExpenseTracker
                                     accountsIDs: new List<Guid> { selectedAccount.ID }
                                 );
 
-                                MainForm.AppState.UserManager.LoggedUser.Budgets.Add(budget);
+                                App.State.UserManager.LoggedUser.Budgets.Add(budget);
 
                                 MessageBox.Show($"New budget set: {budget.Name}, Limit: €{budget.AmountLimit}");
 

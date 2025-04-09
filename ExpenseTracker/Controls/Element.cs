@@ -31,7 +31,7 @@ namespace ExpenseTracker {
         bool isDragAllowed = false;
         public bool AllowDrag { get { return isDragAllowed; } set { isDragAllowed = value; DragAdjust(); } }
 
-        public string Title { get { return GroupBox.Text; } set { GroupBox.Text = value; } }
+        public string Title { get { return ThemedGroupBox.Text; } set { ThemedGroupBox.Text = value; } }
 
         public Element() {
             InitializeComponent();
@@ -44,22 +44,22 @@ namespace ExpenseTracker {
             this.MouseMove += draggablePanel_MouseMove;
             this.MouseUp += draggablePanel_MouseUp;
             //this.BackColor = MainForm.AppState.Settings.CurrentTheme.GetColor( Storage.ThemeColor.ElementBackColor);
-            //this.GroupBox.BackColor =  MainForm.AppState.Settings.CurrentTheme.GetColor(Storage.ThemeColor.ElementBackColor);
-            //this.GroupBox.ForeColor = MainForm.AppState.Settings.CurrentTheme.GetColor(Storage.ThemeColor.CaptionColor);
+            //this.ThemedGroupBox.BackColor =  MainForm.AppState.Settings.CurrentTheme.GetColor(Storage.ThemeColor.ElementBackColor);
+            //this.ThemedGroupBox.ForeColor = MainForm.AppState.Settings.CurrentTheme.GetColor(Storage.ThemeColor.CaptionColor);
         }
 
 
         private void DragAdjust() {
             if (isDragAllowed) {
                 this.Padding = new Padding(5, 35, 5, 5);
-                this.GroupBox.Dock = DockStyle.None;
-                this.GroupBox.Location = new Point(5, 35);
+                this.ThemedGroupBox.Dock = DockStyle.None;
+                this.ThemedGroupBox.Location = new Point(5, 35);
             }
             else {
 
                 this.Padding = new Padding(5);
-                this.GroupBox.Dock = DockStyle.Fill;
-                this.GroupBox.Location = new Point(0, 35);
+                this.ThemedGroupBox.Dock = DockStyle.Fill;
+                this.ThemedGroupBox.Location = new Point(0, 35);
             }
         }
 

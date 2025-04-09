@@ -11,7 +11,7 @@ namespace ExpenseTracker {
     public class Transaction {
 
         // Unique identifier
-        public Guid ID { get; set; } = Guid.NewGuid();
+        public Guid ID { get; set; } 
 
         // Metadata for management 
         public DateTime CreationDate { get; private set; } = DateTime.Now;
@@ -45,7 +45,13 @@ namespace ExpenseTracker {
         // repeat settings
         public RecurrenceInfo? RecurrenceInfo { get; set; }
 
+        public Transaction()
+        {
+            
+        }
+
         public Transaction(Guid creatorAccount) {
+            ID = Guid.NewGuid();
             SenderAccount = creatorAccount;
         }
     }
