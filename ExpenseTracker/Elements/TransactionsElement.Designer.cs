@@ -24,10 +24,13 @@ namespace ExpenseTracker.Elements {
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             label1 = new Label();
             monthDropDown = new ThemedComboBox();
             groupBox1 = new ThemedGroupBox();
+            comboBox3 = new ThemedComboBox();
+            comboBox4 = new ThemedComboBox();
             bResetFilter = new Button();
             cbTransfers = new ThemedCheckBox();
             cbIncome = new ThemedCheckBox();
@@ -218,6 +221,44 @@ namespace ExpenseTracker.Elements {
             label4.TabIndex = 3;
             label4.Text = "Category:";
             // 
+            // comboBox4
+            // 
+            comboBox4.BackColor = SystemColors.WindowFrame;
+            comboBox4.FormattingEnabled = true;
+            comboBox4.Items.AddRange(new object[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" });
+            comboBox4.Location = new Point(610, 70);
+            comboBox4.Name = "comboBox4";
+            comboBox4.Size = new Size(197, 39);
+            comboBox4.TabIndex = 2;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(592, 35);
+            label5.Name = "label5";
+            label5.Size = new Size(106, 32);
+            label5.TabIndex = 3;
+            label5.Text = "Account:";
+            // 
+            // comboBox3
+            // 
+            comboBox3.BackColor = SystemColors.WindowFrame;
+            comboBox3.FormattingEnabled = true;
+            comboBox3.Items.AddRange(new object[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" });
+            comboBox3.Location = new Point(296, 70);
+            comboBox3.Name = "comboBox3";
+            comboBox3.Size = new Size(197, 39);
+            comboBox3.TabIndex = 2;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(278, 35);
+            label4.Name = "label4";
+            label4.Size = new Size(115, 32);
+            label4.TabIndex = 3;
+            label4.Text = "Category:";
+            // 
             // groupBox2
             // 
             groupBox2.BorderPadding = 8;
@@ -398,6 +439,7 @@ namespace ExpenseTracker.Elements {
             transactionsList.UseCompatibleStateImageBehavior = false;
             transactionsList.View = View.Details;
             // 
+
             // chDate
             // 
             chDate.Text = "Date";
@@ -409,7 +451,7 @@ namespace ExpenseTracker.Elements {
             // chAmount
             // 
             chAmount.Text = "Amount";
-            // 
+
             // TransactionsElement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -429,11 +471,14 @@ namespace ExpenseTracker.Elements {
 
         #endregion
 
+
         private ThemedGroupBox groupBox1;
         public ThemedComboBox monthDropDown;
         private Label label1;
         private ThemedGroupBox groupBox4;
         private ThemedGroupBox groupBox2;
+        public ThemedComboBox comboBox3;
+        public ThemedComboBox comboBox4;
         private Label label2;
         public ThemedComboBox categoriesDropDown;
         private Label label4;
