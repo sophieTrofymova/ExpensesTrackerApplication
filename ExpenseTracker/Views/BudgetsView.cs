@@ -12,7 +12,7 @@ namespace ExpenseTracker.Views {
                 this.NumRows = 2;
 
                 var budgets = new Element {
-                    GroupBox = { Text = "Budgets" },
+                    ThemedGroupBox = { Text = "Budgets" },
                     Col = 0,
                     Cols = 6,
                     AllowDrag = false

@@ -12,21 +12,21 @@ namespace ExpenseTracker.Views {
                 this.NumRows = 2;
 
                 var chart1 = new Element {
-                    GroupBox = { Text = "Chart 1" },
+                    ThemedGroupBox = { Text = "Chart 1" },
                     Col = 0,
                     Cols = 2,
                     AllowDrag = false
                 };
 
                 var chart2 = new Element {
-                    GroupBox = { Text = "Chart 2" },
+                    ThemedGroupBox = { Text = "Chart 2" },
                     Col = 2,
                     Cols = 2,
                     AllowDrag = false
                 };
 
                 var chart3 = new Element {
-                    GroupBox = { Text = "Chart 3" },
+                    ThemedGroupBox = { Text = "Chart 3" },
                     Col = 4,
                     Cols = 2,
                     AllowDrag = false

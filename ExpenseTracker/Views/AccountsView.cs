@@ -47,10 +47,10 @@ namespace ExpenseTracker.Views
                 }
             };
 
-            accountsElement.GroupBox.Controls.Add(accountsListView);
+            accountsElement.ThemedGroupBox.Controls.Add(accountsListView);
             LoadUserAccounts(accountsListView);
 
-            // GroupBox to add new account
+            // ThemedGroupBox to add new account
             var addAccountElement = new Element()
             {
                 Title = "Add Account",
@@ -96,11 +96,11 @@ namespace ExpenseTracker.Views
             };
             btnAdd.Click += (sender, e) => btnAdd_Click(sender, e, txtName, txtBalance);
 
-            addAccountElement.GroupBox.Controls.Add(lblName);
-            addAccountElement.GroupBox.Controls.Add(txtName);
-            addAccountElement.GroupBox.Controls.Add(lblBalance);
-            addAccountElement.GroupBox.Controls.Add(txtBalance);
-            addAccountElement.GroupBox.Controls.Add(btnAdd);
+            addAccountElement.ThemedGroupBox.Controls.Add(lblName);
+            addAccountElement.ThemedGroupBox.Controls.Add(txtName);
+            addAccountElement.ThemedGroupBox.Controls.Add(lblBalance);
+            addAccountElement.ThemedGroupBox.Controls.Add(txtBalance);
+            addAccountElement.ThemedGroupBox.Controls.Add(btnAdd);
 
             AddElements(new List<Element> { accountsElement, addAccountElement });
         }

@@ -23,16 +23,16 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            monthDropDown = new ComboBox();
+            monthDropDown = new ThemedComboBox();
             label1 = new Label();
-            GroupBox.SuspendLayout();
+            ThemedGroupBox.SuspendLayout();
             SuspendLayout();
             // 
-            // GroupBox
+            // ThemedGroupBox
             // 
-            GroupBox.Controls.Add(label1);
-            GroupBox.Controls.Add(monthDropDown);
-            GroupBox.Size = new Size(607, 330);
+            ThemedGroupBox.Controls.Add(label1);
+            ThemedGroupBox.Controls.Add(monthDropDown);
+            ThemedGroupBox.Size = new Size(607, 330);
             // 
             // monthDropDown
             // 
@@ -59,14 +59,14 @@
             Location = new Point(0, 0);
             Name = "FilterTransactionsElement";
             Size = new Size(617, 380);
-            GroupBox.ResumeLayout(false);
-            GroupBox.PerformLayout();
+            ThemedGroupBox.ResumeLayout(false);
+            ThemedGroupBox.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Label label1;
-        public ComboBox monthDropDown;
+        public ThemedComboBox monthDropDown;
     }
 }

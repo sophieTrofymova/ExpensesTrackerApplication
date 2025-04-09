@@ -13,7 +13,7 @@ namespace ExpenseTracker.Views {
                 ClearElements();
 
                 var settings = new Element();
-                settings.GroupBox.Text = "Settings";
+                settings.ThemedGroupBox.Text = "Settings";
                 settings.Col = 1;
                 settings.Row = 1;
 

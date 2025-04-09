@@ -83,7 +83,7 @@ namespace ExpenseTracker.Elements {
 
             if (cbTransactionType.Text != "") {
                 newTransactionCategoryDropDown.Items.Clear();
-      
+
                 switch (cbTransactionType.Text) {
                     case "Expense":
                         newTransactionCategoryDropDown.Items.AddRange(expenseCategories.ToArray());
@@ -123,8 +123,8 @@ namespace ExpenseTracker.Elements {
 
                 if (FFCategory != "" && transaction.CategoryInfo.Description != FFCategory)
                     continue;
-                if (FFSelectedAccount != null ) {
-                    if(transaction.SenderAccount != FFSelectedAccount.ID) {
+                if (FFSelectedAccount != null) {
+                    if (transaction.SenderAccount != FFSelectedAccount.ID) {
                         continue;
                     }
                 }
@@ -155,9 +155,9 @@ namespace ExpenseTracker.Elements {
                 Account? receiver = user.Accounts.Select(a => a).Where(a => a.ID == transaction.ReceiverAccount).FirstOrDefault();
 
 
-                
-                item.SubItems.Add((sender == null) ?"" : sender.Name  );
-                item.SubItems.Add((receiver == null) ? "": receiver.Name);
+
+                item.SubItems.Add((sender == null) ? "" : sender.Name);
+                item.SubItems.Add((receiver == null) ? "" : receiver.Name);
 
                 transactionsList.Items.Add(item);
             }
@@ -234,7 +234,7 @@ namespace ExpenseTracker.Elements {
 
 
                     default:
-                        
+
                         break;
                 }
 
@@ -242,14 +242,14 @@ namespace ExpenseTracker.Elements {
             }
 
 
-             
+
 
 
             var accountID = user.Accounts.Select(a => a).Where(a => a.Name == cbUserAccounts.Text).FirstOrDefault().ID;
 
 
 
-            user.Transactions.Add( new Transaction(accountID) { Amount = decimal.Parse(tbExpenseAmount.Text), EffectDate = dtpAffectDate.Value, CategoryInfo = categoryInfo, Type = TransactionType.Income });
+            user.Transactions.Add(new Transaction(accountID) { Amount = decimal.Parse(tbExpenseAmount.Text), EffectDate = dtpAffectDate.Value, CategoryInfo = categoryInfo, Type = TransactionType.Income });
 
             FillTransactions();
 
@@ -271,6 +271,8 @@ namespace ExpenseTracker.Elements {
             FillCategories();
         }
 
+        private void label5_Click(object sender, EventArgs e) {
 
+        }
     }
 }

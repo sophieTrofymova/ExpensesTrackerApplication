@@ -123,16 +123,16 @@ namespace ExpenseTracker.Views {
             btnAddIncome.Click += (sender, e) => btnAddIncome_Click(sender, e, dropDownCategoryIncome, txtValueAddIncome, dropDownAccountIncome);
 
 
-            incomeGroupBox.GroupBox.Controls.Add(lblCategoryIncome);
-            incomeGroupBox.GroupBox.Controls.Add(dropDownCategoryIncome);
-            incomeGroupBox.GroupBox.Controls.Add(lblAccountIncome);
-            incomeGroupBox.GroupBox.Controls.Add(dropDownAccountIncome);
-            incomeGroupBox.GroupBox.Controls.Add(lblValueIncome);
-            incomeGroupBox.GroupBox.Controls.Add(txtValueAddIncome);
-            incomeGroupBox.GroupBox.Controls.Add(btnAddIncome);
+            incomeGroupBox.ThemedGroupBox.Controls.Add(lblCategoryIncome);
+            incomeGroupBox.ThemedGroupBox.Controls.Add(dropDownCategoryIncome);
+            incomeGroupBox.ThemedGroupBox.Controls.Add(lblAccountIncome);
+            incomeGroupBox.ThemedGroupBox.Controls.Add(dropDownAccountIncome);
+            incomeGroupBox.ThemedGroupBox.Controls.Add(lblValueIncome);
+            incomeGroupBox.ThemedGroupBox.Controls.Add(txtValueAddIncome);
+            incomeGroupBox.ThemedGroupBox.Controls.Add(btnAddIncome);
 
             var expenseGroupBox = new Element();
-            expenseGroupBox.GroupBox.Text = "Add Expense";
+            expenseGroupBox.ThemedGroupBox.Text = "Add Expense";
             expenseGroupBox.Col = 1;
             expenseGroupBox.Row = 8;
             expenseGroupBox.Cols = 6;
@@ -194,20 +194,20 @@ namespace ExpenseTracker.Views {
             };
             btnAddExpense.Click += (sender, e) => btnAddExpense_Click(sender, e, dropDownCategoryExpense, txtValueAddExpense, dropDownAccountExpense);
 
-            // Add to GroupBox
-            expenseGroupBox.GroupBox.Controls.Add(lblCategoryExpense);
-            expenseGroupBox.GroupBox.Controls.Add(dropDownCategoryExpense);
-            expenseGroupBox.GroupBox.Controls.Add(lblAccountExpense);
-            expenseGroupBox.GroupBox.Controls.Add(dropDownAccountExpense);
-            expenseGroupBox.GroupBox.Controls.Add(lblAmountExpense);
-            expenseGroupBox.GroupBox.Controls.Add(txtValueAddExpense);
-            expenseGroupBox.GroupBox.Controls.Add(btnAddExpense);
+            // Add to ThemedGroupBox
+            expenseGroupBox.ThemedGroupBox.Controls.Add(lblCategoryExpense);
+            expenseGroupBox.ThemedGroupBox.Controls.Add(dropDownCategoryExpense);
+            expenseGroupBox.ThemedGroupBox.Controls.Add(lblAccountExpense);
+            expenseGroupBox.ThemedGroupBox.Controls.Add(dropDownAccountExpense);
+            expenseGroupBox.ThemedGroupBox.Controls.Add(lblAmountExpense);
+            expenseGroupBox.ThemedGroupBox.Controls.Add(txtValueAddExpense);
+            expenseGroupBox.ThemedGroupBox.Controls.Add(btnAddExpense);
 
 
             string selectedMonthName = filter.monthDropDown.SelectedItem?.ToString() ?? "Current Month";
 
             var transactionsGroupBox = new Element();
-            transactionsGroupBox.GroupBox.Text = $"Transactions for {selectedMonthName}";
+            transactionsGroupBox.ThemedGroupBox.Text = $"Transactions for {selectedMonthName}";
             transactionsGroupBox.Col = 7;
             transactionsGroupBox.Row = 4;
             transactionsGroupBox.Cols = 14;
@@ -229,7 +229,7 @@ namespace ExpenseTracker.Views {
                 }
             };
 
-            transactionsGroupBox.GroupBox.Controls.Add(transactionListView);
+            transactionsGroupBox.ThemedGroupBox.Controls.Add(transactionListView);
 
             LoadTransactions(transactionListView, selectedMonthName);
 
