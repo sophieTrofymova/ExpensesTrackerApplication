@@ -26,6 +26,8 @@
         {
             label1 = new Label();
             monthDropDown = new ComboBox();
+            comboBox3 = new ComboBox();
+            comboBox4 = new ComboBox();
             groupBox1 = new GroupBox();
 
             bResetFilter = new Button();
@@ -443,7 +445,9 @@
 
         private GroupBox groupBox1;
         public ComboBox monthDropDown;
-        private Label label1;
+        private Label label1; 
+        public ComboBox comboBox3;
+        public ComboBox comboBox4;
         private GroupBox groupBox4;
         private GroupBox groupBox2;
         private Label label2;
