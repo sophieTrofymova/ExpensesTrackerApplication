@@ -79,7 +79,7 @@ namespace ExpenseTracker {
             InitViews();
 
 
-            new ControlsTestingForm().ShowDialog();
+            //new ControlsTestingForm().ShowDialog();
         }
 
 

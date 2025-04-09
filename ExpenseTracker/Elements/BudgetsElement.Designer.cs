@@ -1,4 +1,6 @@
-﻿namespace ExpenseTracker.Elements
+﻿using ExpenseTracker.Controls;
+
+namespace ExpenseTracker.Elements
 {
     partial class BudgetsElement
     {
@@ -30,18 +32,18 @@
         {
             dgvBudgets = new DataGridView();
             btnAddBudget = new Button();
-            Budgets = new GroupBox();
-            GroupBox.SuspendLayout();
+            Budgets = new ThemedGroupBox();
+            ThemedGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvBudgets).BeginInit();
             Budgets.SuspendLayout();
             SuspendLayout();
             // 
-            // GroupBox
+            // ThemedGroupBox
             // 
-            GroupBox.Controls.Add(Budgets);
-            GroupBox.Controls.Add(btnAddBudget);
-            GroupBox.Location = new Point(2, 19);
-            GroupBox.Size = new Size(774, 519);
+            ThemedGroupBox.Controls.Add(Budgets);
+            ThemedGroupBox.Controls.Add(btnAddBudget);
+            ThemedGroupBox.Location = new Point(2, 19);
+            ThemedGroupBox.Size = new Size(774, 519);
             // 
             // dgvBudgets
             // 
@@ -88,7 +90,7 @@
             Location = new Point(0, 0);
             Name = "BudgetsElement";
             Size = new Size(784, 556);
-            GroupBox.ResumeLayout(false);
+            ThemedGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvBudgets).EndInit();
             Budgets.ResumeLayout(false);
             ResumeLayout(false);
@@ -98,6 +100,6 @@
 
         private DataGridView dgvBudgets;
         private Button btnAddBudget;
-        private GroupBox Budgets;
+        private ThemedGroupBox Budgets;
     }
 }

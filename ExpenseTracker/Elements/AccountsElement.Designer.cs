@@ -1,4 +1,6 @@
-﻿namespace ExpenseTracker.Elements
+﻿using ExpenseTracker.Controls;
+
+namespace ExpenseTracker.Elements
 {
     partial class AccountsElement
     {
@@ -30,9 +32,9 @@
         {
             SuspendLayout();
             // 
-            // GroupBox
+            // ThemedGroupBox
             // 
-            GroupBox.Size = new Size(520, 392);
+            ThemedGroupBox.Size = new Size(520, 392);
             // 
             // AccountsElement
             // 
