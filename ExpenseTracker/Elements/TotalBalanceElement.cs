@@ -40,7 +40,7 @@ namespace ExpenseTracker {
 
             foreach (var acc in accounts) {
                 var item = new ListViewItem(acc.Name);
-                item.SubItems.Add(acc.Balance.ToCurrencyString(MainForm.AppState.Settings.CurrencyType));
+                item.SubItems.Add(acc.Balance.ToCurrencyString(App.State.Settings.CurrencyType));
                 this.AccountList.Items.Add(item);
             }
         }

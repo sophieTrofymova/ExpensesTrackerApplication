@@ -24,14 +24,14 @@
         /// </summary>
         private void InitializeComponent() {
             AccountList = new ListView();
-            GroupBox.SuspendLayout();
+            ThemedGroupBox.SuspendLayout();
             SuspendLayout();
             // 
-            // GroupBox
+            // ThemedGroupBox
             // 
-            GroupBox.Controls.Add(AccountList);
-            GroupBox.Padding = new Padding(20);
-            GroupBox.Size = new Size(762, 370);
+            ThemedGroupBox.Controls.Add(AccountList);
+            ThemedGroupBox.Padding = new Padding(20);
+            ThemedGroupBox.Size = new Size(762, 370);
             // 
             // AccountList
             // 
@@ -49,7 +49,7 @@
             Location = new Point(0, 0);
             Name = "TotalBalanceElement";
             Size = new Size(775, 445);
-            GroupBox.ResumeLayout(false);
+            ThemedGroupBox.ResumeLayout(false);
             ResumeLayout(false);
         }
 

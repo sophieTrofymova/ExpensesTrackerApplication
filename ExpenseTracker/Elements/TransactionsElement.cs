@@ -34,7 +34,7 @@ namespace ExpenseTracker.Elements {
         }
 
 
-        User user = MainForm.AppState.UserManager.LoggedUser;
+        User user = App.State.UserManager.LoggedUser;
 
         public TransactionsElement() {
             InitializeComponent();
@@ -66,7 +66,7 @@ namespace ExpenseTracker.Elements {
                     new WF.ColumnHeader { Text = "Category", Width = 180 },
                     new WF.ColumnHeader { Text = "Amount", Width = 100 },
                     new WF.ColumnHeader { Text = "Sender Account", Width = 100 },
-                       new WF.ColumnHeader { Text = "Receiver Account", Width = 100 }
+                    new WF.ColumnHeader { Text = "Receiver Account", Width = 100 }
                 }
             );
         }
@@ -83,7 +83,7 @@ namespace ExpenseTracker.Elements {
 
             if (cbTransactionType.Text != "") {
                 newTransactionCategoryDropDown.Items.Clear();
-      
+
                 switch (cbTransactionType.Text) {
                     case "Expense":
                         newTransactionCategoryDropDown.Items.AddRange(expenseCategories.ToArray());
@@ -123,8 +123,8 @@ namespace ExpenseTracker.Elements {
 
                 if (FFCategory != "" && transaction.CategoryInfo.Description != FFCategory)
                     continue;
-                if (FFSelectedAccount != null ) {
-                    if(transaction.SenderAccount != FFSelectedAccount.ID) {
+                if (FFSelectedAccount != null) {
+                    if (transaction.SenderAccount != FFSelectedAccount.ID) {
                         continue;
                     }
                 }
@@ -147,7 +147,7 @@ namespace ExpenseTracker.Elements {
 
                 var item = new ListViewItem(transaction.EffectDate.ToString("dd MMM yyyy"));
                 item.SubItems.Add(transaction.CategoryDescription);
-                item.SubItems.Add(transaction.Amount.ToCurrencyString(MainForm.AppState.Settings.CurrencyType));
+                item.SubItems.Add(transaction.Amount.ToCurrencyString(App.State.Settings.CurrencyType));
 
 
                 Account? sender = user.Accounts.Select(a => a).Where(a => a.ID == transaction.SenderAccount).FirstOrDefault();
@@ -155,9 +155,9 @@ namespace ExpenseTracker.Elements {
                 Account? receiver = user.Accounts.Select(a => a).Where(a => a.ID == transaction.ReceiverAccount).FirstOrDefault();
 
 
-                
-                item.SubItems.Add((sender == null) ?"" : sender.Name  );
-                item.SubItems.Add((receiver == null) ? "": receiver.Name);
+
+                item.SubItems.Add((sender == null) ? "" : sender.Name);
+                item.SubItems.Add((receiver == null) ? "" : receiver.Name);
 
                 transactionsList.Items.Add(item);
             }
@@ -234,7 +234,7 @@ namespace ExpenseTracker.Elements {
 
 
                     default:
-                        
+
                         break;
                 }
 
@@ -242,14 +242,16 @@ namespace ExpenseTracker.Elements {
             }
 
 
-             
+
 
 
             var accountID = user.Accounts.Select(a => a).Where(a => a.Name == cbUserAccounts.Text).FirstOrDefault().ID;
 
 
 
-            user.Transactions.Add( new Transaction(accountID) { Amount = decimal.Parse(tbExpenseAmount.Text), EffectDate = dtpAffectDate.Value, CategoryInfo = categoryInfo, Type = TransactionType.Income });
+            user.Transactions.Add(new Transaction(accountID) { Amount = decimal.Parse(tbExpenseAmount.Text), EffectDate = dtpAffectDate.Value, CategoryInfo = categoryInfo, Type = TransactionType.Income });
+
+            FillTransactions();
 
         }
 
@@ -269,6 +271,8 @@ namespace ExpenseTracker.Elements {
             FillCategories();
         }
 
+        private void label5_Click(object sender, EventArgs e) {
 
+        }
     }
 }

@@ -41,7 +41,7 @@ namespace ExpenseTracker.Views {
                 BalanceSummary.AllowDrag = false;
 
 
-                BalanceSummary.DisplayAccounts(MainForm.AppState.UserManager.LoggedUser.Accounts);
+                BalanceSummary.DisplayAccounts(App.State.UserManager.LoggedUser.Accounts);
 
                 this.AddElements(new List<Element> { BalanceSummary });
             }

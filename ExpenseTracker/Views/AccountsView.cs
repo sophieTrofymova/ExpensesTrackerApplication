@@ -200,6 +200,7 @@
 //        }
 
 //    }
+
 using ExpenseTracker;
 using ExpenseTracker.Elements;
 using ExpenseTracker.Controls;
@@ -245,6 +246,9 @@ namespace ExpenseTracker.Views
                 BackgroundColor = Color.White
             };
 
+
+            // ThemedGroupBox to add new account
+            var addAccountElement = new Element()
             dgvAccounts.Columns.Add("AccountName", "Account Name");
             dgvAccounts.Columns.Add("Balance", "Balance");
 
@@ -314,6 +318,11 @@ namespace ExpenseTracker.Views
                 Font = new Font("Segoe UI", 14, FontStyle.Bold)
             };
 
+            addAccountElement.ThemedGroupBox.Controls.Add(lblName);
+            addAccountElement.ThemedGroupBox.Controls.Add(txtName);
+            addAccountElement.ThemedGroupBox.Controls.Add(lblBalance);
+            addAccountElement.ThemedGroupBox.Controls.Add(txtBalance);
+            addAccountElement.ThemedGroupBox.Controls.Add(btnAdd);
             btnToggleAddForm.FlatAppearance.BorderSize = 0;
 
             GraphicsPath path = new GraphicsPath();
@@ -349,7 +358,7 @@ namespace ExpenseTracker.Views
             }
 
             var newAccount = new Account(name, balance);
-            MainForm.AppState.UserManager.LoggedUser.Accounts.Add(newAccount);
+            App.State.UserManager.LoggedUser.Accounts.Add(newAccount);
 
             WF.MessageBox.Show($"Account '{name}' added with €{balance:F2} balance.");
 
@@ -362,7 +371,7 @@ namespace ExpenseTracker.Views
         private void RefreshDataGrid()
         {
             dgvAccounts.Rows.Clear();
-            var accounts = MainForm.AppState.UserManager.LoggedUser?.Accounts;
+            var accounts = App.State.UserManager.LoggedUser?.Accounts;
             if (accounts != null)
             {
                 foreach (var acc in accounts)

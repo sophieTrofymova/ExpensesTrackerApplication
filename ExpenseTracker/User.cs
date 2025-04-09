@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Diagnostics;
 
 
 namespace ExpenseTracker
@@ -8,7 +9,7 @@ namespace ExpenseTracker
     public class User
     {
 
-        public Guid ID { get; } = Guid.NewGuid();  // unique user id
+        public Guid ID { get; private set; }  
 
         public DateTime CreatedAt { get; private set; } = DateTime.Now;
         public DateTime? LastLoginAt { get; set; }
@@ -28,15 +29,17 @@ namespace ExpenseTracker
 
 
         /// <summary>
-        /// for serializer only
+        /// For serializer only
         /// </summary>
-        public User()
-        {
-
+        [JsonConstructor]
+        public User(Guid id) {
+            ID = id;
         }
 
         public User(string displayName, string username, string email, string password)
         {
+            ID = Guid.NewGuid();
+
             Username = username;
             PasswordHash = HashPassword(password);
             Email = email;
