@@ -22,10 +22,12 @@
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             label1 = new Label();
             monthDropDown = new ComboBox();
             groupBox1 = new GroupBox();
+
             bResetFilter = new Button();
             cbTransfers = new CheckBox();
             cbIncome = new CheckBox();
@@ -33,6 +35,7 @@
             accountsDropDown = new ComboBox();
             label5 = new Label();
             categoriesDropDown = new ComboBox();
+
             label4 = new Label();
             groupBox2 = new GroupBox();
             tbExpenseAmount = new TextBox();
@@ -47,10 +50,12 @@
             cbTransactionType = new ComboBox();
             newTransactionCategoryDropDown = new ComboBox();
             groupBox4 = new GroupBox();
+
             transactionsList = new ListView();
             chDate = new ColumnHeader();
             chCategory = new ColumnHeader();
             chAmount = new ColumnHeader();
+
             GroupBox.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -198,6 +203,44 @@
             label4.Location = new Point(22, 35);
             label4.Name = "label4";
             label4.Size = new Size(96, 28);
+            label4.TabIndex = 3;
+            label4.Text = "Category:";
+            // 
+            // comboBox4
+            // 
+            comboBox4.BackColor = SystemColors.WindowFrame;
+            comboBox4.FormattingEnabled = true;
+            comboBox4.Items.AddRange(new object[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" });
+            comboBox4.Location = new Point(610, 70);
+            comboBox4.Name = "comboBox4";
+            comboBox4.Size = new Size(197, 39);
+            comboBox4.TabIndex = 2;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(592, 35);
+            label5.Name = "label5";
+            label5.Size = new Size(106, 32);
+            label5.TabIndex = 3;
+            label5.Text = "Account:";
+            // 
+            // comboBox3
+            // 
+            comboBox3.BackColor = SystemColors.WindowFrame;
+            comboBox3.FormattingEnabled = true;
+            comboBox3.Items.AddRange(new object[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" });
+            comboBox3.Location = new Point(296, 70);
+            comboBox3.Name = "comboBox3";
+            comboBox3.Size = new Size(197, 39);
+            comboBox3.TabIndex = 2;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(278, 35);
+            label4.Name = "label4";
+            label4.Size = new Size(115, 32);
             label4.TabIndex = 3;
             label4.Text = "Category:";
             // 
@@ -366,6 +409,7 @@
             transactionsList.UseCompatibleStateImageBehavior = false;
             transactionsList.View = View.Details;
             // 
+
             // chDate
             // 
             chDate.Text = "Date";
@@ -377,7 +421,7 @@
             // chAmount
             // 
             chAmount.Text = "Amount";
-            // 
+
             // TransactionsElement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
