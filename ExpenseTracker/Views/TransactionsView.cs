@@ -16,6 +16,9 @@ namespace ExpenseTracker.Views {
         }
 
         public override void Build() {
+
+            var user = MainForm.AppState.UserManager.LoggedUser;
+
             this.ClearElements();
             var transactionsElement = new TransactionsElement() {
                 Title = "Transactions View",
@@ -26,10 +29,8 @@ namespace ExpenseTracker.Views {
                 AllowDrag = false
             };
 
-
-
-
             AddElements(new List<Element> { transactionsElement });
+            transactionsElement.Init();
 
         }
 

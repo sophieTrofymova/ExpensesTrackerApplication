@@ -1,3 +1,4 @@
+
 ﻿////using global::ExpenseTracker.Controls;
 
 ////namespace ExpenseTracker.Views {
@@ -199,7 +200,6 @@
 //        }
 
 //    }
-//}
 using ExpenseTracker;
 using ExpenseTracker.Elements;
 using ExpenseTracker.Controls;
@@ -254,10 +254,9 @@ namespace ExpenseTracker.Views
                 HeaderText = "Actions",
                 Text = "Delete",
                 UseColumnTextForButtonValue = true,
-                 FlatStyle = FlatStyle.Flat
+                FlatStyle = FlatStyle.Flat
             };
             dgvAccounts.Columns.Add(deleteButton);
-
 
             dgvAccounts.CellClick += (sender, e) =>
             {
@@ -277,21 +276,20 @@ namespace ExpenseTracker.Views
                 }
             };
 
-
-           var pnlAddAccount = new Panel
+            var pnlAddAccount = new WF.Panel
             {
                 Location = new Point(20, 350),
                 Size = new Size(600, 600),
-                Visible = false 
+                Visible = false
             };
 
-            var lblName = new Label { Text = "Account Name:", Location = new Point(10, 10), AutoSize = true };
-            var txtAccountName = new TextBox { Location = new Point(210, 10), Width = 200 };
+            var lblName = new WF.Label { Text = "Account Name:", Location = new Point(10, 10), AutoSize = true };
+            var txtAccountName = new WF.TextBox { Location = new Point(210, 10), Width = 200 };
 
-            var lblBalance = new Label { Text = "Initial Balance:", Location = new Point(10, 80), AutoSize = true };
-            var txtInitialBalance = new TextBox { Location = new Point(210, 80), Width = 200 };
+            var lblBalance = new WF.Label { Text = "Initial Balance:", Location = new Point(10, 80), AutoSize = true };
+            var txtInitialBalance = new WF.TextBox { Location = new Point(210, 80), Width = 200 };
 
-            var btnAdd = new Button
+            var btnAdd = new WF.Button
             {
                 Text = "Add",
                 Location = new Point(330, 150),
@@ -306,7 +304,7 @@ namespace ExpenseTracker.Views
             pnlAddAccount.Controls.Add(txtInitialBalance);
             pnlAddAccount.Controls.Add(btnAdd);
 
-            var btnToggleAddForm = new Button
+            var btnToggleAddForm = new WF.Button
             {
                 Text = "+",
                 Size = new Size(40, 40),
@@ -331,20 +329,6 @@ namespace ExpenseTracker.Views
 
             AddElements(new List<Element> { accountsElement });
             RefreshDataGrid();
-
-        //}
-        //accountsElement.GroupBox.Controls.Add(dgvAccounts);
-        //    accountsElement.GroupBox.Controls.Add(btnToggleAddPanel);
-        //    accountsElement.GroupBox.Controls.Add(addAccountPanel);
-
-            //    AddElements(new List<Element> { accountsElement });
-
-
-        }
-
-        private void ToggleAddPanelVisibility(object sender, EventArgs e)
-        {
-            addAccountPanel.Visible = !addAccountPanel.Visible;
         }
 
         private void btnAdd_Click(WF.TextBox txtName, WF.TextBox txtBalance)
@@ -389,4 +373,3 @@ namespace ExpenseTracker.Views
         }
     }
 }
-
