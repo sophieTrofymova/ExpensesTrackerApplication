@@ -11,15 +11,23 @@ namespace ExpenseTracker.Views
         public class BudgetsView : ElementView {
             public BudgetsView(ElementContainer container) : base(container) 
             {
-                this.Name = "Budgets";
-                this.NumCols = 6;
-                this.NumRows = 2;
+                this.NumRows = 10;
+                this.NumCols = 20;
+
+                Padding = new System.Windows.Forms.Padding(25);
+            }
+
+            public override void Build() {
+                var user = App.State.UserManager.LoggedUser;
+                ClearElements();
+                this.NumCols = 1;
+                this.NumRows = 1;
 
                 var budgetsElement = new BudgetsElement(this) {
                     ThemedGroupBox = { Text = "Budgets" },
                     Col = 0,
-                    Cols = 20,
-                    Rows = 10,
+                    Cols = 1,
+                    Rows = 1,
                     AllowDrag = true
                 };
                 screenBuilders.Add("view", () => new List<Element> { budgetsElement });
