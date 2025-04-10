@@ -1,4 +1,5 @@
-﻿using global::ExpenseTracker.Controls;
+﻿using ExpenseTracker.Elements;
+using global::ExpenseTracker.Controls;
 
 namespace ExpenseTracker.Views {
 
@@ -11,15 +12,15 @@ namespace ExpenseTracker.Views {
                 this.NumCols = 6;
                 this.NumRows = 2;
 
-                var chart1 = new Element {
-                    ThemedGroupBox = { Text = "Chart 1" },
+                var chart1 = new BarChartElement {
+                    ThemedGroupBox = { Text = "Bar Chart Example" },
                     Col = 0,
                     Cols = 2,
                     AllowDrag = false
                 };
 
-                var chart2 = new Element {
-                    ThemedGroupBox = { Text = "Chart 2" },
+                var chart2 = new DonutChartElement {
+                    ThemedGroupBox = { Text = "Donut Chart Example" },
                     Col = 2,
                     Cols = 2,
                     AllowDrag = false
