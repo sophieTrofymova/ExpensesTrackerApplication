@@ -14,17 +14,17 @@ namespace ExpenseTracker.Views {
                 this.NumCols = 1;
                 this.NumRows = 1;
 
-                var chart1 = new ReportElement {
-                    ThemedGroupBox = { Text = "Chart 1" },
-                    Col = 0,
-                    Cols = 2,
-                    Rows = 1,
-                    Row = 0,
-                    AllowDrag = false
-                };
+                //var chart1 = new ReportElement {
+                //    ThemedGroupBox = { Text = "Chart 1" },
+                //    Col = 0,
+                //    Cols = 2,
+                //    Rows = 1,
+                //    Row = 0,
+                //    AllowDrag = false
+                //};
 
 
-                this.AddElements(new List<Element> { chart1});
+                this.AddElements(new List<Element> { });
             }
         }
 
