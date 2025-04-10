@@ -26,9 +26,16 @@ namespace ExpenseTracker.Storage {
 
         CheckBoxBackColor,
         CheckBoxForeColor,
-        CheckBoxBorderColor, 
+        CheckBoxBorderColor,
         CheckBoxCheckedColor,
-        CheckBoxFocusedColor
+        CheckBoxFocusedColor,
+
+        LabelBackColor,
+        LabelForeColor,
+
+        ButtonBackColor,
+        ButtonForeColor,
+        ButtonBorderColor,
 
     }
 
@@ -37,7 +44,7 @@ namespace ExpenseTracker.Storage {
 
         public string Name { get; set; }
 
-        private static Color GeneralBackColor = Color.FromArgb(30,30,30);
+        private static Color GeneralBackColor = Color.FromArgb(30, 30, 30);
         private static Color GeneralForeColor = Color.WhiteSmoke;
 
         private static Dictionary<ThemeColor, Color> defaultColors = new() {
@@ -66,7 +73,14 @@ namespace ExpenseTracker.Storage {
             { ThemeColor.CheckBoxForeColor, GeneralForeColor },
             { ThemeColor.CheckBoxBorderColor, Color.Coral },
             { ThemeColor.CheckBoxCheckedColor, Color.Coral },
-            { ThemeColor.CheckBoxFocusedColor, Color.YellowGreen }
+            { ThemeColor.CheckBoxFocusedColor, Color.YellowGreen },
+
+            { ThemeColor.LabelBackColor, GeneralBackColor },
+            { ThemeColor.LabelForeColor, GeneralForeColor },
+
+            { ThemeColor.ButtonBorderColor, Color.Coral },
+            { ThemeColor.ButtonBackColor, GeneralBackColor },
+            { ThemeColor.ButtonForeColor, GeneralForeColor },
         };
 
 
