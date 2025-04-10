@@ -4,18 +4,18 @@
  ---
 
  - [x] 1. User Registration
- - [ ] 2. User Login
- - [ ] 3. Add a New Expense
- - [ ] 4. Add a New Income
- - [ ] 5. View Transaction History
+ - [x] 2. User Login
+ - [x] 3. Add a New Expense
+ - [x] 4. Add a New Income
+ - [x] 5. View Transaction History
  - [ ] 6. Set and Track a Budget  
  
  ---
  
  - [ ] 1.  Edit a Transaction
  - [ ] 2.  Delete a Transaction
- - [ ] 3.  Filter Transactions by Category or Date
- - [ ] 4.  View Balance Summary
+ - [x] 3.  Filter Transactions by Category or Date
+ - [x] 4.  View Balance Summary
  - [ ] 5.  Generate Monthly Spending Report
  - [ ] 6.  Connect a Bank Account
 
