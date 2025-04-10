@@ -1,8 +1,11 @@
 ﻿
 
 using System.Runtime.CompilerServices;
+using ExpenseTracker.Elements;
+using static ExpenseTracker.Elements.ElementView;
 
-namespace ExpenseTracker.Controls {
+namespace ExpenseTracker.Controls
+{
 
 
 
@@ -14,19 +17,26 @@ namespace ExpenseTracker.Controls {
 
         System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
 
+        private bool _lockView = false;
+
+        public bool IsViewLocked { get { return _lockView; }  }
+
+        public delegate void ViewChangedEventHandler(object sender, ElementView ev);
+
+        public event ViewChangedEventHandler? ViewChanged;
+        public event ViewChangedEventHandler? ViewLocked;
+        public event ViewChangedEventHandler? ViewUnlocked;
+
         public ElementContainer() {
             InitializeComponent();
 
+            this.DoubleBuffered = true;
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
+            timer.Enabled = Enabled;
+            timer.Tick += Timer_Tick;
+            timer.Interval = 1;
+            this.Paint += ElementContainer_Paint;
 
-           
-
-                this.DoubleBuffered = true;
-                this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer, true);
-                timer.Enabled = Enabled;
-                timer.Tick += Timer_Tick;
-                timer.Interval = 1;
-                this.Paint += ElementContainer_Paint;
-            
 
         }
 
@@ -62,32 +72,78 @@ namespace ExpenseTracker.Controls {
         }
 
 
+        public void LockView() {
+            _lockView = true;
+            ViewLocked?.Invoke(this, currentView);  
+        }
+
+        public void UnlockView() {
+            _lockView = false;
+            ViewUnlocked?.Invoke(this, currentView);
+        }
+
+
+
         /// <summary>
         /// sets and loads a new view into container
         /// </summary>
-        public void SetView(ElementView view) {
-            if (view == null)
-                throw new ArgumentNullException(nameof(view));
+        // in ElementContainer class:
+        private ScreenChangedEventHandler? _screenChangedHandler;
 
-            this.SuspendLayout(); // pause UI updates
+        public void SetView(ElementView view, string screenKey = "default") {
+            if (_lockView || view == null)
+                return;
 
-            // hide current elems
+            this.SuspendLayout();
+
             if (currentView != null) {
-                foreach (var el in currentView.GetAllElements()) {
+                if (_screenChangedHandler != null)
+                    currentView.ScreenChanged -= _screenChangedHandler;
+
+                foreach (var el in currentView.Elements) {
                     Controls.Remove(el);
                 }
             }
 
-            view.Build(); // or cache it if it's heavy
+            view.SwitchScreen(screenKey); // 💥 actually use the parameter
+
             currentView = view;
 
-            foreach (var el in view.GetAllElements()) {
+            foreach (var el in view.Elements) {
                 Controls.Add(el);
             }
+
+            _screenChangedHandler = (sender, _) => UpdateView();
+            currentView.ScreenChanged += _screenChangedHandler;
+
+            this.ResumeLayout(true);
+            timer.Start();
+
+            ViewChanged?.Invoke(this, currentView);
+        }
+
+
+
+
+
+        public void UpdateView() {
+
+            if (currentView == null)
+                throw new ArgumentNullException(nameof(currentView));
+
+            if (_lockView) {
+                return;
+            }
+
+            this.SuspendLayout(); // pause UI updates
+
+            Controls.Clear();
+            Controls.AddRange(currentView.Elements.ToArray());
 
             this.ResumeLayout(true); // resume UI updates
             timer.Start();
         }
+
 
     }
 }

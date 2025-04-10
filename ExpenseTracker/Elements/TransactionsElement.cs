@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic.ApplicationServices;
+﻿using ExpenseTracker.Controls;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,19 +37,18 @@ namespace ExpenseTracker.Elements {
 
         User user = App.State.UserManager.LoggedUser;
 
-        public TransactionsElement() {
+        public TransactionsElement(ElementView parentView) : base(parentView) {
             InitializeComponent();
 
 
         }
 
 
-        public void Init() {
+        public override void Init() {
 
 
             FillCategories();
             FillAccounts();
-            FillTransactionTypes();
             InitList();
             FillTransactions();
 
@@ -80,39 +80,13 @@ namespace ExpenseTracker.Elements {
             categoriesDropDown.Items.Clear();
             categoriesDropDown.Items.AddRange(categories.ToArray());
 
-
-            if (cbTransactionType.Text != "") {
-                newTransactionCategoryDropDown.Items.Clear();
-
-                switch (cbTransactionType.Text) {
-                    case "Expense":
-                        newTransactionCategoryDropDown.Items.AddRange(expenseCategories.ToArray());
-                        break;
-                    case "Income":
-                        newTransactionCategoryDropDown.Items.AddRange(incomeCategories.ToArray());
-                        break;
-                    case "Transfer":
-                        //???
-                        break;
-
-                    default:
-                        categoriesDropDown.SelectedIndex = -1; break;
-                }
-
-
-            }
-
-
-
         }
 
         public void FillAccounts() {
             accountsDropDown.Items.Clear();
             foreach (Account acc in user.Accounts) {
                 accountsDropDown.Items.Add(acc.Name);
-                cbUserAccounts.Items.Add(acc.Name);
             }
-
         }
 
         public void FillTransactions() {
@@ -163,10 +137,6 @@ namespace ExpenseTracker.Elements {
             }
         }
 
-        public void FillTransactionTypes() {
-            cbTransactionType.Items.Clear();
-            cbTransactionType.Items.AddRange(Enum.GetNames(typeof(TransactionType)));
-        }
 
 
         private void groupBox1_Enter(object sender, EventArgs e) {
@@ -209,50 +179,22 @@ namespace ExpenseTracker.Elements {
 
         private void bAddExpense_Click(object sender, EventArgs e) {
 
+            var parent = (this.Parent as ElementContainer);
+            ParentView.SwitchScreen("addExpense");
+            parent.LockView();
 
+        }
 
-            if (tbExpenseAmount.Text == "") {
-                return;
-            }
+        private void bAddIncome_Click(object sender, EventArgs e) {
+            var parent = (this.Parent as ElementContainer);
+            ParentView.SwitchScreen("addIncome");
+            parent.LockView();
+        }
 
-            if (newTransactionCategoryDropDown.Text == "") {
-                return;
-            }
-
-            CategoryInfo categoryInfo = CategoryInfo.ExpenseCategories.Select(c => c).Where(c => c.Description == newTransactionCategoryDropDown.Text).FirstOrDefault();
-
-            if (cbTransactionType.Text != "") {
-                newTransactionCategoryDropDown.Items.Clear();
-
-                switch (cbTransactionType.Text) {
-                    case "Expense":
-                        categoryInfo = CategoryInfo.ExpenseCategories.Select(c => c).Where(c => c.Description == newTransactionCategoryDropDown.Text).FirstOrDefault();
-                        break;
-                    case "Income":
-                        categoryInfo = CategoryInfo.IncomeCategories.Select(c => c).Where(c => c.Description == newTransactionCategoryDropDown.Text).FirstOrDefault();
-                        break;
-
-
-                    default:
-
-                        break;
-                }
-
-
-            }
-
-
-
-
-
-            var accountID = user.Accounts.Select(a => a).Where(a => a.Name == cbUserAccounts.Text).FirstOrDefault().ID;
-
-
-
-            user.Transactions.Add(new Transaction(accountID) { Amount = decimal.Parse(tbExpenseAmount.Text), EffectDate = dtpAffectDate.Value, CategoryInfo = categoryInfo, Type = TransactionType.Income });
-
-            FillTransactions();
-
+        private void bAddTransfer_Click(object sender, EventArgs e) {
+            var parent = (this.Parent as ElementContainer);
+            ParentView.SwitchScreen("addTransfer");
+            parent.LockView();
         }
 
         private void label7_Click(object sender, EventArgs e) {
@@ -274,5 +216,7 @@ namespace ExpenseTracker.Elements {
         private void label5_Click(object sender, EventArgs e) {
 
         }
+
+  
     }
 }

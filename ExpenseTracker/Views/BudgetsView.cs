@@ -3,11 +3,13 @@ using ExpenseTracker.Controls;
 using ExpenseTracker.Elements;
 using WF = System.Windows.Forms;
 
-namespace ExpenseTracker.Views {
+namespace ExpenseTracker.Views
+{
 
-    namespace ExpenseTracker {
+    namespace ExpenseTracker
+    {
         public class BudgetsView : ElementView {
-            public BudgetsView(ElementContainer container, string name = "Budgets") : base(name, container) 
+            public BudgetsView(ElementContainer container) : base(container) 
             {
                 this.NumRows = 10;
                 this.NumCols = 20;
@@ -21,17 +23,20 @@ namespace ExpenseTracker.Views {
                 this.NumCols = 1;
                 this.NumRows = 1;
 
-                var budgetsElement = new BudgetsElement() {
+                var budgetsElement = new BudgetsElement(this) {
                     ThemedGroupBox = { Text = "Budgets" },
                     Col = 0,
                     Cols = 1,
                     Rows = 1,
                     AllowDrag = true
                 };
-                
-                this.AddElements(new List<Element> { budgetsElement });
-              
+                screenBuilders.Add("view", () => new List<Element> { budgetsElement });
+
+                Padding = new System.Windows.Forms.Padding(25);
+
+                DefaultScreenKey = "view";
             }
+
         }
 
     }

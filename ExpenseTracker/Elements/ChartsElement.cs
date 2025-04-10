@@ -10,9 +10,14 @@ using System.Windows.Forms;
 
 namespace ExpenseTracker.Elements {
     public partial class BarChartElement : Element {
-        public BarChartElement() {
+        public BarChartElement(ElementView parentView) : base(parentView) {
             InitializeComponent();
             panel1.Paint += Panel1_Paint;
+        }
+
+
+        public override void Init() {
+
         }
 
         private void Panel1_Paint(object? sender, PaintEventArgs e) {

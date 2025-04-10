@@ -30,14 +30,35 @@ namespace ExpenseTracker.Controls {
             }
         }
 
+        [Category("Appearance")]
+        [Description("Text box text")]
+        [Browsable(true)]
+       
+        public string Text {
+            get => _innerTextBox.Text;
+            set {
+                _innerTextBox.Text = value;
+                this.TextChanged?.Invoke(this, EventArgs.Empty);
+                Invalidate();
+            }
+        }
+
         private Padding _innerPadding = new Padding(4);
         private int _borderThickness = 1;
 
+
+
+        [Description("Occurs when text is changed")]
+        [Browsable(true)]
+        public event EventHandler? TextChanged;
+
         public ThemedTextBox() {
+
+            
             DoubleBuffered = true;
             ResizeRedraw = true;
             this.AutoSize = true;
-            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.AutoSizeMode = AutoSizeMode.GrowOnly;
             _innerTextBox = new TextBox {
                 BorderStyle = BorderStyle.None, // no native border we draw our own
                 Multiline = false
@@ -103,12 +124,7 @@ namespace ExpenseTracker.Controls {
         }
 
 
-        // 👇 Expose text + common props as passthroughs
-        [Browsable(true)]
-        public override string Text {
-            get => _innerTextBox.Text;
-            set => _innerTextBox.Text = value;
-        }
+
 
         public override Font Font {
             get => _innerTextBox.Font;

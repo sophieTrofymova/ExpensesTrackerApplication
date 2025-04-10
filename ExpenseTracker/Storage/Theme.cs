@@ -37,6 +37,15 @@ namespace ExpenseTracker.Storage {
         ButtonForeColor,
         ButtonBorderColor,
 
+        ListViewBackColor,
+        ListViewForeColor,
+        ListViewBorderColor,
+
+        ListViewItemBackColor,
+        ListViewItemForeColor,
+        ListViewSelectedItemBackColor,
+        ListViewSelectedItemForeColor,
+
     }
 
 
@@ -81,6 +90,15 @@ namespace ExpenseTracker.Storage {
             { ThemeColor.ButtonBorderColor, Color.Coral },
             { ThemeColor.ButtonBackColor, GeneralBackColor },
             { ThemeColor.ButtonForeColor, GeneralForeColor },
+
+            { ThemeColor.ListViewBackColor, Color.Coral },
+            { ThemeColor.ListViewForeColor, Color.WhiteSmoke },
+            { ThemeColor.ListViewBorderColor, Color.Coral },
+
+            { ThemeColor.ListViewItemBackColor, Color.Coral },
+            { ThemeColor.ListViewItemForeColor, Color.WhiteSmoke  },
+            { ThemeColor.ListViewSelectedItemBackColor, Color.Coral },
+            { ThemeColor.ListViewSelectedItemForeColor, Color.WhiteSmoke },
         };
 
 

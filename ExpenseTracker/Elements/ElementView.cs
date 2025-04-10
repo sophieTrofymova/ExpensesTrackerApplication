@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.ComponentModel;
+using ExpenseTracker.Controls;
 
 
-namespace ExpenseTracker.Controls {
+namespace ExpenseTracker.Elements {
 
     public enum ViewLayoutType {
         GridManual,
@@ -17,65 +18,125 @@ namespace ExpenseTracker.Controls {
     }
 
     public class ElementView {
-        public string Name { get; private set; }
 
-        private List<Element> elements;
+        /// <summary>
+        /// View display name
+        /// </summary>
+        public string Name { get; set; }
+
+        // Parent Container
+        public ElementContainer? Container { get; private set; }
+
+        // Desired size of the view fallback in case size of a parent unknown
+        public Size DesiredSize { get; set; }
+
+        // Padding around the view
+        public Padding Padding { get; set; }
+
+        // current list of displayed elements
+        public List<Element> Elements { get; set; }
+
+        // current screen key
+        protected string screenKey = "default";
+
+        public string ScreenKey {
+            get { return screenKey; }
+            set {
+                screenKey = value;
+                Build();
+            }
+        }
+
+        public string DefaultScreenKey { get; set; } = "default";
+
+        // deffered element creation based on screenKey 
+        protected readonly Dictionary<string, Func<List<Element>>> screenBuilders = new();
+        public IReadOnlyDictionary<string, Func<List<Element>>> Screens => screenBuilders;
 
 
+        // screen changed event causes parent container to replace update its controls from elements list
+        public delegate void ScreenChangedEventHandler(object sender, string screenKey);
+        public event ScreenChangedEventHandler? ScreenChanged;
+
+
+        /// <summary>
+        ///  This defines how the elements are arranged
+        /// </summary>
         private ViewLayoutType layoutType = ViewLayoutType.GridManual;
-
-        int numRows = 1, numCols = 1;
 
         public ViewLayoutType LayoutType {
             get { return layoutType; }
             set { layoutType = value; }
         }
 
+        // internal grid params
+        private int numRows = 1, numCols = 1;
+
+        /// <summary>
+        /// Number of Rows
+        /// </summary>
         public int NumRows {
             get { return numRows; }
-            set { numRows = (value > 0) ? value : 1; }
-        }
-
-        public int NumCols {
-            get { return numCols; }
-            set { numCols = (value > 0) ? value : 1; }
-        }
-
- 
-        public Size DesiredSize { get; set; } 
-        public Padding Padding { get; set; }
-        private ElementContainer? container = null;
-
-        public ElementView(string name, ElementContainer _container) {
-
-            this.container = _container; 
-            Name = name;
-            elements = new List<Element>();
-            container.SizeChanged += Container_SizeChanged;
-            DesiredSize = new Size(1920,1080);
-            Padding = new Padding(5);
-
-        }
-
-        private void Container_SizeChanged(object? sender, EventArgs e) {
-            this.DesiredSize = this.container.Size;
-            ApplyLayout();
+            set { numRows = value > 0 ? value : 1; }
         }
 
         /// <summary>
-        /// Called everytime the view is swithced to.
+        /// Number of Cols
         /// </summary>
-        public virtual void Build() {
-            // just clear n noop here
-            elements.Clear();
+        public int NumCols {
+            get { return numCols; }
+            set { numCols = value > 0 ? value : 1; }
         }
 
-        public List<Element> GetAllElements() { return elements; }
+
+
+
+        public ElementView(ElementContainer container) {
+
+            Elements = new List<Element>();
+            Container = container;
+            Container.SizeChanged += (s, e) => {
+                DesiredSize = Container.Size;
+                ApplyLayout();
+            };
+            DesiredSize = Container.Size;
+            Padding = new Padding(5);
+        }
+
+
+
+
+        public void Build() {
+            this.ClearElements();
+
+            if (screenBuilders.Count == 0)
+                return;
+
+            // decide which key to actually use
+            var keyToUse = (screenKey == "default") ? DefaultScreenKey : screenKey;
+
+            if (!screenBuilders.TryGetValue(keyToUse, out var builder)) {
+                // fallback to "default" if current screen key missing
+                if (!screenBuilders.TryGetValue("default", out builder)) {
+                    builder = () => new List<Element>(); // worst-case fallback
+                }
+            }
+
+            var elements = builder();
+            AddElements(elements);
+
+            foreach (var element in elements) {
+                element.Init();
+            }
+        }
+
+
+
 
         protected void AddElements(List<Element> _elements) {
             foreach (var element in _elements) {
-                if (!this.elements.Contains(element)) {
-                    this.elements.Add(element);
+                if (!Elements.Contains(element)) {
+                    Elements.Add(element);
                 }
             }
             ApplyLayout();
@@ -85,25 +146,25 @@ namespace ExpenseTracker.Controls {
             int count = _elements.Count;
             // going backwards to safely handle when _elements == elements (self-removal) same collection is passed
             while (count != 0) {
-                this.elements.Remove(_elements[count - 1]);
+                Elements.Remove(_elements[count - 1]);
                 count--;
             }
             ApplyLayout();
         }
 
         private void RearrangeElementsOnGrid() {
-            if (elements.Count == 0) return;
+            if (Elements.Count == 0) return;
 
             int colWidth = (DesiredSize.Width - Padding.Left - Padding.Right) / numCols;
             int rowHeight = CalculateRowHeight();
 
             // Clear existing positions
-            foreach (var element in elements) {
+            foreach (var element in Elements) {
                 element.Location = Point.Empty;
             }
 
             // Sort elements by their desired position (if they have position properties)
-            var sortedElements = elements.OrderBy(e => e.Row).ThenBy(e => e.Col).ToList();
+            var sortedElements = Elements.OrderBy(e => e.Row).ThenBy(e => e.Col).ToList();
 
             // Place elements in grid
             foreach (var element in sortedElements) {
@@ -133,9 +194,9 @@ namespace ExpenseTracker.Controls {
         }
 
         private bool IsPositionOccupied(int row, int col, int cols, int rows) {
-            foreach (var element in elements) {
+            foreach (var element in Elements) {
                 if (element.Location.X == col * (DesiredSize.Width / numCols) &&
-                    element.Location.Y == row * (CalculateRowHeight())) {
+                    element.Location.Y == row * CalculateRowHeight()) {
                     return true;
                 }
             }
@@ -143,7 +204,7 @@ namespace ExpenseTracker.Controls {
         }
 
         private int CalculateRowHeight() {
-            if (elements.Count == 0 || numRows == 0)
+            if (Elements.Count == 0 || numRows == 0)
                 return DesiredSize.Height;
 
             int totalHeight = DesiredSize.Height - Padding.Top - Padding.Bottom;
@@ -175,7 +236,7 @@ namespace ExpenseTracker.Controls {
             int colWidth = (DesiredSize.Width - Padding.Left - Padding.Right) / numCols;
             int rowHeight = CalculateRowHeight();
 
-            foreach (var element in elements) {
+            foreach (var element in Elements) {
                 int col = Math.Min(element.Col, numCols - 1);
                 int row = Math.Min(element.Row, numRows - 1);
 
@@ -188,7 +249,17 @@ namespace ExpenseTracker.Controls {
             }
         }
 
-        protected void ClearElements() { elements.Clear(); }
+        protected void ClearElements() { Elements.Clear(); }
+
+        public bool HasScreen(string key) => screenBuilders.ContainsKey(key);
+
+
+        public void SwitchScreen(string screenKey) {
+            this.screenKey = screenKey;
+            Build();
+            ScreenChanged?.Invoke(this, screenKey);
+        }
+
     }
 }
 

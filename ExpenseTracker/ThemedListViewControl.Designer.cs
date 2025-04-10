@@ -1,9 +1,7 @@
-﻿using ExpenseTracker.Controls;
+﻿using ExpenseTracker.Storage;
 
-namespace ExpenseTracker.Elements
-{
-    partial class AccountsElement
-    {
+namespace ExpenseTracker {
+    partial class ThemedListViewControl {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -13,10 +11,8 @@ namespace ExpenseTracker.Elements
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -28,21 +24,15 @@ namespace ExpenseTracker.Elements
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             SuspendLayout();
             // 
-            // ThemedGroupBox
-            // 
-            ThemedGroupBox.Size = new Size(520, 392);
-            // 
-            // AccountsElement
+            // ThemedListViewControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Location = new Point(0, 0);
-            Name = "AccountsElement";
-            Size = new Size(530, 442);
+            Name = "ThemedListViewControl";
+            Size = new Size(526, 376);
             ResumeLayout(false);
         }
 

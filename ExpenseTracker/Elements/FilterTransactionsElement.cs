@@ -7,14 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ExpenseTracker.Elements;
 
 namespace ExpenseTracker.Controls
 {
     public partial class FilterTransactionsElement: Element
     {
-        public FilterTransactionsElement()
-        {
+        public FilterTransactionsElement(ElementView parentView) : base(parentView) {
             InitializeComponent();
         }
+
+
+        public override void Init() {
+
+        }
+
     }
 }

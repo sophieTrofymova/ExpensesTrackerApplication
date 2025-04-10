@@ -7,14 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ExpenseTracker.Elements;
 
-namespace ExpenseTracker {
+namespace ExpenseTracker
+{
 
     public partial class BalanceSummaryElement : Element {
 
 
 
-        public BalanceSummaryElement() {
+        public BalanceSummaryElement(ElementView parentView) : base(parentView) {
 
             InitializeComponent();
 
@@ -22,7 +24,9 @@ namespace ExpenseTracker {
         }
 
 
-
+        public override void Init() {
+            DisplayAccounts(App.State.UserManager.LoggedUser.Accounts);
+        }
 
         public void DisplayAccounts(List<Account> accounts) {
 
