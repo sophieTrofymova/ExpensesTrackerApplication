@@ -18,14 +18,14 @@ namespace ExpenseTracker.Views {
             public override void Build() {
                 var user = App.State.UserManager.LoggedUser;
                 ClearElements();
-                this.NumCols = 6;
-                this.NumRows = 2;
+                this.NumCols = 1;
+                this.NumRows = 1;
 
                 var budgetsElement = new BudgetsElement() {
                     ThemedGroupBox = { Text = "Budgets" },
                     Col = 0,
-                    Cols = 20,
-                    Rows = 10,
+                    Cols = 1,
+                    Rows = 1,
                     AllowDrag = true
                 };
                 
