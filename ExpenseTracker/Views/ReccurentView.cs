@@ -1,25 +1,15 @@
 ﻿using ExpenseTracker.Controls;
+using ExpenseTracker.Elements;
 
 namespace ExpenseTracker.Views
 {
     public class ReccurentView : ElementView
     {
-        public ReccurentView( ElementContainer container, string name = "Reccurent") : base(name, container)
+        public ReccurentView( ElementContainer container) : base(container)
         {
 
-        }
-
-
-        public override void Build()
-        {
-
-            base.Build();
-
+            this.Name = "Reccurent";
             LayoutType = ViewLayoutType.FreeMovement;
-            //ViewContainer.NumCollumns = 9;
-            //ViewContainer.NumRows = 8;
-
-            //timer.Start();
 
             var Filter = new Element();
             Filter.ThemedGroupBox.Text = "Filter";
@@ -40,9 +30,13 @@ namespace ExpenseTracker.Views
             transactions.AllowDrag = true;
             transactions.Size = new Size(200, 200);
 
-            AddElements(new List<Element> { Filter, transactions });
+
+            screenBuilders.Add("view", () => new List<Element> { Filter, transactions });
+            DefaultScreenKey = "view";
 
         }
+
+
 
     }
 }

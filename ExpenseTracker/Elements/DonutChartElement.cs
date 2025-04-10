@@ -7,13 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ExpenseTracker.Elements;
 
-namespace ExpenseTracker {
+namespace ExpenseTracker
+{
     public partial class DonutChartElement : Element {
         public DonutChartElement() {
             InitializeComponent();
             ChartPanel.Paint += ChartPanel_Paint;
         }
+
+        public override void Init() {
+
+        }
+
 
         private void ChartPanel_Paint(object? sender, PaintEventArgs e) {
             var g = e.Graphics;

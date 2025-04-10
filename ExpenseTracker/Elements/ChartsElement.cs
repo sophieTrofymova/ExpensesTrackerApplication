@@ -15,6 +15,11 @@ namespace ExpenseTracker.Elements {
             panel1.Paint += Panel1_Paint;
         }
 
+
+        public override void Init() {
+
+        }
+
         private void Panel1_Paint(object? sender, PaintEventArgs e) {
 
             var g = e.Graphics;

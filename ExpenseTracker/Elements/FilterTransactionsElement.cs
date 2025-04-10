@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ExpenseTracker.Elements;
 
 namespace ExpenseTracker.Controls
 {
@@ -16,5 +17,11 @@ namespace ExpenseTracker.Controls
         {
             InitializeComponent();
         }
+
+
+        public override void Init() {
+
+        }
+
     }
 }

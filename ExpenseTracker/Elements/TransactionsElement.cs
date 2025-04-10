@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic.ApplicationServices;
+﻿using ExpenseTracker.Controls;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,7 +44,7 @@ namespace ExpenseTracker.Elements {
         }
 
 
-        public void Init() {
+        public override void Init() {
 
 
             FillCategories();
@@ -207,51 +208,55 @@ namespace ExpenseTracker.Elements {
             monthDropDown.SelectedIndex = -1;
         }
 
-        private void bAddExpense_Click(object sender, EventArgs e) {
+        private void bAddTransaction_Click(object sender, EventArgs e) {
+
+            var parent = (this.Parent as ElementContainer);
+            var view = new ExpenseTracker.Views.TransactionDetailsView(parent);
+            view.Name = "Transaction Details";
+            parent.SetView(view);
+            parent.LockView();
+
+            //if (tbExpenseAmount.Text == "") {
+            //    return;
+            //}
+
+            //if (newTransactionCategoryDropDown.Text == "") {
+            //    return;
+            //}
+
+            //CategoryInfo categoryInfo = CategoryInfo.ExpenseCategories.Select(c => c).Where(c => c.Description == newTransactionCategoryDropDown.Text).FirstOrDefault();
+
+            //if (cbTransactionType.Text != "") {
+            //    newTransactionCategoryDropDown.Items.Clear();
+
+            //    switch (cbTransactionType.Text) {
+            //        case "Expense":
+            //            categoryInfo = CategoryInfo.ExpenseCategories.Select(c => c).Where(c => c.Description == newTransactionCategoryDropDown.Text).FirstOrDefault();
+            //            break;
+            //        case "Income":
+            //            categoryInfo = CategoryInfo.IncomeCategories.Select(c => c).Where(c => c.Description == newTransactionCategoryDropDown.Text).FirstOrDefault();
+            //            break;
+
+
+            //        default:
+
+            //            break;
+            //    }
+
+
+            //}
 
 
 
-            if (tbExpenseAmount.Text == "") {
-                return;
-            }
-
-            if (newTransactionCategoryDropDown.Text == "") {
-                return;
-            }
-
-            CategoryInfo categoryInfo = CategoryInfo.ExpenseCategories.Select(c => c).Where(c => c.Description == newTransactionCategoryDropDown.Text).FirstOrDefault();
-
-            if (cbTransactionType.Text != "") {
-                newTransactionCategoryDropDown.Items.Clear();
-
-                switch (cbTransactionType.Text) {
-                    case "Expense":
-                        categoryInfo = CategoryInfo.ExpenseCategories.Select(c => c).Where(c => c.Description == newTransactionCategoryDropDown.Text).FirstOrDefault();
-                        break;
-                    case "Income":
-                        categoryInfo = CategoryInfo.IncomeCategories.Select(c => c).Where(c => c.Description == newTransactionCategoryDropDown.Text).FirstOrDefault();
-                        break;
 
 
-                    default:
-
-                        break;
-                }
-
-
-            }
+            //var accountID = user.Accounts.Select(a => a).Where(a => a.Name == cbUserAccounts.Text).FirstOrDefault().ID;
 
 
 
+            //user.Transactions.Add(new Transaction(accountID) { Amount = decimal.Parse(tbExpenseAmount.Text), EffectDate = dtpAffectDate.Value, CategoryInfo = categoryInfo, Type = TransactionType.Income });
 
-
-            var accountID = user.Accounts.Select(a => a).Where(a => a.Name == cbUserAccounts.Text).FirstOrDefault().ID;
-
-
-
-            user.Transactions.Add(new Transaction(accountID) { Amount = decimal.Parse(tbExpenseAmount.Text), EffectDate = dtpAffectDate.Value, CategoryInfo = categoryInfo, Type = TransactionType.Income });
-
-            FillTransactions();
+            //FillTransactions();
 
         }
 

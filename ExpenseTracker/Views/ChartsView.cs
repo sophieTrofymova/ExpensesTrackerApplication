@@ -5,13 +5,12 @@ namespace ExpenseTracker.Views {
 
     namespace ExpenseTracker {
         public class ChartsView : ElementView {
-            public ChartsView(ElementContainer container, string name = "Charts") : base(name, container) { }
+            public ChartsView(ElementContainer container) : base(container) {
 
-            public override void Build() {
-                ClearElements();
-
+                this.Name = "Charts";
                 this.NumCols = 6;
                 this.NumRows = 2;
+                screenKey = "view";
 
                 var chart1 = new BarChartElement {
                     ThemedGroupBox = { Text = "Bar Chart Example" },
@@ -35,11 +34,16 @@ namespace ExpenseTracker.Views {
                     Rows = 2,
                     AllowDrag = false
                 };
-              
-                this.AddElements(new List<Element> { chart1, chart2, chart3 });
 
 
+                screenBuilders.Add("view", () => new List<Element> {
+                    chart1,
+                    chart2,
+                    chart3
+                });
+                DefaultScreenKey = "view";
             }
+
         }
 
     }

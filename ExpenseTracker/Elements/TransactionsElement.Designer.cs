@@ -131,6 +131,7 @@ namespace ExpenseTracker.Elements {
             bResetFilter.TabIndex = 5;
             bResetFilter.Text = "Reset Filter";
             bResetFilter.UseVisualStyleBackColor = true;
+            bResetFilter.Click += bResetFilter_Click;
             // 
             // cbTransfers
             // 
@@ -392,9 +393,9 @@ namespace ExpenseTracker.Elements {
             groupBox4.BorderPadding = 8;
             groupBox4.Controls.Add(transactionsList);
             groupBox4.ForeColor = Color.White;
-            groupBox4.Location = new Point(376, 279);
+            groupBox4.Location = new Point(376, 259);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(897, 465);
+            groupBox4.Size = new Size(897, 485);
             groupBox4.TabIndex = 4;
             groupBox4.TabStop = false;
             groupBox4.Text = "Transactions";
@@ -409,7 +410,7 @@ namespace ExpenseTracker.Elements {
             transactionsList.GridLines = true;
             transactionsList.Location = new Point(24, 45);
             transactionsList.Name = "transactionsList";
-            transactionsList.Size = new Size(853, 396);
+            transactionsList.Size = new Size(853, 416);
             transactionsList.TabIndex = 0;
             transactionsList.UseCompatibleStateImageBehavior = false;
             transactionsList.View = View.Details;
@@ -437,6 +438,7 @@ namespace ExpenseTracker.Elements {
             bAddTransaction.TabIndex = 5;
             bAddTransaction.Text = "Add Transaction";
             bAddTransaction.UseVisualStyleBackColor = true;
+            bAddTransaction.Click += bAddTransaction_Click;
             // 
             // themedButton1
             // 

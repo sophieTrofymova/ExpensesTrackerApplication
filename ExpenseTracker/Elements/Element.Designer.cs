@@ -1,6 +1,6 @@
 ﻿using ExpenseTracker.Controls;
 
-namespace ExpenseTracker {
+namespace ExpenseTracker.Elements {
     partial class Element {
         /// <summary> 
         /// Required designer variable.

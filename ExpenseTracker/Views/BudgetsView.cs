@@ -3,21 +3,15 @@ using ExpenseTracker.Controls;
 using ExpenseTracker.Elements;
 using WF = System.Windows.Forms;
 
-namespace ExpenseTracker.Views {
+namespace ExpenseTracker.Views
+{
 
-    namespace ExpenseTracker {
+    namespace ExpenseTracker
+    {
         public class BudgetsView : ElementView {
-            public BudgetsView(ElementContainer container, string name = "Budgets") : base(name, container) 
+            public BudgetsView(ElementContainer container) : base(container) 
             {
-                this.NumRows = 10;
-                this.NumCols = 20;
-
-                Padding = new System.Windows.Forms.Padding(25);
-            }
-
-            public override void Build() {
-                var user = App.State.UserManager.LoggedUser;
-                ClearElements();
+                this.Name = "Budgets";
                 this.NumCols = 6;
                 this.NumRows = 2;
 
@@ -28,10 +22,13 @@ namespace ExpenseTracker.Views {
                     Rows = 10,
                     AllowDrag = true
                 };
-                
-                this.AddElements(new List<Element> { budgetsElement });
-              
+                screenBuilders.Add("view", () => new List<Element> { budgetsElement });
+
+                Padding = new System.Windows.Forms.Padding(25);
+
+                DefaultScreenKey = "view";
             }
+
         }
 
     }

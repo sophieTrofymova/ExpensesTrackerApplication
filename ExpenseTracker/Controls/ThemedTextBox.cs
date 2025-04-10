@@ -37,7 +37,7 @@ namespace ExpenseTracker.Controls {
             DoubleBuffered = true;
             ResizeRedraw = true;
             this.AutoSize = true;
-            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this.AutoSizeMode = AutoSizeMode.GrowOnly;
             _innerTextBox = new TextBox {
                 BorderStyle = BorderStyle.None, // no native border we draw our own
                 Multiline = false

@@ -9,15 +9,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WF = System.Windows.Forms;
 
-namespace ExpenseTracker.Elements
-{
-    public partial class BudgetsElement : Element
-    {
-        public BudgetsElement()
-        {
+namespace ExpenseTracker.Elements {
+    public partial class BudgetsElement : Element {
+        public BudgetsElement() {
             InitializeComponent();
+            dgvBudgets.ForeColor = Color.Black;
 
+        }
 
+        public override void Init() {
+            dgvBudgets.Columns.Clear();
+            dgvBudgets.Rows.Clear();
             dgvBudgets.Columns.Add("Name", "Budget Name");
             dgvBudgets.Columns.Add("Category", "Category");
             dgvBudgets.Columns.Add("AmountLimit", "Limit (€)");
@@ -26,15 +28,13 @@ namespace ExpenseTracker.Elements
             LoadBudgets();
         }
 
-        private void LoadBudgets()
-        {
+
+        private void LoadBudgets() {
             dgvBudgets.Rows.Clear();
 
             var budgets = App.State.UserManager.LoggedUser?.Budgets;
-            if (budgets != null)
-            {
-                foreach (var budget in budgets)
-                {
+            if (budgets != null) {
+                foreach (var budget in budgets) {
                     dgvBudgets.Rows.Add(
                         budget.Name,
                         budget.CategoryInfo.Description,
@@ -46,11 +46,9 @@ namespace ExpenseTracker.Elements
             }
         }
 
-        private void btnAddBudget_Click(object sender, EventArgs e)
-        {
-            var form = new SetBudgetForm(); 
-            if (form.ShowDialog() == WF.DialogResult.OK)
-            {
+        private void btnAddBudget_Click(object sender, EventArgs e) {
+            var form = new SetBudgetForm();
+            if (form.ShowDialog() == WF.DialogResult.OK) {
                 LoadBudgets();
             }
         }

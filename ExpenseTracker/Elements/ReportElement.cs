@@ -14,16 +14,21 @@ namespace ExpenseTracker.Elements
         {
             InitializeComponent();
 
+ 
+        }
+
+        public override void Init() {
             cmbMonth.Items.AddRange(DateTimeFormatInfo.CurrentInfo.MonthNames.Take(12).ToArray());
 
             int currentMonth = DateTime.Now.Month;
-            cmbMonth.SelectedIndex = currentMonth - 1; 
+            cmbMonth.SelectedIndex = currentMonth - 1;
 
             var currentMonthName = DateTimeFormatInfo.CurrentInfo.MonthNames[currentMonth - 1];
             LoadReportWithBars(currentMonthName);
 
             cmbMonth.SelectedIndexChanged += CmbMonth_SelectedIndexChanged;
         }
+
 
         private void CmbMonth_SelectedIndexChanged(object sender, EventArgs e)
         {

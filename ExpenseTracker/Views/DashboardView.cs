@@ -1,4 +1,5 @@
-﻿using global::ExpenseTracker.Controls;
+﻿using ExpenseTracker.Elements;
+using global::ExpenseTracker.Controls;
 using System.Globalization;
 using WF = System.Windows.Forms;
 
@@ -12,25 +13,25 @@ namespace ExpenseTracker.Views {
 
         public class DashboardView : ElementView {
 
-            
+
 
             public BalanceSummaryElement BalanceSummary;
 
-            public DashboardView(ElementContainer container, string name = "Dashboard") : base(name, container) { }
+            public DashboardView(ElementContainer container) : base(container) {
 
-            public override void Build() {
-                
-                ClearElements();
-
-                // view layout
-                this.NumCols = 24;
+                this.Name = "Dashboard";
                 this.NumRows = 24;
+                this.NumCols = 24;
+                Padding = new Padding(25);
+                screenKey = "view";
+
+
 
 
                 // create element
                 BalanceSummary = new BalanceSummaryElement();
                 BalanceSummary.Title = "Summary";
-                
+
                 // pos
                 BalanceSummary.Col = 1;
                 BalanceSummary.Row = 1;
@@ -41,16 +42,22 @@ namespace ExpenseTracker.Views {
                 BalanceSummary.AllowDrag = false;
 
 
-                BalanceSummary.DisplayAccounts(App.State.UserManager.LoggedUser.Accounts);
+                screenBuilders.Add("view", () => new List<Element> {
+                        BalanceSummary
+                    });
 
-                this.AddElements(new List<Element> { BalanceSummary });
+                DefaultScreenKey = "view";
+
             }
-
-          
-
         }
+
+
+
 
 
     }
 
+
 }
+
+
