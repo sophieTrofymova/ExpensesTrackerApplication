@@ -3,7 +3,7 @@
 
  ---
 
- - [ ] 1. User Registration
+ - [x] 1. User Registration
  - [ ] 2. User Login
  - [ ] 3. Add a New Expense
  - [ ] 4. Add a New Income
