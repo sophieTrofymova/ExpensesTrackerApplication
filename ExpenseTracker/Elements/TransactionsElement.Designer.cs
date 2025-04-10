@@ -274,13 +274,12 @@ namespace ExpenseTracker.Elements {
             tbExpenseAmount.AutoCompleteMode = AutoCompleteMode.None;
             tbExpenseAmount.AutoCompleteSource = AutoCompleteSource.None;
             tbExpenseAmount.AutoSize = true;
-            tbExpenseAmount.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             tbExpenseAmount.BorderThickness = 1;
             tbExpenseAmount.CharacterCasing = CharacterCasing.Normal;
             tbExpenseAmount.InnerPadding = new Padding(4);
             tbExpenseAmount.Location = new Point(40, 297);
             tbExpenseAmount.Name = "tbExpenseAmount";
-            tbExpenseAmount.Size = new Size(281, 39);
+            tbExpenseAmount.Size = new Size(287, 39);
             tbExpenseAmount.TabIndex = 6;
             tbExpenseAmount.TextAlign = HorizontalAlignment.Left;
             tbExpenseAmount.UseSystemPasswordChar = false;
