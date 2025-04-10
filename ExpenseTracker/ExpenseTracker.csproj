@@ -29,6 +29,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Elements\AddTransferElement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Elements\AddIncomeElement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Elements\EditAccountElement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Elements\AddAccountElement.cs">
       <SubType>UserControl</SubType>
     </Compile>

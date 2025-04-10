@@ -12,7 +12,7 @@ using ExpenseTracker.Elements;
 namespace ExpenseTracker
 {
     public partial class DonutChartElement : Element {
-        public DonutChartElement() {
+        public DonutChartElement(ElementView parentView) : base(parentView) {
             InitializeComponent();
             ChartPanel.Paint += ChartPanel_Paint;
         }

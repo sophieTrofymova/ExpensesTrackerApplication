@@ -10,8 +10,7 @@ namespace ExpenseTracker.Elements
 {
     public partial class ReportElement : Element
     {
-        public ReportElement()
-        {
+        public ReportElement(ElementView parentView) : base(parentView) {
             InitializeComponent();
 
  

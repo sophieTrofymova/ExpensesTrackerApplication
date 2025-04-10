@@ -1,85 +1,120 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WF=System.Windows.Forms;
-using System.Drawing.Drawing2D;
-using System.Xml.Linq;
+using System.Windows.Forms;
 using ExpenseTracker.Controls;
 using ExpenseTracker.Views;
 
-namespace ExpenseTracker.Elements
-{
+namespace ExpenseTracker.Elements {
     public partial class ViewAccountsElement : Element {
-        public ViewAccountsElement() {
+        public ViewAccountsElement(ElementView parentView) : base(parentView) {
+
             InitializeComponent();
+
         }
 
         public override void Init() {
-            // Initialize the accounts element here
-            // For example, load account data from a database or file
-            // and populate the UI controls with that data.
 
+            lvAccounts.View = View.Details;
+            lvAccounts.FullRowSelect = true;
+            lvAccounts.MultiSelect = false;
+            lvAccounts.Columns.Clear();
+            lvAccounts.Columns.Add("Account Name", 250);
+            lvAccounts.Columns.Add("Balance", 300);
 
-            dgvAccounts.AutoSizeColumnsMode = WF.DataGridViewAutoSizeColumnsMode.Fill;
-            dgvAccounts.AllowUserToAddRows = false;
+            lvAccounts.MouseDoubleClick += LvAccounts_MouseDoubleClick;
 
-            dgvAccounts.Columns.Add("AccountName", "Account Name");
-            dgvAccounts.Columns.Add("Balance", "Balance");
-
-            var deleteButton = new WF.DataGridViewButtonColumn {
-                Name = "Delete",
-                HeaderText = "Actions",
-                Text = "Delete",
-                UseColumnTextForButtonValue = true,
-                FlatStyle = FlatStyle.Flat
-            };
-            dgvAccounts.Columns.Add(deleteButton);
-
-
-            dgvAccounts.CellClick += (sender, e) => {
-                if (e.RowIndex < 0 || e.ColumnIndex != dgvAccounts.Columns["Delete"].Index)
-                    return;
-
-                var result = MessageBox.Show("Are you sure you want to delete this account?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes) {
-                    string accountName = dgvAccounts.Rows[e.RowIndex].Cells[0].Value.ToString();
-
-                    var accountToRemove = App.State.UserManager.LoggedUser.Accounts.FirstOrDefault(a => a.Name == accountName);
-                    if (accountToRemove != null)
-                        App.State.UserManager.LoggedUser.Accounts.Remove(accountToRemove);
-
-                    dgvAccounts.Rows.RemoveAt(e.RowIndex);
-                }
-            };
-
-            RefreshDataGrid();
+            RefreshAccountList();
 
         }
+        
+        private void RefreshAccountList() {
 
-        private void RefreshDataGrid() {
-            dgvAccounts.Rows.Clear();
-            var accounts = App.State.UserManager.LoggedUser?.Accounts;
+            lvAccounts.Items.Clear();
+
+            var accounts = Session.CurrentUser?.Accounts;
             if (accounts != null) {
                 foreach (var acc in accounts) {
-                    dgvAccounts.Rows.Add(acc.Name, acc.Balance.ToString("F2"));
+                    var item = new ListViewItem(acc.Name);
+                    item.SubItems.Add(acc.Balance.ToString("F2"));
+                    item.Tag = acc; // keep original Account obj for later use
+                    lvAccounts.Items.Add(item);
                 }
             }
+
         }
 
-      
+        private Account? GetSelectedAccount() {
+            if (lvAccounts.SelectedItems.Count == 0)
+                return null;
+
+            return lvAccounts.SelectedItems[0].Tag as Account;
+        }
+
+        private void LvAccounts_MouseDoubleClick(object? sender, MouseEventArgs e) {
+
+            if (lvAccounts.SelectedItems.Count == 0) return;
+
+            var item = lvAccounts.SelectedItems[0];
+            var acc = item.Tag as Account;
+
+            if (acc != null) {
+                var result = MessageBox.Show($"Delete account '{acc.Name}'?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes) {
+                    Session.CurrentUser?.Accounts.Remove(acc);
+                    RefreshAccountList();
+                }
+            }
+
+        }
+
         private void bAddAccount_Click(object sender, EventArgs e) {
 
-     
+            var container = this.Parent as ElementContainer;
+            container?.CurrentView?.SwitchScreen("add");
+            container?.LockView();
 
-
-            var container = (this.Parent as ElementContainer);
-            container.CurrentView.SwitchScreen("add");
-            container.LockView();
         }
+
+        private void bEditAccount_Click(object sender, EventArgs e) {
+
+            var acc = GetSelectedAccount();
+
+            if (acc == null) {
+                MessageBox.Show("You need to select account first");
+                return;
+            }
+
+            Session.SelectedAccountId = acc.ID;
+
+            var container = this.Parent as ElementContainer;
+            if (container?.CurrentView is AccountsView view) {
+                view.SwitchScreen("edit");
+                container.LockView();
+            }
+
+        }
+
+        private void tbDeleteAccount_Click(object sender, EventArgs e) {
+
+            var acc = GetSelectedAccount();
+            if (acc == null) {
+                MessageBox.Show("Please select an account to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var result = MessageBox.Show(
+                $"Are you sure you want to delete the account '{acc.Name}'?",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result == DialogResult.Yes) {
+                Session.CurrentUser?.Accounts.Remove(acc);
+                RefreshAccountList();
+            }
+
+        }
+
     }
 }

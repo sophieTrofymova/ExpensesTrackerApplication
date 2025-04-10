@@ -47,7 +47,7 @@ namespace ExpenseTracker.Elements {
             }
         }
 
-        public string DefaultScreenKey { get; set; } = "default";   
+        public string DefaultScreenKey { get; set; } = "default";
 
         // deffered element creation based on screenKey 
         protected readonly Dictionary<string, Func<List<Element>>> screenBuilders = new();
@@ -125,8 +125,8 @@ namespace ExpenseTracker.Elements {
             var elements = builder();
             AddElements(elements);
 
-            foreach (var e in elements) {
-                e.Init();
+            foreach (var element in elements) {
+                element.Init();
             }
         }
 

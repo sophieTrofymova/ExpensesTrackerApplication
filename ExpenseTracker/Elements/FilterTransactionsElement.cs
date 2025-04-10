@@ -13,8 +13,7 @@ namespace ExpenseTracker.Controls
 {
     public partial class FilterTransactionsElement: Element
     {
-        public FilterTransactionsElement()
-        {
+        public FilterTransactionsElement(ElementView parentView) : base(parentView) {
             InitializeComponent();
         }
 

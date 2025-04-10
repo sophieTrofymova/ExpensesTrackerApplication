@@ -90,7 +90,7 @@ namespace ExpenseTracker
                 this.ViewNameText.Text = e.Name;
             };
 
-            //new ControlsTestingForm().ShowDialog();
+           // new ControlsTestingForm().ShowDialog();
         }
 
 

@@ -14,7 +14,7 @@ namespace ExpenseTracker.Views {
                 this.NumCols = 9;
 
                 screenBuilders.Add("view", () => new List<Element> {
-                new Element() {
+                new Element(this) {
 
                     Title = "Settings",
                     Col = 1,

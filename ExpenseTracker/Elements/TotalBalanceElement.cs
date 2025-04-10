@@ -16,7 +16,7 @@ namespace ExpenseTracker
 
 
 
-        public BalanceSummaryElement() {
+        public BalanceSummaryElement(ElementView parentView) : base(parentView) {
 
             InitializeComponent();
 

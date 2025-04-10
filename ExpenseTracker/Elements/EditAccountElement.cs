@@ -14,16 +14,27 @@ using ExpenseTracker.Views;
 using Newtonsoft.Json.Linq;
 
 namespace ExpenseTracker.Elements {
-    public partial class AddAccountElement : Element {
-        public AddAccountElement(ElementView parentView) : base(parentView) {
+    public partial class EditAccountElement : Element {
+
+        private Account? accountToChange = null;
+
+        public EditAccountElement(ElementView parentView) : base(parentView) {
             InitializeComponent();
         }
 
         public override void Init() {
-     
+            accountToChange = Session.SelectedAccount();
+
+            if (accountToChange == null) {
+                ReturnToAccountsScreen();
+            }
+
+
+            txtAccountName.Text = accountToChange.Name;
+            txtInitialBalance.Text = accountToChange.Balance.ToString("F2");
         }
 
-        private void btnAdd_Click(object sender, EventArgs e) {
+        private void btnEdit_Click(object sender, EventArgs e) {
 
             string name = txtAccountName.Text.Trim();
             string balanceText = txtInitialBalance.Text.Trim();
@@ -38,17 +49,11 @@ namespace ExpenseTracker.Elements {
                 return;
             }
 
-            // check for duplicate acc name
-            if (Session.CurrentUser.Accounts.Any(acc => acc.Name.Equals(name, StringComparison.OrdinalIgnoreCase))) {
-                WF.MessageBox.Show("An account with this name already exists.");
-                return;
-            }
+            // update the acc values
+            accountToChange.Name = name;
+            accountToChange.Balance = balance;
 
-            var newAccount = new Account(name, balance);
-            Session.CurrentUser.Accounts.Add(newAccount);
-
-            WF.MessageBox.Show($"Account '{name}' added with €{balance:F2} balance.");
-
+            WF.MessageBox.Show($"Account updated: '{name}' with €{balance:F2}");
 
             txtAccountName.Text = "";
             txtInitialBalance.Text = "";
@@ -56,17 +61,22 @@ namespace ExpenseTracker.Elements {
             ReturnToAccountsScreen();
 
         }
+
+        private void ReturnToAccountsScreen() {
+            var container = this.ParentView?.Container;
+
+            if (container == null) {
+                throw new NullReferenceException("Parent container is not set");
+            }
+
+            container?.UnlockView();
+            container?.CurrentView?.SwitchScreen("view");
+
+        }
+
         private void btnCancel_Click(object sender, EventArgs e) {
             ReturnToAccountsScreen();
 
-        }
-
-        private void ReturnToAccountsScreen() {
-            ElementContainer? container = (this.Parent as ElementContainer);
-            container?.UnlockView();
-            container?.CurrentView?.SwitchScreen("view");
-        }
-
-
+        }      
     }
 }

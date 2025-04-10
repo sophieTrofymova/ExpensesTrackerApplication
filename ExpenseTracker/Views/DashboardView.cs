@@ -29,7 +29,7 @@ namespace ExpenseTracker.Views {
 
 
                 // create element
-                BalanceSummary = new BalanceSummaryElement();
+                BalanceSummary = new BalanceSummaryElement(this);
                 BalanceSummary.Title = "Summary";
 
                 // pos

@@ -11,7 +11,7 @@ using WF = System.Windows.Forms;
 
 namespace ExpenseTracker.Elements {
     public partial class BudgetsElement : Element {
-        public BudgetsElement() {
+        public BudgetsElement(ElementView parentView) : base(parentView) {
             InitializeComponent();
             dgvBudgets.ForeColor = Color.Black;
 

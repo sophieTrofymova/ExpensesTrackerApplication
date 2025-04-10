@@ -15,7 +15,7 @@ namespace ExpenseTracker.Views
                 this.NumCols = 6;
                 this.NumRows = 2;
 
-                var budgetsElement = new BudgetsElement() {
+                var budgetsElement = new BudgetsElement(this) {
                     ThemedGroupBox = { Text = "Budgets" },
                     Col = 0,
                     Cols = 20,

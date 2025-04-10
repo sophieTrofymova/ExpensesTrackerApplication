@@ -11,7 +11,7 @@ namespace ExpenseTracker.Views
             this.Name = "Reccurent";
             LayoutType = ViewLayoutType.FreeMovement;
 
-            var Filter = new Element();
+            var Filter = new Element(this);
             Filter.ThemedGroupBox.Text = "Filter";
             Filter.Col = 1;
             Filter.Row = 1;
@@ -20,7 +20,7 @@ namespace ExpenseTracker.Views
             Filter.AllowDrag = true;
             Filter.Size = new Size(200, 200);
 
-            var transactions = new Element();
+            var transactions = new Element(this);
             transactions.ThemedGroupBox.Text = "Transactions";
 
             transactions.Col = 3;

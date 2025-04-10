@@ -1,5 +1,5 @@
 ﻿namespace ExpenseTracker.Elements {
-    partial class AddTransactionElement {
+    partial class AddIncomeElement {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -23,14 +23,14 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            tbExpenseAmount = new Controls.ThemedTextBox();
+            tbIncomeAmount = new Controls.ThemedTextBox();
             dtpAffectDate = new DateTimePicker();
             label6 = new Controls.ThemedLabel();
             cbUserAccounts = new Controls.ThemedComboBox();
             label7 = new Controls.ThemedLabel();
             bCategory = new Controls.ThemedLabel();
             label2 = new Controls.ThemedLabel();
-            newTransactionCategoryDropDown = new Controls.ThemedComboBox();
+            IncomeCategoryDropDown = new Controls.ThemedComboBox();
             bCancel = new Controls.ThemedButton();
             bAdd = new Controls.ThemedButton();
             ThemedGroupBox.SuspendLayout();
@@ -42,45 +42,46 @@
             ThemedGroupBox.Controls.Add(bCancel);
             ThemedGroupBox.Controls.Add(dtpAffectDate);
             ThemedGroupBox.Controls.Add(label2);
-            ThemedGroupBox.Controls.Add(tbExpenseAmount);
+            ThemedGroupBox.Controls.Add(tbIncomeAmount);
             ThemedGroupBox.Controls.Add(label6);
             ThemedGroupBox.Controls.Add(bCategory);
             ThemedGroupBox.Controls.Add(cbUserAccounts);
             ThemedGroupBox.Controls.Add(label7);
-            ThemedGroupBox.Controls.Add(newTransactionCategoryDropDown);
-            ThemedGroupBox.Size = new Size(687, 443);
+            ThemedGroupBox.Controls.Add(IncomeCategoryDropDown);
+            ThemedGroupBox.Size = new Size(449, 470);
             // 
             // tbExpenseAmount
             // 
-            tbExpenseAmount.AutoCompleteMode = AutoCompleteMode.None;
-            tbExpenseAmount.AutoCompleteSource = AutoCompleteSource.None;
-            tbExpenseAmount.AutoSize = true;
-            tbExpenseAmount.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            tbExpenseAmount.BorderThickness = 1;
-            tbExpenseAmount.CharacterCasing = CharacterCasing.Normal;
-            tbExpenseAmount.InnerPadding = new Padding(4);
-            tbExpenseAmount.Location = new Point(365, 85);
-            tbExpenseAmount.Name = "tbExpenseAmount";
-            tbExpenseAmount.Size = new Size(216, 39);
-            tbExpenseAmount.TabIndex = 6;
-            tbExpenseAmount.TextAlign = HorizontalAlignment.Left;
-            tbExpenseAmount.UseSystemPasswordChar = false;
+            tbIncomeAmount.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tbIncomeAmount.AutoCompleteMode = AutoCompleteMode.None;
+            tbIncomeAmount.AutoCompleteSource = AutoCompleteSource.None;
+            tbIncomeAmount.AutoSize = true;
+            tbIncomeAmount.BorderThickness = 1;
+            tbIncomeAmount.CharacterCasing = CharacterCasing.Normal;
+            tbIncomeAmount.InnerPadding = new Padding(4);
+            tbIncomeAmount.Location = new Point(36, 258);
+            tbIncomeAmount.Name = "tbExpenseAmount";
+            tbIncomeAmount.Size = new Size(383, 39);
+            tbIncomeAmount.TabIndex = 6;
+            tbIncomeAmount.TextAlign = HorizontalAlignment.Left;
+            tbIncomeAmount.UseSystemPasswordChar = false;
             // 
             // dtpAffectDate
             // 
+            dtpAffectDate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtpAffectDate.CustomFormat = "dd/MM/yyyy";
             dtpAffectDate.Font = new Font("Segoe UI", 12F);
             dtpAffectDate.Format = DateTimePickerFormat.Custom;
-            dtpAffectDate.Location = new Point(36, 290);
+            dtpAffectDate.Location = new Point(36, 346);
             dtpAffectDate.Name = "dtpAffectDate";
-            dtpAffectDate.Size = new Size(289, 34);
+            dtpAffectDate.Size = new Size(384, 34);
             dtpAffectDate.TabIndex = 4;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F);
-            label6.Location = new Point(365, 54);
+            label6.Location = new Point(33, 227);
             label6.Name = "label6";
             label6.Size = new Size(87, 28);
             label6.TabIndex = 3;
@@ -88,21 +89,22 @@
             // 
             // cbUserAccounts
             // 
+            cbUserAccounts.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cbUserAccounts.BackColor = SystemColors.WindowFrame;
             cbUserAccounts.DrawMode = DrawMode.OwnerDrawFixed;
             cbUserAccounts.DropDownStyle = ComboBoxStyle.DropDownList;
             cbUserAccounts.ForeColor = Color.WhiteSmoke;
             cbUserAccounts.FormattingEnabled = true;
-            cbUserAccounts.Location = new Point(36, 179);
+            cbUserAccounts.Location = new Point(36, 171);
             cbUserAccounts.Name = "cbUserAccounts";
-            cbUserAccounts.Size = new Size(287, 40);
+            cbUserAccounts.Size = new Size(382, 40);
             cbUserAccounts.TabIndex = 2;
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F);
-            label7.Location = new Point(36, 148);
+            label7.Location = new Point(36, 140);
             label7.Name = "label7";
             label7.Size = new Size(88, 28);
             label7.TabIndex = 3;
@@ -122,31 +124,32 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(34, 244);
+            label2.Location = new Point(33, 315);
             label2.Name = "label2";
             label2.Size = new Size(113, 28);
             label2.TabIndex = 3;
             label2.Text = "Affect Date:";
             // 
-            // newTransactionCategoryDropDown
+            // IncomeCategoryDropDown
             // 
-            newTransactionCategoryDropDown.BackColor = SystemColors.WindowFrame;
-            newTransactionCategoryDropDown.DrawMode = DrawMode.OwnerDrawFixed;
-            newTransactionCategoryDropDown.DropDownStyle = ComboBoxStyle.DropDownList;
-            newTransactionCategoryDropDown.ForeColor = Color.WhiteSmoke;
-            newTransactionCategoryDropDown.FormattingEnabled = true;
-            newTransactionCategoryDropDown.Location = new Point(36, 85);
-            newTransactionCategoryDropDown.Name = "newTransactionCategoryDropDown";
-            newTransactionCategoryDropDown.Size = new Size(287, 40);
-            newTransactionCategoryDropDown.TabIndex = 2;
+            IncomeCategoryDropDown.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            IncomeCategoryDropDown.BackColor = SystemColors.WindowFrame;
+            IncomeCategoryDropDown.DrawMode = DrawMode.OwnerDrawFixed;
+            IncomeCategoryDropDown.DropDownStyle = ComboBoxStyle.DropDownList;
+            IncomeCategoryDropDown.ForeColor = Color.WhiteSmoke;
+            IncomeCategoryDropDown.FormattingEnabled = true;
+            IncomeCategoryDropDown.Location = new Point(36, 85);
+            IncomeCategoryDropDown.Name = "IncomeCategoryDropDown";
+            IncomeCategoryDropDown.Size = new Size(382, 40);
+            IncomeCategoryDropDown.TabIndex = 2;
             // 
             // bCancel
             // 
             bCancel.FlatAppearance.BorderSize = 0;
             bCancel.FlatStyle = FlatStyle.Flat;
-            bCancel.Location = new Point(50, 362);
+            bCancel.Location = new Point(36, 398);
             bCancel.Name = "bCancel";
-            bCancel.Size = new Size(115, 45);
+            bCancel.Size = new Size(132, 39);
             bCancel.TabIndex = 7;
             bCancel.Text = "Cancel";
             bCancel.UseVisualStyleBackColor = true;
@@ -154,23 +157,24 @@
             // 
             // bAdd
             // 
+            bAdd.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             bAdd.FlatAppearance.BorderSize = 0;
             bAdd.FlatStyle = FlatStyle.Flat;
-            bAdd.Location = new Point(186, 362);
+            bAdd.Location = new Point(288, 398);
             bAdd.Name = "bAdd";
-            bAdd.Size = new Size(115, 45);
+            bAdd.Size = new Size(130, 39);
             bAdd.TabIndex = 7;
             bAdd.Text = "Add";
             bAdd.UseVisualStyleBackColor = true;
             bAdd.Click += bAdd_Click;
             // 
-            // AddTransactionElement
+            // AddIncomeElement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Location = new Point(0, 0);
-            Name = "AddTransactionElement";
-            Size = new Size(697, 493);
+            Name = "AddIncomeElement";
+            Size = new Size(459, 520);
             ThemedGroupBox.ResumeLayout(false);
             ThemedGroupBox.PerformLayout();
             ResumeLayout(false);
@@ -180,12 +184,12 @@
 
         private DateTimePicker dtpAffectDate;
         private Controls.ThemedLabel label2;
-        private Controls.ThemedTextBox tbExpenseAmount;
+        private Controls.ThemedTextBox tbIncomeAmount;
         private Controls.ThemedLabel label6;
         private Controls.ThemedLabel bCategory;
         public Controls.ThemedComboBox cbUserAccounts;
         private Controls.ThemedLabel label7;
-        public Controls.ThemedComboBox newTransactionCategoryDropDown;
+        public Controls.ThemedComboBox IncomeCategoryDropDown;
         private Controls.ThemedButton bAdd;
         private Controls.ThemedButton bCancel;
     }

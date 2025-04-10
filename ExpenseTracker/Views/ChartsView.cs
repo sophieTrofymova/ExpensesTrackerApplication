@@ -12,21 +12,21 @@ namespace ExpenseTracker.Views {
                 this.NumRows = 2;
                 screenKey = "view";
 
-                var chart1 = new BarChartElement {
+                var chart1 = new BarChartElement(this) {
                     ThemedGroupBox = { Text = "Bar Chart Example" },
                     Col = 0,
                     Cols = 2,
                     AllowDrag = false
                 };
 
-                var chart2 = new DonutChartElement {
+                var chart2 = new DonutChartElement(this) {
                     ThemedGroupBox = { Text = "Donut Chart Example" },
                     Col = 2,
                     Cols = 2,
                     AllowDrag = false
                 };
 
-                var chart3 = new ReportElement {
+                var chart3 = new ReportElement(this) {
                     ThemedGroupBox = { Text = "Chart 1" },
                     Col = 0,
                     Cols = 4,

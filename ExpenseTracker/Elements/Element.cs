@@ -35,9 +35,17 @@ namespace ExpenseTracker.Elements
 
         public string Title { get { return ThemedGroupBox.Text; } set { ThemedGroupBox.Text = value; } }
 
-        public Element()
+        public ElementView? ParentView { get; set; }
+
+
+        public Element() : this(null) { }
+
+
+        public Element(ElementView parentView)
         {
             InitializeComponent();
+
+            this.ParentView = parentView;
 
             Location = new Point(10, 10);
             Size = new Size(100, 100);
@@ -51,7 +59,9 @@ namespace ExpenseTracker.Elements
             //this.ThemedGroupBox.ForeColor = MainForm.AppState.Settings.CurrentTheme.GetColor(Storage.ThemeColor.CaptionColor);
         }
 
-
+        /// <summary>
+        /// Ov
+        /// </summary>
         public virtual void Init() {
             
         }
