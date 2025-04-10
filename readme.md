@@ -1,5 +1,26 @@
 ﻿# 📊 Personal Expense Tracker
 
+
+ ---
+
+ - [ ] 1. User Registration
+ - [ ] 2. User Login
+ - [ ] 3. Add a New Expense
+ - [ ] 4. Add a New Income
+ - [ ] 5. View Transaction History
+ - [ ] 6. Set and Track a Budget  
+ 
+ ---
+ 
+ - [ ] 1.  Edit a Transaction
+ - [ ] 2.  Delete a Transaction
+ - [ ] 3.  Filter Transactions by Category or Date
+ - [ ] 4.  View Balance Summary
+ - [ ] 5.  Generate Monthly Spending Report
+ - [ ] 6.  Connect a Bank Account
+
+
+
 ## 🔹 Overview
 The **Personal Expense Tracker** is a C# Windows Forms application designed to help users track their personal expenses and incomes efficiently. It provides tools for **categorization of expenses, visual charts, and budget management**, ensuring better financial planning and control.
 
