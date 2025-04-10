@@ -30,9 +30,9 @@ namespace ExpenseTracker.Views {
                 var chart3 = new ReportElement {
                     ThemedGroupBox = { Text = "Chart 1" },
                     Col = 0,
-                    Cols = 2,
-                    Rows = 1,
-                    Row = 0,
+                    Cols = 4,
+                    Row = 2,
+                    Rows = 2,
                     AllowDrag = false
                 };
               
