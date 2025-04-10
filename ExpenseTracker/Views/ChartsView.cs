@@ -9,6 +9,7 @@ namespace ExpenseTracker.Views {
 
             public override void Build() {
                 ClearElements();
+
                 this.NumCols = 6;
                 this.NumRows = 2;
 
@@ -26,14 +27,18 @@ namespace ExpenseTracker.Views {
                     AllowDrag = false
                 };
 
-                var chart3 = new Element {
-                    ThemedGroupBox = { Text = "Chart 3" },
-                    Col = 4,
+                var chart3 = new ReportElement {
+                    ThemedGroupBox = { Text = "Chart 1" },
+                    Col = 0,
                     Cols = 2,
+                    Rows = 1,
+                    Row = 0,
                     AllowDrag = false
                 };
-
+              
                 this.AddElements(new List<Element> { chart1, chart2, chart3 });
+
+
             }
         }
 

@@ -24,7 +24,8 @@ namespace ExpenseTracker {
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             themedComboBox1 = new ThemedComboBox();
             themedGroupBox1 = new ThemedGroupBox();
             textBox1 = new ThemedTextBox();
@@ -65,6 +66,7 @@ namespace ExpenseTracker {
             textBox1.Location = new Point(51, 274);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(144, 27);
+
             textBox1.TabIndex = 2;
             textBox1.TextAlign = HorizontalAlignment.Left;
             textBox1.UseSystemPasswordChar = false;
