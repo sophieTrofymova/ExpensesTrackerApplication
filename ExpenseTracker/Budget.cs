@@ -1,11 +1,15 @@
-﻿using System;
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using static ExpenseTracker.Storage.ApplicationState;
 
-namespace ExpenseTracker {
+namespace ExpenseTracker
+{
     public class Budget
     {
         public Guid ID { get; private set; }
@@ -26,11 +30,15 @@ namespace ExpenseTracker {
         /// For serializer only
         /// </summary>
         [JsonConstructor]
-        public Budget(Guid id) {
+
+        public Budget(Guid id)
+        {
             ID = id;
         }
 
-        public Budget(string name, CategoryInfo categoryInfo, decimal amountLimit, List<Guid> accountsIDs) {
+        public Budget(string name, CategoryInfo categoryInfo, decimal amountLimit, List<Guid> accountsIDs)
+        {
+
             ID = Guid.NewGuid();
             Name = name;
             CategoryInfo = categoryInfo;
@@ -65,4 +73,3 @@ namespace ExpenseTracker {
     }
 
 }
-

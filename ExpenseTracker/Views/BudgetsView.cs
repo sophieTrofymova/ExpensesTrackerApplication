@@ -11,20 +11,46 @@ namespace ExpenseTracker.Views {
                 this.NumRows = 1;
                 this.NumCols = 1;
 
-                var budgetsElement = new BudgetsElement(this) {
-                    Title = "Budgets",
+
+
+                screenBuilders.Add("add", () => new List<Element> {
+                new AddBudgetElement(this) {
+
+                    Title = "Add Budget",
                     Col = 0,
                     Row = 0,
                     Cols = 1,
                     Rows = 1,
-                    AllowDrag = true
-                };
+                    AllowDrag = false
+                }
+            });
 
-                screenBuilders.Add("view", () => new List<Element> { budgetsElement });
+                screenBuilders.Add("edit", () => new List<Element> {
+                new EditBudgetElement(this) {
+                    Title = "Edit Budget",
+                    Col = 0,
+                    Row = 0,
+                    Cols = 1,
+                    Rows = 1,
+                    AllowDrag = false
+                }
+            });
 
-                Padding = new System.Windows.Forms.Padding(25);
+                screenBuilders.Add("view", () => new List<Element> {
+                new BudgetsElement(this) {
+                    Title = "View Budgets",
+                    Col = 0,
+                    Row = 0,
+                    Cols = 1,
+                    Rows = 1,
+                    AllowDrag = false
+                }
+            });
 
                 DefaultScreenKey = "view";
+
+            }
+
 
 
             }
@@ -36,4 +62,3 @@ namespace ExpenseTracker.Views {
 
     }
 
-}

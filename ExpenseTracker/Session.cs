@@ -1,5 +1,8 @@
-﻿namespace ExpenseTracker {
-    public static class Session {
+﻿
+namespace ExpenseTracker
+{
+    public static class Session
+    {
 
 
         public static User? CurrentUser { get { return App.State?.UserManager?.LoggedUser; } }
@@ -13,15 +16,17 @@
 
 
 
-        public static Budget? SelectedBudget() {
-            return CurrentUser?.Budgets?.FirstOrDefault(a => a.ID == SelectedBudgetId);
-        }
-
         public static Account? SelectedAccount() {
             return CurrentUser?.Accounts?.FirstOrDefault(a => a.ID == SelectedAccountId);
         }
 
-        public static Transaction? SelectedTransaction() {
+        public static Budget? SelectedBudget()
+        {
+            return CurrentUser?.Budgets?.FirstOrDefault(a => a.ID == SelectedBudgetId);
+        }
+
+        public static Transaction? SelectedTransaction()
+        {
             return CurrentUser?.Transactions?.FirstOrDefault(a => a.ID == SelectedTransactionId);
         }
 
