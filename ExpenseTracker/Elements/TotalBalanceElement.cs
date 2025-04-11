@@ -25,7 +25,8 @@ namespace ExpenseTracker
 
 
         public override void Init() {
-            DisplayAccounts(App.State.UserManager.LoggedUser.Accounts);
+            // DisplayAccounts(App.State.UserManager.LoggedUser.Accounts);
+            DisplayAccounts(Session.CurrentUser?.Accounts);
         }
 
         public void DisplayAccounts(List<Account> accounts) {

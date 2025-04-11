@@ -53,18 +53,8 @@ namespace ExpenseTracker.Elements {
 
         private void LvAccounts_MouseDoubleClick(object? sender, MouseEventArgs e) {
 
-            if (lvAccounts.SelectedItems.Count == 0) return;
-
-            var item = lvAccounts.SelectedItems[0];
-            var acc = item.Tag as Account;
-
-            if (acc != null) {
-                var result = MessageBox.Show($"Delete account '{acc.Name}'?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes) {
-                    Session.CurrentUser?.Accounts.Remove(acc);
-                    RefreshAccountList();
-                }
-            }
+            GetSelectedAccount();
+          
 
         }
 
@@ -95,23 +85,6 @@ namespace ExpenseTracker.Elements {
 
         }
 
-        //private void bEditBudget_Click(object sender, EventArgs e) {
-
-        //    var budget = GetSelectedBudget(); // создай метод GetSelectedBudget() аналогично GetSelectedAccount() в ViewAccountsElement
-
-        //    if (budget == null) {
-        //        MessageBox.Show("You need to select budget first");
-        //        return;
-        //    }
-
-        //    Session.SelectedBudgetId = budget.ID;
-
-        //    if (this.ParentView is BudgetsView view) {
-        //        view.SwitchScreen("editBudget"); // или как у тебя называется
-        //        this.ParentView.Container.LockView();
-        //    }
-
-        //}
 
 
         private void tbDeleteAccount_Click(object sender, EventArgs e) {
@@ -131,6 +104,7 @@ namespace ExpenseTracker.Elements {
 
             if (result == DialogResult.Yes) {
                 Session.CurrentUser?.Accounts.Remove(acc);
+                Session.CurrentUser?.Transactions.RemoveAll(t => t.SenderAccount == acc.ID || t.ReceiverAccount == acc.ID);
                 RefreshAccountList();
             }
 
