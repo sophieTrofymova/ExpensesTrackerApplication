@@ -33,17 +33,67 @@ namespace ExpenseTracker.Elements {
 
         private void bAdd_Click(object sender, EventArgs e) {
 
-            var acc = Session.CurrentUser?.Accounts.Select(a => a).Where(a => a.Name == (cbUserAccounts.SelectedItem as string)).FirstOrDefault() as Account;
-            var cat = CategoryInfo.ExpenseCategories.Select(c => c).Where(c => c.Description == (expenseCategoryDropDown.SelectedItem as string)).FirstOrDefault() as CategoryInfo;
+            //var acc = Session.CurrentUser?.Accounts.Select(a => a).Where(a => a.Name == (cbUserAccounts.SelectedItem as string)).FirstOrDefault() as Account;
+            //var cat = CategoryInfo.ExpenseCategories.Select(c => c).Where(c => c.Description == (expenseCategoryDropDown.SelectedItem as string)).FirstOrDefault() as CategoryInfo;
 
-            var transaction = new Transaction(acc.ID) {
-                Amount = decimal.Parse(tbExpenseAmount.Text),
+            //var transaction = new Transaction(acc.ID) {
+            //    Amount = decimal.Parse(tbExpenseAmount.Text),
+            //    EffectDate = dtpAffectDate.Value,
+            //    CategoryInfo = cat,
+            //    Type = TransactionType.Expense
+            //};
+
+            //Session.CurrentUser?.Transactions.Add(transaction);
+
+            //var container = (this.Parent as ElementContainer);
+            //container?.UnlockView();
+            //this.ParentView?.SwitchScreen("view");
+
+            if (cbUserAccounts.SelectedItem == null || expenseCategoryDropDown.SelectedItem == null)
+            {
+                MessageBox.Show("Please select an account and category.");
+                return;
+            }
+
+            var acc = Session.CurrentUser?.Accounts
+                .FirstOrDefault(a => a.Name == cbUserAccounts.SelectedItem.ToString());
+
+            var cat = CategoryInfo.ExpenseCategories
+                .FirstOrDefault(c => c.Description == expenseCategoryDropDown.SelectedItem.ToString());
+
+            if (acc == null || cat == null)
+            {
+                MessageBox.Show("Invalid account or category.");
+                return;
+            }
+
+            if (!decimal.TryParse(tbExpenseAmount.Text, out decimal amount))
+            {
+                MessageBox.Show("Invalid amount.");
+                return;
+            }
+
+            var transaction = new Transaction(acc.ID)
+            {
+                Amount = amount,
                 EffectDate = dtpAffectDate.Value,
                 CategoryInfo = cat,
                 Type = TransactionType.Expense
             };
 
             Session.CurrentUser?.Transactions.Add(transaction);
+
+            var matchingBudget = Session.CurrentUser?.Budgets
+                .FirstOrDefault(b =>
+                    b.CategoryInfo.Description == cat.Description &&
+                    b.AccountsIDs.Contains(acc.ID));
+
+            if (matchingBudget != null)
+            {
+                matchingBudget.Spent += amount;
+            }
+
+            MessageBox.Show("Expense added successfully.");
 
             var container = (this.Parent as ElementContainer);
             container?.UnlockView();

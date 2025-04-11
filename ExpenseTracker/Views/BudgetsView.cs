@@ -19,8 +19,8 @@ namespace ExpenseTracker.Views {
                     Title = "Add Budget",
                     Col = 0,
                     Row = 0,
-                    Cols = 20,
-                    Rows = 10,
+                    Cols = 1,
+                    Rows = 1,
                     AllowDrag = false
                 }
             });
@@ -30,8 +30,8 @@ namespace ExpenseTracker.Views {
                     Title = "Edit Budget",
                     Col = 0,
                     Row = 0,
-                    Cols = 20,
-                    Rows = 10,
+                    Cols = 1,
+                    Rows = 1,
                     AllowDrag = false
                 }
             });
@@ -41,8 +41,8 @@ namespace ExpenseTracker.Views {
                     Title = "View Budgets",
                     Col = 0,
                     Row = 0,
-                    Cols = 20,
-                    Rows = 10,
+                    Cols = 1,
+                    Rows = 1,
                     AllowDrag = false
                 }
             });

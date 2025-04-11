@@ -12,7 +12,7 @@ namespace ExpenseTracker.Elements
 {
     public partial class EditBudgetElement : Element
     {
-        private Account? accountToChange = null;
+        private Budget? budgetToEdit = null;
         public EditBudgetElement(ElementView parentView) : base(parentView)
         {
             InitializeComponent();
@@ -20,9 +20,9 @@ namespace ExpenseTracker.Elements
        
         public override void Init()
         {
-            var selectedBudget = Session.SelectedBudget;
+            budgetToEdit = Session.SelectedBudget();
 
-            if (selectedBudget == null)
+            if (budgetToEdit == null)
             {
                 MessageBox.Show("No budget selected.");
                 ReturnToBudgetsScreen();
@@ -30,12 +30,21 @@ namespace ExpenseTracker.Elements
             }
 
             editBudgetCategoryDropDown.Items.Clear();
-            editBudgetCategoryDropDown.Items.Add(selectedBudget.CategoryInfo.Description); // just display selected one
+            editBudgetCategoryDropDown.Items.Add(budgetToEdit.CategoryInfo.Description); 
             editBudgetCategoryDropDown.SelectedIndex = 0;
             editBudgetCategoryDropDown.Enabled = false;
 
+            var accountId = budgetToEdit.AccountsIDs.FirstOrDefault();
+            var account = Session.CurrentUser.Accounts.FirstOrDefault(a => a.ID == accountId);
+            string accountName = account != null ? account.Name : "Unknown";
 
-            tbLimitAmountEdit.Text = selectedBudget.AmountLimit.ToString("F2");
+
+            cbUserAccountsEditBudget.Items.Clear();
+            cbUserAccountsEditBudget.Items.Add(accountName);
+            cbUserAccountsEditBudget.SelectedIndex = 0;
+            cbUserAccountsEditBudget.Enabled = false;
+
+            tbLimitAmountEdit.Text = budgetToEdit.AmountLimit.ToString("F2");
         }
 
 
@@ -60,9 +69,8 @@ namespace ExpenseTracker.Elements
         }
         private void bAEditBudget_Click(object sender, EventArgs e)
         {
-            var selectedBudget = Session.SelectedBudget;
 
-            if (selectedBudget == null)
+            if (budgetToEdit == null)
             {
                 MessageBox.Show("No budget to update.");
                 return;
@@ -74,9 +82,9 @@ namespace ExpenseTracker.Elements
                 return;
             }
 
-            selectedBudget.AmountLimit = newLimit;
+            budgetToEdit.AmountLimit = newLimit;
 
-            MessageBox.Show($"Budget '{selectedBudget.Name}' updated with limit €{newLimit:F2}");
+            MessageBox.Show($"Budget '{budgetToEdit.Name}' updated with limit €{newLimit:F2}");
             ReturnToBudgetsScreen();
         }
         private void ReturnToBudgetsScreen()
