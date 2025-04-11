@@ -43,7 +43,7 @@ namespace ExpenseTracker.Controls {
                 e.Graphics.DrawString(e.Header.Text, Font, txt, e.Bounds);
             }
             catch (Exception ex) {
-                Debug.WriteLine("💥 DrawColumnHeader: " + ex.Message);
+                Debug.WriteLine("DrawColumnHeader: " + ex.Message);
             }
         }
 

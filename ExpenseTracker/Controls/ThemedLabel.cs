@@ -38,7 +38,7 @@ namespace ExpenseTracker.Controls {
                 );
             }
             catch (Exception ex) {
-                System.Diagnostics.Debug.WriteLine("💥 ThemedLabel paint fail: " + ex);
+                System.Diagnostics.Debug.WriteLine("ThemedLabel paint fail: " + ex);
             }
         }
 

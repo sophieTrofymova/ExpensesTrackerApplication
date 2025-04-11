@@ -89,7 +89,7 @@ namespace ExpenseTracker.Elements {
 
             //selTransaction.CategoryDescription == 
 
-
+            // sorry its unfinished at 11/10/2023
 
         }
 

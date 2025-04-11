@@ -13,7 +13,7 @@ namespace ExpenseTracker.Views {
                 this.Name = "Dashboard";
                 this.NumRows = 10;
                 this.NumCols = 10;
-                this.Padding = new Padding(5);
+                this.Padding = new Padding(3);
                 screenKey = "view";
 
 

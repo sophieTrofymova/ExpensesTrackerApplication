@@ -76,7 +76,7 @@ namespace ExpenseTracker.Controls {
                 );
             }
             catch (Exception ex) {
-                Debug.WriteLine("💥 ThemedButton OnPaint failed: " + ex);
+                Debug.WriteLine("ThemedButton OnPaint failed: " + ex);
             }
         }
 

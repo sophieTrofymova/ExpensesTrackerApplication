@@ -11,13 +11,6 @@ namespace ExpenseTracker {
 
     // Store Transactions Separately(Better for Global Access)
 
-    // ✅ Pros:
-    //    Easier to query/search across all transactions.
-    //    Makes transfer logic simpler (since transfers belong to two accounts).
-    // ❌ Cons:
-    //    Requires additional logic to link transactions to accounts.
-    //    Slower when fetching transactions for a single account.
-
     public class TransactionManager {
         public List<Transaction> Transactions { get; set; } = new List<Transaction>();
 

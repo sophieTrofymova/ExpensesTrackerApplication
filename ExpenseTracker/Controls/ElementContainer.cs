@@ -98,7 +98,6 @@ namespace ExpenseTracker.Controls
         /// <summary>
         /// sets and loads a new view into container
         /// </summary>
-        // in ElementContainer class:
         private ScreenChangedEventHandler? _screenChangedHandler;
 
         public void SetView(ElementView view, string screenKey = "default") {
@@ -116,7 +115,7 @@ namespace ExpenseTracker.Controls
                 }
             }
 
-            view.SwitchScreen(screenKey); // 💥 actually use the parameter
+            view.SwitchScreen(screenKey); // actually use the parameter
 
             currentView = view;
 

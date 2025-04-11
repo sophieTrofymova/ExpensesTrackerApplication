@@ -48,7 +48,7 @@ namespace ExpenseTracker.Controls {
                 DrawArrow(g, new Rectangle(arrowX, arrowY, 12, 8), foreColor);
             }
             catch (Exception ex) {
-                Debug.WriteLine("💥 OnPaint Exception: " + ex);
+                Debug.WriteLine("OnPaint Exception: " + ex);
             }
         }
 

@@ -18,7 +18,7 @@ namespace ExpenseTracker.Storage {
         public UserManager? UserManager { get; set; }
 
         // do not serialize this just set on start
-        public Theme? CurrentTheme { get; set; }
+        public Theme? CurrentTheme { get; private set; }
 
 
         public ApplicationState() {
@@ -86,7 +86,7 @@ namespace ExpenseTracker.Storage {
             // generate new settings
             Settings = new ApplicationSettings() {
                 TestMode = App.DebugMode, // set test mode if debug mode is enabled
-                ThemeName = "Dark",
+                ThemeName = "Default",
                 CurrencyType = CurrencyType.USD
             };
 
@@ -112,7 +112,22 @@ namespace ExpenseTracker.Storage {
 
         }
 
+        public event EventHandler ThemeChanged;
 
+        public void SetTheme(string name) {
+            CurrentTheme = Themes.FirstOrDefault(t => t.Name == name);
+            if (CurrentTheme == null) {
+                CurrentTheme = Themes.FirstOrDefault(t => t.Name == "Default");
+                if (CurrentTheme == null) {
+
+                    throw new InvalidOperationException("Default theme not found!");
+                }
+                else ThemeChanged?.Invoke(this, new EventArgs());
+
+            }
+             else ThemeChanged?.Invoke(this, new EventArgs());
+
+        }
 
         /// <summary>
         /// Example of new theme generation
@@ -137,14 +152,19 @@ namespace ExpenseTracker.Storage {
             Color GeneralForeColor = Color.WhiteSmoke;
 
             Dictionary<ThemeColor, Color> darkThemeColors = new() {
-            { ThemeColor.ViewBackColor, GeneralBackColor },
+           { ThemeColor.ViewBackColor, GeneralBackColor },
 
-                { ThemeColor.NavBarBackColor, Color.DimGray },
-                { ThemeColor.NavBarForeColor, GeneralForeColor },
-                { ThemeColor.NavBarButtonBackColor, Color.FromArgb(61, 61, 61)},
+            { ThemeColor.NavBarBackColor, Color.DimGray },
+            { ThemeColor.NavBarForeColor, GeneralForeColor },
+
+            { ThemeColor.NavBarButtonNormalBackColor, Color.FromArgb(31, 30, 37)},
+            { ThemeColor.NavBarButtonHoverBackColor, Color.FromArgb(49, 49, 55)},
+            { ThemeColor.NavBarButtonDownBackColor, Color.FromArgb(70, 69, 81)},
             { ThemeColor.NavBarButtonForeColor, Color.WhiteSmoke},
-            { ThemeColor.NavBarHeaderPanelBackColor, Color.FromArgb(113, 96, 232)},
-                { ThemeColor.NavBarHeaderPanelForeColor, GeneralForeColor },
+            { ThemeColor.NavBarButtonActiveForeColor, Color.Coral},
+
+            { ThemeColor.NavBarHeaderPanelBackColor, Color.FromArgb(43, 42, 51)},
+            { ThemeColor.NavBarHeaderPanelForeColor, GeneralForeColor },
 
 
             { ThemeColor.AccentColor, Color.Coral },
@@ -187,7 +207,7 @@ namespace ExpenseTracker.Storage {
             { ThemeColor.ListViewItemBackColor, Color.Coral },
             { ThemeColor.ListViewItemForeColor, Color.WhiteSmoke  },
             { ThemeColor.ListViewSelectedItemBackColor, Color.Coral },
-            { ThemeColor.ListViewSelectedItemForeColor, Color.WhiteSmoke },
+            { ThemeColor.ListViewSelectedItemForeColor, Color.WhiteSmoke }
             };
 
             var darkTheme = new Theme() { Name = "Dark" };
@@ -208,17 +228,21 @@ namespace ExpenseTracker.Storage {
 
             Dictionary<ThemeColor, Color> lightThemeColors = new() {
 
-              { ThemeColor.ViewBackColor, GeneralBackColor },
+           { ThemeColor.ViewBackColor, GeneralBackColor },
 
-                { ThemeColor.NavBarBackColor, Color.DimGray },
-                { ThemeColor.NavBarForeColor, GeneralForeColor },
-                { ThemeColor.NavBarButtonBackColor, Color.FromArgb(61, 61, 61)},
-            { ThemeColor.NavBarButtonForeColor, Color.WhiteSmoke},
+            { ThemeColor.NavBarBackColor, Color.DimGray },
+            { ThemeColor.NavBarForeColor, GeneralForeColor },
+
+            { ThemeColor.NavBarButtonNormalBackColor, Color.WhiteSmoke},
+            { ThemeColor.NavBarButtonHoverBackColor, Color.FromArgb(49, 49, 55)},
+            { ThemeColor.NavBarButtonDownBackColor, Color.FromArgb(70, 69, 81)},
+            { ThemeColor.NavBarButtonForeColor, Color.Black},
+            { ThemeColor.NavBarButtonActiveForeColor, Color.Blue},
             { ThemeColor.NavBarHeaderPanelBackColor, Color.FromArgb(113, 96, 232)},
-                { ThemeColor.NavBarHeaderPanelForeColor, GeneralForeColor },
+            { ThemeColor.NavBarHeaderPanelForeColor, Color.WhiteSmoke },
 
 
-            { ThemeColor.AccentColor, Color.Coral },
+            { ThemeColor.AccentColor,  Color.Blue },
             { ThemeColor.ElementBackColor, Color.FromArgb(61, 61, 61) },
             { ThemeColor.CaptionColor, GeneralForeColor },
             { ThemeColor.ControlBack, GeneralBackColor },
@@ -258,7 +282,7 @@ namespace ExpenseTracker.Storage {
             { ThemeColor.ListViewItemBackColor, Color.Coral },
             { ThemeColor.ListViewItemForeColor, Color.WhiteSmoke  },
             { ThemeColor.ListViewSelectedItemBackColor, Color.Coral },
-            { ThemeColor.ListViewSelectedItemForeColor, Color.WhiteSmoke },
+            { ThemeColor.ListViewSelectedItemForeColor, Color.WhiteSmoke }
             };
 
             var lightTheme = new Theme() { Name = "Light" };

@@ -9,9 +9,11 @@ namespace ExpenseTracker.Views {
 
         public AccountsView(ElementContainer container)
             : base(container) {
+
+            this.Name = "Accounts";
             this.NumRows = 10;
             this.NumCols = 20;
-            this.Padding = new Padding(5);
+            this.Padding = new Padding(3);
 
 
             screenBuilders.Add("add", () => new List<Element> {

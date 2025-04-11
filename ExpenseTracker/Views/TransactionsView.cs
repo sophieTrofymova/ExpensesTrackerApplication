@@ -13,8 +13,7 @@ namespace ExpenseTracker.Views {
 
             this.NumRows = 10;
             this.NumCols = 20;
-
-            this.Padding = new Padding(5);
+            this.Padding = new Padding(3);
 
 
             var viewTransactions = new TransactionsElement(this) {

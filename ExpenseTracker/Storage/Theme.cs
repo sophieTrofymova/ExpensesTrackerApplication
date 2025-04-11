@@ -9,8 +9,11 @@ namespace ExpenseTracker.Storage {
         ViewBackColor,
         NavBarBackColor,
         NavBarForeColor,
-        NavBarButtonBackColor,
+        NavBarButtonNormalBackColor,
+        NavBarButtonHoverBackColor,
+        NavBarButtonDownBackColor,
         NavBarButtonForeColor,
+        NavBarButtonActiveForeColor,
         NavBarHeaderPanelBackColor,
         NavBarHeaderPanelForeColor,
 
@@ -70,13 +73,17 @@ namespace ExpenseTracker.Storage {
 
             { ThemeColor.ViewBackColor, GeneralBackColor },
 
-                { ThemeColor.NavBarBackColor, Color.DimGray },
-                { ThemeColor.NavBarForeColor, GeneralForeColor },
-                { ThemeColor.NavBarButtonBackColor, Color.FromArgb(61, 61, 61)},
-            { ThemeColor.NavBarButtonForeColor, Color.WhiteSmoke},
-            { ThemeColor.NavBarHeaderPanelBackColor, Color.FromArgb(113, 96, 232)},
-                { ThemeColor.NavBarHeaderPanelForeColor, GeneralForeColor },
+            { ThemeColor.NavBarBackColor, Color.DimGray },
+            { ThemeColor.NavBarForeColor, GeneralForeColor },
 
+            { ThemeColor.NavBarButtonNormalBackColor, Color.FromArgb(31, 30, 37)},
+            { ThemeColor.NavBarButtonHoverBackColor, Color.FromArgb(49, 49, 55)},
+            { ThemeColor.NavBarButtonDownBackColor, Color.FromArgb(70, 69, 81)},
+            { ThemeColor.NavBarButtonForeColor, Color.WhiteSmoke},
+            { ThemeColor.NavBarButtonActiveForeColor, Color.Coral},
+
+            { ThemeColor.NavBarHeaderPanelBackColor, Color.FromArgb(43, 42, 51)},
+            { ThemeColor.NavBarHeaderPanelForeColor, GeneralForeColor },
 
             { ThemeColor.AccentColor, Color.Coral },
             { ThemeColor.ElementBackColor, Color.FromArgb(61, 61, 61) },

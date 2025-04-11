@@ -93,22 +93,33 @@ namespace ExpenseTracker
             };
 
 
-            // quick theme fix cause not enough time to implement it properly
+            App.State.ThemeChanged += State_ThemeChanged;
 
-            NavBarHeaderPanel.BackColor = Theme.GetDefaultColor(ThemeColor.NavBarHeaderPanelBackColor);
-            ViewNameText.ForeColor = Theme.GetDefaultColor(ThemeColor.NavBarHeaderPanelForeColor);
-
-            NavBar.ForeColor = Theme.GetDefaultColor(ThemeColor.NavBarForeColor);
-            NavBar.BackColor = Theme.GetDefaultColor(ThemeColor.NavBarBackColor);
-
-            foreach( NavBarButton b in NavBar.Buttons) {
-                 b.NormalColor = GetColor(ThemeColor.NavBarButtonBackColor);
-                 b.HoverColor = Color.FromArgb(0, 0, 0);
-                 b.DownColor = Color.FromArgb(150, 150, 150);
-                b.NormalForeColor = GetColor(ThemeColor.NavBarButtonForeColor);
-            }
+            SetColors();
 
             // new ControlsTestingForm().ShowDialog();
+        }
+
+        private void State_ThemeChanged(object? sender, EventArgs e) {
+            SetColors();
+        }
+        // quick theme fix cause not enough time to implement it properly
+
+        private void SetColors() {
+
+            NavBarHeaderPanel.BackColor = GetColor(ThemeColor.NavBarHeaderPanelBackColor);
+            ViewNameText.ForeColor = GetColor(ThemeColor.NavBarHeaderPanelForeColor);
+            bNavBarToogle.ForeColor = GetColor(ThemeColor.NavBarHeaderPanelForeColor);
+            NavBar.ForeColor = GetColor(ThemeColor.NavBarForeColor);
+            NavBar.BackColor = GetColor(ThemeColor.NavBarBackColor);
+
+            foreach (NavBarButton b in NavBar.Buttons) {  
+                b.ActiveForeColor = GetColor(ThemeColor.NavBarButtonActiveForeColor);
+                b.NormalColor = GetColor(ThemeColor.NavBarButtonNormalBackColor);
+                b.HoverColor = GetColor(ThemeColor.NavBarButtonHoverBackColor);
+                b.DownColor = GetColor(ThemeColor.NavBarButtonDownBackColor);
+                b.NormalForeColor = GetColor(ThemeColor.NavBarButtonForeColor);
+            }
         }
 
         private Color GetColor(ThemeColor key) {

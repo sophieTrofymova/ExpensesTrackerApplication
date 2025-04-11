@@ -18,6 +18,7 @@ namespace ExpenseTracker.Controls {
         private Color _hoverColor = Color.FromArgb(238, 238, 238);
         private Color _downColor = Color.FromArgb(150, 150, 150);
         private Color _normalForeColor = Color.Black;
+        private Color _activeForeColor = Color.Blue;
         private bool _mouseDown = false;
         private string displayIconValue = "error";
 
@@ -58,7 +59,13 @@ namespace ExpenseTracker.Controls {
 
         [Browsable(true)]
         [Category("_CustomParams"), Description("text color used when btn is active")]
-        public Color ActiveForeColor { get; set; } = Color.FromArgb(33, 150, 243);
+        public Color ActiveForeColor {
+            get { return _activeForeColor; }
+            set {
+                _activeForeColor = value;
+                this.Invalidate();
+            }
+        }
 
         [Browsable(true)]
         [Category("_CustomParams"), Description("normal text color")]

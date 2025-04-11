@@ -1,5 +1,6 @@
-﻿namespace ExpenseTracker.Elements
-{
+﻿using ExpenseTracker.Controls;
+
+namespace ExpenseTracker.Elements {
     partial class ReportElement
     {
         /// <summary> 
@@ -26,13 +27,12 @@
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             panelReport = new Panel();
             sqlCommand1 = new Microsoft.Data.SqlClient.SqlCommand();
-            cmbMonth = new ComboBox();
-            label1 = new Label();
-            groupBox1 = new GroupBox();
+            cmbMonth = new ThemedComboBox();
+            ThemedLabel1 = new ThemedLabel();
+            groupBox1 = new ThemedGroupBox();
             ThemedGroupBox.SuspendLayout();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -40,17 +40,17 @@
             // ThemedGroupBox
             // 
             ThemedGroupBox.Controls.Add(groupBox1);
-            ThemedGroupBox.Controls.Add(label1);
+            ThemedGroupBox.Controls.Add(ThemedLabel1);
             ThemedGroupBox.Controls.Add(cmbMonth);
             ThemedGroupBox.Size = new Size(849, 504);
             ThemedGroupBox.Text = "Monthly Report";
             // 
             // panelReport
             // 
-            panelReport.Dock = DockStyle.Fill;
-            panelReport.Location = new Point(3, 35);
+            panelReport.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panelReport.Location = new Point(23, 43);
             panelReport.Name = "panelReport";
-            panelReport.Size = new Size(754, 306);
+            panelReport.Size = new Size(715, 279);
             panelReport.TabIndex = 0;
             // 
             // sqlCommand1
@@ -62,27 +62,31 @@
             // 
             // cmbMonth
             // 
+            cmbMonth.DrawMode = DrawMode.OwnerDrawFixed;
+            cmbMonth.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbMonth.FormattingEnabled = true;
             cmbMonth.Location = new Point(158, 69);
             cmbMonth.Name = "cmbMonth";
-            cmbMonth.Size = new Size(151, 39);
+            cmbMonth.Size = new Size(260, 40);
             cmbMonth.TabIndex = 1;
             // 
-            // label1
+            // ThemedLabel1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(44, 72);
-            label1.Name = "label1";
-            label1.Size = new Size(86, 32);
-            label1.TabIndex = 2;
-            label1.Text = "Month";
+            ThemedLabel1.AutoSize = true;
+            ThemedLabel1.Location = new Point(44, 72);
+            ThemedLabel1.Name = "ThemedLabel1";
+            ThemedLabel1.Size = new Size(86, 32);
+            ThemedLabel1.TabIndex = 2;
+            ThemedLabel1.Text = "Month";
             // 
             // groupBox1
             // 
+            groupBox1.BorderPadding = 8;
             groupBox1.Controls.Add(panelReport);
             groupBox1.ForeColor = Color.White;
             groupBox1.Location = new Point(44, 132);
             groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new Padding(5);
             groupBox1.Size = new Size(760, 344);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
@@ -106,8 +110,8 @@
 
         private Panel panelReport;
         private Microsoft.Data.SqlClient.SqlCommand sqlCommand1;
-        private GroupBox groupBox1;
-        private Label label1;
-        private ComboBox cmbMonth;
+        private ThemedGroupBox groupBox1;
+        private ThemedLabel ThemedLabel1;
+        private ThemedComboBox cmbMonth;
     }
 }

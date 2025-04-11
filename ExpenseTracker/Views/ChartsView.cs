@@ -12,7 +12,7 @@ namespace ExpenseTracker.Views {
                 this.NumRows = 10;
                 screenKey = "view";
 
-                this.Padding = new Padding(5);
+                this.Padding = new Padding(3);
 
                 // example of a chart elements
                 //var chart1 = new BarChartElement(this) {

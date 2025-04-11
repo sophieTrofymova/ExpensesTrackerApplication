@@ -65,7 +65,7 @@ namespace ExpenseTracker.Controls {
                 );
             }
             catch (Exception ex) {
-                Debug.WriteLine("💥 ThemedCheckBox paint fail: " + ex);
+                Debug.WriteLine("ThemedCheckBox paint fail: " + ex);
             }
         }
 

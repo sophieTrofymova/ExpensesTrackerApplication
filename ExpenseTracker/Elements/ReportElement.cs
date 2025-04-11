@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Globalization;
+using ExpenseTracker.Controls;
+using ExpenseTracker.Storage;
 
 namespace ExpenseTracker.Elements
 {
@@ -13,10 +15,24 @@ namespace ExpenseTracker.Elements
         public ReportElement(ElementView parentView) : base(parentView) {
             InitializeComponent();
 
- 
+            App.State.ThemeChanged += State_ThemeChanged;
+        }
+
+        private void State_ThemeChanged(object? sender, EventArgs e) {
+            panelReport.BackColor = App.State.CurrentTheme.GetColor(ThemeColor.ViewBackColor);
+
+            foreach( var control in panelReport.Controls) {
+                if(control is Label) {
+                    (control as Label).ForeColor = App.State.CurrentTheme.GetColor(ThemeColor.LabelForeColor);
+                }
+            } 
         }
 
         public override void Init() {
+
+            
+
+            cmbMonth.Items.Clear();
             cmbMonth.Items.AddRange(DateTimeFormatInfo.CurrentInfo.MonthNames.Take(12).ToArray());
 
             int currentMonth = DateTime.Now.Month;
@@ -78,6 +94,7 @@ namespace ExpenseTracker.Elements
                 Label label = new Label
                 {
                     Text = $"{item.Category} - {item.Total:C} ({(item.Total / grandTotal * 100):F1}%)",
+                    ForeColor = App.State.CurrentTheme.GetColor(ThemeColor.LabelForeColor),
                     AutoSize = true,
                     Location = new Point(20, top),
                     Font = new Font("Segoe UI", 10, FontStyle.Bold)

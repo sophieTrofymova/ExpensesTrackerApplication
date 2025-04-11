@@ -11,8 +11,9 @@ namespace ExpenseTracker.Views {
                 this.NumRows = 1;
                 this.NumCols = 1;
 
-                this.Padding = new Padding(5);
 
+
+                this.Name = "Budgets";
                 screenBuilders.Add("add", () => new List<Element> {
                 new AddBudgetElement(this) {
 
@@ -48,7 +49,7 @@ namespace ExpenseTracker.Views {
             });
 
                 DefaultScreenKey = "view";
-
+                this.Padding = new Padding(3);
             }
 
 

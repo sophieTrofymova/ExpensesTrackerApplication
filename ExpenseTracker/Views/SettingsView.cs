@@ -25,7 +25,7 @@ namespace ExpenseTracker.Views {
                 }
             });
 
-                this.Padding = new Padding(5);
+                this.Padding = new Padding(3);
                 DefaultScreenKey = "view";
 
 
