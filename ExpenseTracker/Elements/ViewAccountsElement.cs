@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows.Forms;
 using ExpenseTracker.Controls;
 using ExpenseTracker.Views;
+using ExpenseTracker.Views.ExpenseTracker;
 
 namespace ExpenseTracker.Elements {
     public partial class ViewAccountsElement : Element {
@@ -93,6 +94,25 @@ namespace ExpenseTracker.Elements {
             }
 
         }
+
+        //private void bEditBudget_Click(object sender, EventArgs e) {
+
+        //    var budget = GetSelectedBudget(); // создай метод GetSelectedBudget() аналогично GetSelectedAccount() в ViewAccountsElement
+
+        //    if (budget == null) {
+        //        MessageBox.Show("You need to select budget first");
+        //        return;
+        //    }
+
+        //    Session.SelectedBudgetId = budget.ID;
+
+        //    if (this.ParentView is BudgetsView view) {
+        //        view.SwitchScreen("editBudget"); // или как у тебя называется
+        //        this.ParentView.Container.LockView();
+        //    }
+
+        //}
+
 
         private void tbDeleteAccount_Click(object sender, EventArgs e) {
 

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ExpenseTracker {
     public class Budget
     {
-
+        public Guid ID { get; private set; }
 
         public string Name { get; set; }
         public List<Guid> AccountsIDs { get; set; }
@@ -19,12 +20,18 @@ namespace ExpenseTracker {
         public bool Notifications { get; set; }
 
 
-        public Budget()
-        {
-            
+
+
+        /// <summary>
+        /// For serializer only
+        /// </summary>
+        [JsonConstructor]
+        public Budget(Guid id) {
+            ID = id;
         }
 
         public Budget(string name, CategoryInfo categoryInfo, decimal amountLimit, List<Guid> accountsIDs) {
+            ID = Guid.NewGuid();
             Name = name;
             CategoryInfo = categoryInfo;
             AmountLimit = amountLimit;

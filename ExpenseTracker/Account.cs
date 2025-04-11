@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using System.Threading.Tasks;
 using static ExpenseTracker.Storage.ApplicationState;
+
+using System.Text.Json.Serialization;
+
 
 namespace ExpenseTracker {
 
@@ -14,11 +18,13 @@ namespace ExpenseTracker {
         public decimal Balance { get; set; }  // Current balance in the account
 
 
-        public Account()
-        {
-            
+        /// <summary>
+        /// For serializer only
+        /// </summary>
+        [JsonConstructor]
+        public Account(Guid id) {
+            ID = id;
         }
-
 
         public Account(string name, decimal balance) {
             Name = name;

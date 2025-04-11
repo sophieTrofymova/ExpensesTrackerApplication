@@ -11,6 +11,8 @@ namespace ExpenseTracker.Elements {
 
 
         Transaction? selTransaction = null;
+        string[]? expenseCategories = null;
+        string[]? incomeCategories = null;
 
         public override void Init() {
 
@@ -27,56 +29,13 @@ namespace ExpenseTracker.Elements {
             // Bind directly to enum
             typeDropDown.DataSource = Enum.GetValues(typeof(TransactionType));
 
-            // Optional: if you want enum names instead of values (same result visually)
-            typeDropDown.DisplayMember = "ToString"; // Enum.ToString() will be used
+            // enum names instead of values (same result visually)
+            typeDropDown.DisplayMember = "ToString"; 
 
             // Select based on current value
             typeDropDown.SelectedItem = selTransaction.Type;
 
 
-
-            //categoryDropDown.Enabled = selTransaction.Type != TransactionType.Transfer;
-            //categoryDropDown.Items.Clear();
-
-            //string[]? categories = selTransaction.Type switch {
-            //    TransactionType.Expense => CategoryInfo.ExpenseCategories.Select(c => c.Description).ToArray(),
-            //    TransactionType.Income => CategoryInfo.IncomeCategories.Select(c => c.Description).ToArray(),
-            //    _ => null
-            //};
-
-            //if (categories != null) {
-            //    categoryDropDown.Items.AddRange(categories);
-            //}
-
-
-
-            // first retrieve required list of categories
-            List<CategoryInfo>? categories = selTransaction.Type switch {
-                TransactionType.Expense => CategoryInfo.ExpenseCategories,
-                TransactionType.Income => CategoryInfo.IncomeCategories,
-                _ => null
-            };
-            // determine if the category drop down should be enabled
-            // cause it is not needed for transfer transactions
-            categoryDropDown.Enabled = categories != null;
-
-            // clear the drop down list
-            categoryDropDown.DataSource = null;
-            categoryDropDown.Items.Clear();
-
-            // fill the drop down list with the categories if any
-            if (categories != null) {
-                categoryDropDown.DataSource = new BindingList<CategoryInfo>(categories);
-                categoryDropDown.DisplayMember = nameof(CategoryInfo.Description);
-                categoryDropDown.ValueMember = nameof(CategoryInfo.ImageIcon); // optional
-            }
-
-            // select from transaction
-            if (selTransaction.CategoryInfo != null) {
-                categoryDropDown.SelectedItem = categoryDropDown.Items
-                    .Cast<CategoryInfo>()
-                    .FirstOrDefault(c => c.Description == selTransaction.CategoryInfo.Description);
-            }
 
 
             senderAccountDropDown.Items.Clear();
@@ -110,26 +69,25 @@ namespace ExpenseTracker.Elements {
 
 
         private void RefreshCategories(TransactionType type) {
-            // first retrieve required list of categories
-            List<CategoryInfo>? categories = typeDropDown.SelectedItem switch {
-                TransactionType.Expense => CategoryInfo.ExpenseCategories,
-                TransactionType.Income => CategoryInfo.IncomeCategories,
-                _ => null
-            };
-            // determine if the category drop down should be enabled
-            // cause it is not needed for transfer transactions
-            categoryDropDown.Enabled = categories != null;
 
-            // clear the drop down list
-            categoryDropDown.DataSource = null;
             categoryDropDown.Items.Clear();
 
-            // fill the drop down list with the categories if any
+            // turn of category selector for transfer transactions
+            if (!(categoryDropDown.Enabled = selTransaction.Type != TransactionType.Transfer)) { return; }
+
+
+            string[]? categories = type switch {
+                TransactionType.Expense => CategoryInfo.ExpenseCategories.Select(c => c.Description).ToArray(),
+                TransactionType.Income => CategoryInfo.IncomeCategories.Select(c => c.Description).ToArray(),
+                _ => null
+            };
+
+
             if (categories != null) {
-                categoryDropDown.DataSource = new BindingList<CategoryInfo>(categories);
-                categoryDropDown.DisplayMember = nameof(CategoryInfo.Description);
-                categoryDropDown.ValueMember = nameof(CategoryInfo.ImageIcon); // optional
+                return;
             }
+
+            //selTransaction.CategoryDescription == 
 
 
 
