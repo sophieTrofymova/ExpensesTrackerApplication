@@ -1,5 +1,6 @@
 ﻿
 
+using ExpenseTracker.Storage;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel;
 using System.Drawing.Design;
@@ -101,6 +102,17 @@ namespace ExpenseTracker.Controls {
             }
         }
 
+        private Color GetColor(ThemeColor key) {
+            bool isDesignMode = LicenseManager.UsageMode == LicenseUsageMode.Designtime || DesignMode;
+
+            if (isDesignMode)
+                return Theme.GetDefaultColor(key);
+
+            return App.State?.CurrentTheme?.GetColor(key) ?? Theme.GetDefaultColor(key);
+        }
+
+
+
 
         public NavBarButton() {
             InitializeComponent();
@@ -143,6 +155,10 @@ namespace ExpenseTracker.Controls {
 
 
             this.ParentChanged += NavBarButton_ParentChanged;
+
+
+
+
         }
 
         private void NavBarButton_ParentChanged(object? sender, EventArgs e) {

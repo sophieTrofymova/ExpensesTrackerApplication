@@ -7,6 +7,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ExpenseTracker.Elements;
+using ExpenseTracker.Storage;
+using System.ComponentModel;
 
 
 namespace ExpenseTracker
@@ -90,10 +92,33 @@ namespace ExpenseTracker
                 this.ViewNameText.Text = e.Name;
             };
 
-           // new ControlsTestingForm().ShowDialog();
+
+            // quick theme fix cause not enough time to implement it properly
+
+            NavBarHeaderPanel.BackColor = Theme.GetDefaultColor(ThemeColor.NavBarHeaderPanelBackColor);
+            ViewNameText.ForeColor = Theme.GetDefaultColor(ThemeColor.NavBarHeaderPanelForeColor);
+
+            NavBar.ForeColor = Theme.GetDefaultColor(ThemeColor.NavBarForeColor);
+            NavBar.BackColor = Theme.GetDefaultColor(ThemeColor.NavBarBackColor);
+
+            foreach( NavBarButton b in NavBar.Buttons) {
+                 b.NormalColor = GetColor(ThemeColor.NavBarButtonBackColor);
+                 b.HoverColor = Color.FromArgb(0, 0, 0);
+                 b.DownColor = Color.FromArgb(150, 150, 150);
+                b.NormalForeColor = GetColor(ThemeColor.NavBarButtonForeColor);
+            }
+
+            // new ControlsTestingForm().ShowDialog();
         }
 
+        private Color GetColor(ThemeColor key) {
+            bool isDesignMode = LicenseManager.UsageMode == LicenseUsageMode.Designtime || DesignMode;
 
+            if (isDesignMode)
+                return Theme.GetDefaultColor(key);
+
+            return App.State?.CurrentTheme?.GetColor(key) ?? Theme.GetDefaultColor(key);
+        }
 
         private void bNavBarToogle_Click(object sender, EventArgs e) {
             NavBar.Visible = !NavBar.Visible;

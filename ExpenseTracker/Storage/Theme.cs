@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace ExpenseTracker.Storage {
@@ -72,7 +73,7 @@ namespace ExpenseTracker.Storage {
                 { ThemeColor.NavBarBackColor, Color.DimGray },
                 { ThemeColor.NavBarForeColor, GeneralForeColor },
                 { ThemeColor.NavBarButtonBackColor, Color.FromArgb(61, 61, 61)},
-            { ThemeColor.NavBarButtonForeColor, Color.FromArgb(61, 61, 61)},
+            { ThemeColor.NavBarButtonForeColor, Color.WhiteSmoke},
             { ThemeColor.NavBarHeaderPanelBackColor, Color.FromArgb(113, 96, 232)},
                 { ThemeColor.NavBarHeaderPanelForeColor, GeneralForeColor },
 
@@ -129,7 +130,6 @@ namespace ExpenseTracker.Storage {
         public Theme() {
 
         }
-
 
         public void SetDefaults() {
             currentColors ??= new Dictionary<ThemeColor, Color>();

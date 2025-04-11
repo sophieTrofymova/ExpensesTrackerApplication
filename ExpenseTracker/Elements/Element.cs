@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExpenseTracker.Storage;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -51,8 +52,20 @@ namespace ExpenseTracker.Elements {
             MouseDown += draggablePanel_MouseDown;
             MouseMove += draggablePanel_MouseMove;
             MouseUp += draggablePanel_MouseUp;
-
+            this.BackColor = GetColor(ThemeColor.ViewBackColor);
         }
+
+
+        private Color GetColor(ThemeColor key) {
+            bool isDesignMode = LicenseManager.UsageMode == LicenseUsageMode.Designtime || DesignMode;
+
+            if (isDesignMode)
+                return Theme.GetDefaultColor(key);
+
+            return App.State?.CurrentTheme?.GetColor(key) ?? Theme.GetDefaultColor(key);
+        }
+
+
 
         /// <summary>
         /// Ov
