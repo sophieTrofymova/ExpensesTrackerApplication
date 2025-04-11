@@ -11,7 +11,7 @@ namespace ExpenseTracker.Views {
             : base(container) {
             this.NumRows = 10;
             this.NumCols = 20;
-            Padding = new Padding(25);
+            this.Padding = new Padding(5);
 
 
             screenBuilders.Add("add", () => new List<Element> {

@@ -14,7 +14,7 @@ namespace ExpenseTracker.Views {
             this.NumRows = 10;
             this.NumCols = 20;
 
-            Padding = new System.Windows.Forms.Padding(25);
+            this.Padding = new Padding(5);
 
 
             var viewTransactions = new TransactionsElement(this) {

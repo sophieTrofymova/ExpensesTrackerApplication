@@ -31,7 +31,7 @@ namespace ExpenseTracker
         // and concerns are still separated
         DashboardView dashboardView;
         TransactionsView transactionsView;
-        ReccurentView reccurentView;
+   
         AccountsView accountsView;
         BudgetsView budgetsView;
         ChartsView chartsView;
@@ -45,7 +45,7 @@ namespace ExpenseTracker
         private void InitViews() {
             dashboardView = new DashboardView(ViewContainer);
             transactionsView = new TransactionsView(ViewContainer);
-            reccurentView = new ReccurentView(ViewContainer);
+         
             accountsView = new AccountsView(ViewContainer);
             budgetsView = new BudgetsView(ViewContainer);
             chartsView = new ChartsView(ViewContainer);
@@ -109,7 +109,7 @@ namespace ExpenseTracker
 
                 case nameof(navDashboard): SwitchToView(dashboardView); break;
                 case nameof(navTransactions): SwitchToView(transactionsView); break;
-                case nameof(navReccurent): SwitchToView(reccurentView); break;
+      
                 case nameof(navAccounts): SwitchToView(accountsView); break;
                 case nameof(navBudgets): SwitchToView(budgetsView); break;
                 case nameof(navCharts): SwitchToView(chartsView ); break;

@@ -35,19 +35,23 @@
             // 
             // AccountList
             // 
+            AccountList.BackColor = SystemColors.WindowFrame;
             AccountList.Dock = DockStyle.Fill;
-            AccountList.Location = new Point(20, 52);
+            AccountList.ForeColor = Color.WhiteSmoke;
+            AccountList.GridLines = true;
+            AccountList.Location = new Point(8, 40);
             AccountList.Name = "AccountList";
-            AccountList.Size = new Size(722, 298);
+            AccountList.Size = new Size(746, 322);
             AccountList.TabIndex = 0;
             AccountList.UseCompatibleStateImageBehavior = false;
+            AccountList.View = View.Details;
             // 
-            // TotalBalanceElement
+            // BalanceSummaryElement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Location = new Point(0, 0);
-            Name = "TotalBalanceElement";
+            Name = "BalanceSummaryElement";
             Size = new Size(775, 445);
             ThemedGroupBox.ResumeLayout(false);
             ResumeLayout(false);

@@ -97,7 +97,7 @@ namespace ExpenseTracker.Elements {
 
             var container = (this.Parent as ElementContainer);
             container?.UnlockView();
-            this.ParentView?.SwitchScreen("view",false);
+            this.SwitchToLocalScreen("view",false);
 
         }
 

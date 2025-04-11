@@ -42,11 +42,27 @@ namespace ExpenseTracker
 
             this.AccountList.Items.Clear();
 
+            decimal total = 0; // trackin total
+
             foreach (var acc in accounts) {
                 var item = new ListViewItem(acc.Name);
                 item.SubItems.Add(acc.Balance.ToCurrencyString(App.State.Settings.CurrencyType));
                 this.AccountList.Items.Add(item);
+
+                total += acc.Balance; // addin up
             }
+
+            // separator row - fake it til u make it
+            var separatorItem = new ListViewItem(new string('-', 40)); // 40 dashs, tweak if u want
+            separatorItem.SubItems.Add(""); // empty subitem for bal col
+            this.AccountList.Items.Add(separatorItem);
+
+            // total row
+            var totalItem = new ListViewItem("Total");
+            totalItem.SubItems.Add(total.ToCurrencyString(App.State.Settings.CurrencyType));
+            this.AccountList.Items.Add(totalItem);
         }
+
+
     }
 }

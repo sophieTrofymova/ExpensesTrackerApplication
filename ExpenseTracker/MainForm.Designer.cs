@@ -34,7 +34,6 @@ namespace ExpenseTracker {
             navCharts = new NavBarButton();
             navBudgets = new NavBarButton();
             navAccounts = new NavBarButton();
-            navReccurent = new NavBarButton();
             navTransactions = new NavBarButton();
             navDashboard = new NavBarButton();
             NavBar = new NavBar();
@@ -122,7 +121,7 @@ namespace ExpenseTracker {
             navSettings.DownColor = Color.FromArgb(150, 150, 150);
             navSettings.HoverColor = Color.FromArgb(238, 238, 238);
             navSettings.IsActive = false;
-            navSettings.Location = new Point(0, 422);
+            navSettings.Location = new Point(0, 352);
             navSettings.Margin = new Padding(0);
             navSettings.MinIconWidth = 64;
             navSettings.Name = "navSettings";
@@ -142,7 +141,7 @@ namespace ExpenseTracker {
             navCharts.DownColor = Color.FromArgb(150, 150, 150);
             navCharts.HoverColor = Color.FromArgb(238, 238, 238);
             navCharts.IsActive = false;
-            navCharts.Location = new Point(0, 352);
+            navCharts.Location = new Point(0, 282);
             navCharts.Margin = new Padding(0);
             navCharts.MinIconWidth = 64;
             navCharts.Name = "navCharts";
@@ -162,7 +161,7 @@ namespace ExpenseTracker {
             navBudgets.DownColor = Color.FromArgb(150, 150, 150);
             navBudgets.HoverColor = Color.FromArgb(238, 238, 238);
             navBudgets.IsActive = false;
-            navBudgets.Location = new Point(0, 282);
+            navBudgets.Location = new Point(0, 212);
             navBudgets.Margin = new Padding(0);
             navBudgets.MinIconWidth = 64;
             navBudgets.Name = "navBudgets";
@@ -182,7 +181,7 @@ namespace ExpenseTracker {
             navAccounts.DownColor = Color.FromArgb(150, 150, 150);
             navAccounts.HoverColor = Color.FromArgb(238, 238, 238);
             navAccounts.IsActive = false;
-            navAccounts.Location = new Point(0, 212);
+            navAccounts.Location = new Point(0, 142);
             navAccounts.Margin = new Padding(0);
             navAccounts.MinIconWidth = 64;
             navAccounts.Name = "navAccounts";
@@ -190,26 +189,6 @@ namespace ExpenseTracker {
             navAccounts.NormalForeColor = Color.Black;
             navAccounts.Size = new Size(399, 70);
             navAccounts.TabIndex = 3;
-            // 
-            // navReccurent
-            // 
-            navReccurent.ActiveForeColor = Color.FromArgb(33, 150, 243);
-            navReccurent.AutoSize = true;
-            navReccurent.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            navReccurent.BackColor = Color.White;
-            navReccurent.DisplayIcon = "update";
-            navReccurent.DisplayLabel = "Reccurent Transactions";
-            navReccurent.DownColor = Color.FromArgb(150, 150, 150);
-            navReccurent.HoverColor = Color.FromArgb(238, 238, 238);
-            navReccurent.IsActive = false;
-            navReccurent.Location = new Point(0, 142);
-            navReccurent.Margin = new Padding(0);
-            navReccurent.MinIconWidth = 64;
-            navReccurent.Name = "navReccurent";
-            navReccurent.NormalColor = Color.White;
-            navReccurent.NormalForeColor = Color.Black;
-            navReccurent.Size = new Size(399, 70);
-            navReccurent.TabIndex = 2;
             // 
             // navTransactions
             // 
@@ -258,14 +237,12 @@ namespace ExpenseTracker {
             NavBar.BackColor = Color.White;
             NavBar.Buttons.Add(navDashboard);
             NavBar.Buttons.Add(navTransactions);
-            NavBar.Buttons.Add(navReccurent);
             NavBar.Buttons.Add(navAccounts);
             NavBar.Buttons.Add(navBudgets);
             NavBar.Buttons.Add(navCharts);
             NavBar.Buttons.Add(navSettings);
             NavBar.Controls.Add(navDashboard);
             NavBar.Controls.Add(navTransactions);
-            NavBar.Controls.Add(navReccurent);
             NavBar.Controls.Add(navAccounts);
             NavBar.Controls.Add(navBudgets);
             NavBar.Controls.Add(navCharts);
@@ -391,7 +368,6 @@ namespace ExpenseTracker {
         private NavBarButton navCharts;
         private NavBarButton navBudgets;
         private NavBarButton navAccounts;
-        private NavBarButton navReccurent;
         private NavBarButton navTransactions;
         private NavBarButton navDashboard;
         private NavBar NavBar;

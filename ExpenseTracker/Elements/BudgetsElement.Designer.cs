@@ -28,8 +28,7 @@ namespace ExpenseTracker.Elements
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
+        private void InitializeComponent() {
             lvBudgets = new ListView();
             btnAddBudget = new ThemedButton();
             btnEditBudget = new ThemedButton();
@@ -39,27 +38,34 @@ namespace ExpenseTracker.Elements
             // 
             // ThemedGroupBox
             // 
+            ThemedGroupBox.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             ThemedGroupBox.BackgroundImageLayout = ImageLayout.Center;
             ThemedGroupBox.Controls.Add(btnDeleteBudget);
             ThemedGroupBox.Controls.Add(btnEditBudget);
             ThemedGroupBox.Controls.Add(btnAddBudget);
             ThemedGroupBox.Controls.Add(lvBudgets);
-            ThemedGroupBox.Location = new Point(0, 0);
-            ThemedGroupBox.Size = new Size(1121, 741);
+            ThemedGroupBox.Dock = DockStyle.Fill;
+            ThemedGroupBox.Size = new Size(1206, 745);
             // 
             // lvBudgets
             // 
-            lvBudgets.Location = new Point(25, 127);
+            lvBudgets.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lvBudgets.BackColor = SystemColors.WindowFrame;
+            lvBudgets.ForeColor = Color.WhiteSmoke;
+            lvBudgets.GridLines = true;
+            lvBudgets.Location = new Point(25, 96);
             lvBudgets.Name = "lvBudgets";
-            lvBudgets.Size = new Size(1129, 635);
+            lvBudgets.Size = new Size(1159, 624);
             lvBudgets.TabIndex = 0;
             lvBudgets.UseCompatibleStateImageBehavior = false;
+            lvBudgets.View = View.Details;
             // 
             // btnAddBudget
             // 
+            btnAddBudget.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnAddBudget.FlatAppearance.BorderSize = 0;
             btnAddBudget.FlatStyle = FlatStyle.Flat;
-            btnAddBudget.Location = new Point(602, 68);
+            btnAddBudget.Location = new Point(673, 43);
             btnAddBudget.Name = "btnAddBudget";
             btnAddBudget.Size = new Size(173, 47);
             btnAddBudget.TabIndex = 1;
@@ -69,9 +75,10 @@ namespace ExpenseTracker.Elements
             // 
             // btnEditBudget
             // 
+            btnEditBudget.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnEditBudget.FlatAppearance.BorderSize = 0;
             btnEditBudget.FlatStyle = FlatStyle.Flat;
-            btnEditBudget.Location = new Point(797, 68);
+            btnEditBudget.Location = new Point(852, 43);
             btnEditBudget.Name = "btnEditBudget";
             btnEditBudget.Size = new Size(155, 47);
             btnEditBudget.TabIndex = 2;
@@ -81,9 +88,10 @@ namespace ExpenseTracker.Elements
             // 
             // btnDeleteBudget
             // 
+            btnDeleteBudget.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnDeleteBudget.FlatAppearance.BorderSize = 0;
             btnDeleteBudget.FlatStyle = FlatStyle.Flat;
-            btnDeleteBudget.Location = new Point(983, 68);
+            btnDeleteBudget.Location = new Point(1013, 43);
             btnDeleteBudget.Name = "btnDeleteBudget";
             btnDeleteBudget.Size = new Size(171, 47);
             btnDeleteBudget.TabIndex = 3;
@@ -97,7 +105,7 @@ namespace ExpenseTracker.Elements
             AutoScaleMode = AutoScaleMode.Font;
             Location = new Point(0, 0);
             Name = "BudgetsElement";
-            Size = new Size(1186, 795);
+            Size = new Size(1216, 795);
             ThemedGroupBox.ResumeLayout(false);
             ResumeLayout(false);
         }

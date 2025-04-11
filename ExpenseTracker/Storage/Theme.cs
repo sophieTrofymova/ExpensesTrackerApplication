@@ -4,6 +4,15 @@ using System.Runtime.Serialization;
 namespace ExpenseTracker.Storage {
 
     public enum ThemeColor {
+
+        ViewBackColor,
+        NavBarBackColor,
+        NavBarForeColor,
+        NavBarButtonBackColor,
+        NavBarButtonForeColor,
+        NavBarHeaderPanelBackColor,
+        NavBarHeaderPanelForeColor,
+
         AccentColor,
         ElementBackColor,
         CaptionColor,
@@ -57,6 +66,16 @@ namespace ExpenseTracker.Storage {
         private static Color GeneralForeColor = Color.WhiteSmoke;
 
         private static Dictionary<ThemeColor, Color> defaultColors = new() {
+
+            { ThemeColor.ViewBackColor, GeneralBackColor },
+
+                { ThemeColor.NavBarBackColor, Color.DimGray },
+                { ThemeColor.NavBarForeColor, GeneralForeColor },
+                { ThemeColor.NavBarButtonBackColor, Color.FromArgb(61, 61, 61)},
+            { ThemeColor.NavBarButtonForeColor, Color.FromArgb(61, 61, 61)},
+            { ThemeColor.NavBarHeaderPanelBackColor, Color.FromArgb(113, 96, 232)},
+                { ThemeColor.NavBarHeaderPanelForeColor, GeneralForeColor },
+
 
             { ThemeColor.AccentColor, Color.Coral },
             { ThemeColor.ElementBackColor, Color.FromArgb(61, 61, 61) },

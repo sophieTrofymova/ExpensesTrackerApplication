@@ -122,30 +122,135 @@ namespace ExpenseTracker.Storage {
                 throw new InvalidOperationException("Themes list is not initialized, service method called in wrong context!");
             }
 
-            Dictionary<ThemeColor, Color> testThemeColors = new() {
-                { ThemeColor.AccentColor, Color.Coral },
-                { ThemeColor.ElementBackColor, Color.FromArgb(61, 61, 61) },
-                { ThemeColor.CaptionColor, Color.WhiteSmoke },
-                { ThemeColor.ControlBack, Color.FromArgb(30, 30, 30) },
-                { ThemeColor.ComboBoxBackColor, Color.FromArgb(30, 30, 30) },
-                { ThemeColor.ComboBoxForeColor, Color.Orange },
-                { ThemeColor.ComboBoxSelectedItemBackColor, Color.Coral },
-                { ThemeColor.ComboBoxSelectedItemForeColor, Color.Black }
-            };
 
-            var testTheme = new Theme() { Name = "TestTheme" };
-            testTheme.SetDefaults(); // this ensure all colors keys are set
+            GenerateDarkTheme();
+            GenerateLightTheme();
 
-            // then change any you like 
-            foreach (ThemeColor color in testThemeColors.Keys) {
-                testTheme.SetColor(color, testThemeColors[color]);
-            }
-  
-
-            Themes.Add(testTheme);
 
         }
 
+        private void GenerateDarkTheme() {
+
+
+            // dark theme
+            Color GeneralBackColor = Color.FromArgb(30, 30, 30);
+            Color GeneralForeColor = Color.WhiteSmoke;
+
+            Dictionary<ThemeColor, Color> darkThemeColors = new() {
+
+                { ThemeColor.AccentColor, Color.Coral },
+                { ThemeColor.ElementBackColor, Color.FromArgb(61, 61, 61) },
+                { ThemeColor.CaptionColor, GeneralForeColor },
+                { ThemeColor.ControlBack, GeneralBackColor },
+
+                { ThemeColor.ComboBoxBackColor, GeneralBackColor },
+                { ThemeColor.ComboBoxForeColor, GeneralForeColor },
+                { ThemeColor.ComboBoxSelectedItemBackColor, Color.Coral },
+                { ThemeColor.ComboBoxSelectedItemForeColor, Color.Black },
+
+                { ThemeColor.GroupBoxHeaderForeColor, GeneralForeColor },
+                { ThemeColor.GroupBoxHeaderBorderColor, Color.Coral },
+                { ThemeColor.GroupBoxBackColor, GeneralBackColor },
+                { ThemeColor.GroupBoxForeColor, GeneralForeColor },
+
+                { ThemeColor.TextBoxBackColor,GeneralBackColor },
+                { ThemeColor.TextBoxForeColor, GeneralForeColor },
+                { ThemeColor.TextBoxBorderColor, Color.Coral },
+                { ThemeColor.TextBoxFocusedBorderColor, Color.YellowGreen },
+
+                { ThemeColor.CheckBoxBackColor, GeneralBackColor },
+                { ThemeColor.CheckBoxForeColor, GeneralForeColor },
+                { ThemeColor.CheckBoxBorderColor, Color.Coral },
+                { ThemeColor.CheckBoxCheckedColor, Color.Coral },
+                { ThemeColor.CheckBoxFocusedColor, Color.YellowGreen },
+
+                { ThemeColor.LabelBackColor, GeneralBackColor },
+                { ThemeColor.LabelForeColor, GeneralForeColor },
+
+                { ThemeColor.ButtonBorderColor, Color.Coral },
+                { ThemeColor.ButtonBackColor, GeneralBackColor },
+                { ThemeColor.ButtonForeColor, GeneralForeColor },
+
+                { ThemeColor.ListViewBackColor, Color.Coral },
+                { ThemeColor.ListViewForeColor, Color.WhiteSmoke },
+                { ThemeColor.ListViewBorderColor, Color.Coral },
+
+                { ThemeColor.ListViewItemBackColor, Color.Coral },
+                { ThemeColor.ListViewItemForeColor, Color.WhiteSmoke  },
+                { ThemeColor.ListViewSelectedItemBackColor, Color.Coral },
+                { ThemeColor.ListViewSelectedItemForeColor, Color.WhiteSmoke },
+            };
+
+            var darkTheme = new Theme() { Name = "Dark" };
+            darkTheme.SetDefaults(); // this ensure all colors keys are set
+
+            // then change any you like 
+            foreach (ThemeColor color in darkThemeColors.Keys) {
+                darkTheme.SetColor(color, darkThemeColors[color]);
+            }
+            Themes.Add(darkTheme);
+        }
+
+        private void GenerateLightTheme() {
+            // light theme
+
+            Color GeneralBackColor = Color.WhiteSmoke;
+            Color GeneralForeColor = Color.Black;
+
+            Dictionary<ThemeColor, Color> lightThemeColors = new() {
+
+                { ThemeColor.AccentColor, Color.Coral },
+                { ThemeColor.ElementBackColor, Color.FromArgb(61, 61, 61) },
+                { ThemeColor.CaptionColor, GeneralForeColor },
+                { ThemeColor.ControlBack, GeneralBackColor },
+
+                { ThemeColor.ComboBoxBackColor, GeneralBackColor },
+                { ThemeColor.ComboBoxForeColor, GeneralForeColor },
+                { ThemeColor.ComboBoxSelectedItemBackColor, Color.Coral },
+                { ThemeColor.ComboBoxSelectedItemForeColor, Color.Black },
+
+                { ThemeColor.GroupBoxHeaderForeColor, GeneralForeColor },
+                { ThemeColor.GroupBoxHeaderBorderColor, Color.Coral },
+                { ThemeColor.GroupBoxBackColor, GeneralBackColor },
+                { ThemeColor.GroupBoxForeColor, GeneralForeColor },
+
+                { ThemeColor.TextBoxBackColor,GeneralBackColor },
+                { ThemeColor.TextBoxForeColor, GeneralForeColor },
+                { ThemeColor.TextBoxBorderColor, Color.Coral },
+                { ThemeColor.TextBoxFocusedBorderColor, Color.YellowGreen },
+
+                { ThemeColor.CheckBoxBackColor, GeneralBackColor },
+                { ThemeColor.CheckBoxForeColor, GeneralForeColor },
+                { ThemeColor.CheckBoxBorderColor, Color.Coral },
+                { ThemeColor.CheckBoxCheckedColor, Color.Coral },
+                { ThemeColor.CheckBoxFocusedColor, Color.YellowGreen },
+
+                { ThemeColor.LabelBackColor, GeneralBackColor },
+                { ThemeColor.LabelForeColor, GeneralForeColor },
+
+                { ThemeColor.ButtonBorderColor, Color.Coral },
+                { ThemeColor.ButtonBackColor, GeneralBackColor },
+                { ThemeColor.ButtonForeColor, GeneralForeColor },
+
+                { ThemeColor.ListViewBackColor, Color.Coral },
+                { ThemeColor.ListViewForeColor, Color.WhiteSmoke },
+                { ThemeColor.ListViewBorderColor, Color.Coral },
+
+                { ThemeColor.ListViewItemBackColor, Color.Coral },
+                { ThemeColor.ListViewItemForeColor, Color.WhiteSmoke  },
+                { ThemeColor.ListViewSelectedItemBackColor, Color.Coral },
+                { ThemeColor.ListViewSelectedItemForeColor, Color.WhiteSmoke },
+            };
+
+            var lightTheme = new Theme() { Name = "Light" };
+            lightTheme.SetDefaults(); // this ensure all colors keys are set
+
+            // then change any you like 
+            foreach (ThemeColor color in lightThemeColors.Keys) {
+                lightTheme.SetColor(color, lightThemeColors[color]);
+            }
+            Themes.Add(lightTheme);
+        }
 
 
         /// <summary>

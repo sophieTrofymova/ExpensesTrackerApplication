@@ -8,22 +8,24 @@ namespace ExpenseTracker.Views {
             public SettingsView(ElementContainer container) : base(container) {
 
 
-                this.Name = "Reccurent";
+                this.Name = "Settings";
 
-                this.NumRows = 8;
-                this.NumCols = 9;
+                this.NumRows = 10;
+                this.NumCols = 10;
 
                 screenBuilders.Add("view", () => new List<Element> {
-                new Element(this) {
-
+                new SettingsElement(this) {
+                    
                     Title = "Settings",
-                    Col = 1,
-                    Row = 1,
-                    Cols = 2,
-                    Rows = 6,
+                    Col = 0,
+                    Row = 0,
+                    Cols = 10,
+                    Rows = 10,
                     AllowDrag = false
                 }
             });
+
+                this.Padding = new Padding(5);
                 DefaultScreenKey = "view";
 
 
