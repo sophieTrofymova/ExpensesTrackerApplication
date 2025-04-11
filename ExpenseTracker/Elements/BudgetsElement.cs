@@ -10,36 +10,56 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WF = System.Windows.Forms;
+using ExpenseTracker.Controls;
+using ExpenseTracker.Views;
 
 
 namespace ExpenseTracker.Elements {
-    public partial class BudgetsElement : Element {
-        private Budget _currentBudget;
-      
-        public BudgetsElement(ElementView parentView) : base(parentView) {
+    public partial class BudgetsElement : Element
+    {
+        public BudgetsElement(ElementView parentView) : base(parentView)
+        {
             InitializeComponent();
-            dgvBudgets.ForeColor = Color.Black;
         }
 
-        public override void Init() {
-            dgvBudgets.Columns.Clear();
-            dgvBudgets.Rows.Clear();
-            dgvBudgets.Columns.Add("Name", "Budget Name");
-            dgvBudgets.Columns.Add("Category", "Category");
-            dgvBudgets.Columns.Add("AmountLimit", "Limit (€)");
-            dgvBudgets.Columns.Add("Spent", "Spent (€)");
-            dgvBudgets.Columns.Add("Month", "Month");
-            dgvBudgets.Columns.Add("Progress", "Progress");
-            dgvBudgets.CellClick += DgvBudgets_CellClick; // Handle category click
-            LoadBudgets();
+        public override void Init()
+        {
+            //dgvBudgets.Columns.Clear();
+            //dgvBudgets.Rows.Clear();
+            //dgvBudgets.Columns.Add("Name", "Budget Name");
+            //dgvBudgets.Columns.Add("Category", "Category");
+            //dgvBudgets.Columns.Add("AmountLimit", "Limit (€)");
+            //dgvBudgets.Columns.Add("Spent", "Spent (€)");
+            //dgvBudgets.Columns.Add("Month", "Month");
+            //dgvBudgets.Columns.Add("Progress", "Progress");
+            //dgvBudgets.MouseDoubleClick += DgvBudgets_MouseDoubleClick;
+            //LoadBudgets();
+
+            lvBudgets.View = View.Details;
+            lvBudgets.FullRowSelect = true;
+            lvBudgets.MultiSelect = false;
+            lvBudgets.Columns.Clear();
+            lvBudgets.Columns.Add("Budget Name", 250);
+            lvBudgets.Columns.Add("Category", 300);
+            lvBudgets.Columns.Add("AmountLimit", 250);
+            lvBudgets.Columns.Add("Spent", 300);
+            lvBudgets.Columns.Add("Progress", 300);
+            lvBudgets.MouseDoubleClick += lvBudgets_MouseDoubleClick;
+
+            RefreshBudgetList();
         }
 
+        private void lvBudgets_MouseDoubleClick(object? sender, MouseEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
-        private void LoadBudgets() {
-            dgvBudgets.Rows.Clear();
+        private void RefreshBudgetList()
+        {
 
-            var budgets = App.State.UserManager.LoggedUser?.Budgets;
+            lvBudgets.Items.Clear();
 
+            var budgets = Session.CurrentUser?.Budgets;
             if (budgets != null)
             {
                 foreach (var budget in budgets)
@@ -53,175 +73,99 @@ namespace ExpenseTracker.Elements {
                         Width = 100,
                         Height = 20
                     };
+                    
+                    var item = new ListViewItem(budget.Name);
+                    item.SubItems.Add(budget.CategoryInfo.Description.ToString());
+                    item.SubItems.Add(budget.AmountLimit.ToString("F2"));
+                    item.SubItems.Add(budget.Spent.ToString("F2"));
+                    item.SubItems.Add(progressBar.ToString());
+                    item.Tag = budget; // keep original Account obj for later use
 
-                    int rowIndex = dgvBudgets.Rows.Add(
-                        budget.Name,
-                        budget.CategoryInfo.Description,
-                        budget.AccountsIDs.Count > 0 ? App.State.UserManager.LoggedUser.Accounts.FirstOrDefault(a => a.ID == budget.AccountsIDs[0])?.Name : "N/A",
-                        budget.AmountLimit.ToString("F2"),
-                        budget.Spent.ToString("F2"),
-                        budget.Month.ToString("MMMM yyyy"),
-                        ""
-                    );
-                    dgvBudgets.Rows[rowIndex].Cells["Progress"].Value = progressBar;
+                    lvBudgets.Items.Add(item);
                 }
             }
+
         }
 
-
-        private void DgvBudgets_CellClick(object sender, DataGridViewCellEventArgs e)
+        private Budget? GetSelectedBudget()
         {
-            if (e.RowIndex >= 0)
+            if (lvBudgets.SelectedItems.Count == 0)
+                return null;
+
+            return lvBudgets.SelectedItems[0].Tag as Budget;
+        }
+
+        private void LvAccounts_MouseDoubleClick(object? sender, MouseEventArgs e)
+        {
+
+            if (lvBudgets.SelectedItems.Count == 0) return;
+
+            var item = lvBudgets.SelectedItems[0];
+            var budget = item.Tag as Budget;
+
+            if (budget != null)
             {
-                var selectedBudget = App.State.UserManager.LoggedUser?.Budgets[e.RowIndex];
-                if (selectedBudget != null)
+                var result = MessageBox.Show($"Delete budget '{budget.Name}'?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
                 {
-                    _currentBudget = selectedBudget;
-
-                    cmbCategory.Text = _currentBudget.CategoryInfo.Description;
-                    cmbAccountBudget.Items.Clear();
-                    cmbAccountBudget.Text = App.State.UserManager.LoggedUser.Accounts
-                        .FirstOrDefault(a => a.ID == _currentBudget.AccountsIDs[0])?.Name;
-                    txtlimitAmount.Text = _currentBudget.AmountLimit.ToString("F2");
-
-                    gbEditBudget.Text = "Edit Budget";
-
-                    pnlEditBudget.Visible = true; 
+                    Session.CurrentUser?.Budgets.Remove(budget);
+                    RefreshBudgetList();
                 }
             }
-        }
-
-     
-
- 
-
-
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
 
         }
 
-        private void btnAddNewBudget_Click(object sender, EventArgs e)
+        private void bAddBudget_Click(object sender, EventArgs e)
         {
-            if (cmbCategory.SelectedItem != null)
-            {
-                string selectedCategoryDescription = cmbCategory.SelectedItem.ToString();
-                var selectedCategory = CategoryInfo.ExpenseCategories
-                                                    .FirstOrDefault(c => c.Description == selectedCategoryDescription);
-
-                if (selectedCategory != null)
-                {
-                    if (cmbAccountBudget.SelectedItem != null)
-                    {
-                        string selectedAccountName = cmbAccountBudget.SelectedItem.ToString();
-                        var selectedAccount = App.State.UserManager.LoggedUser
-                            .Accounts.FirstOrDefault(a => a.Name == selectedAccountName);
-
-                        if (selectedAccount != null)
-                        {
-                            decimal limit;
-                            if (decimal.TryParse(txtlimitAmount.Text, out limit) && limit >= 0)
-                            {
-                                var budget = new Budget(
-                                    name: $"{selectedCategoryDescription} Budget",
-                                    categoryInfo: selectedCategory,
-                                    amountLimit: limit,
-                                    accountsIDs: new List<Guid> { selectedAccount.ID }
-                                );
-
-                                App.State.UserManager.LoggedUser.Budgets.Add(budget);
-
-                                MessageBox.Show($"New budget set: {budget.Name}, Limit: €{budget.AmountLimit}");
-
-                                txtlimitAmount.Text = "";
-                                cmbCategory.SelectedIndex = -1;
-                                cmbAccountBudget.SelectedIndex = -1;
-                                pnlAddBudget.Visible = false;
-                                LoadBudgets();
-                            }
-                            else
-                            {
-                                MessageBox.Show("Please enter a valid budget limit.");
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Selected account is not valid.");
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please select an account.");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Selected category is not valid.");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please select a category.");
-            }
-        }
-
-        private void btnAddBudget_Click_1(object sender, EventArgs e)
-        {
-            _currentBudget = null;
-            cmbCategory.SelectedIndex = -1;
-            gbEditBudget.Text = "Add New Budget";
-            cmbCategory.Items.AddRange(CategoryInfo.ExpenseCategories.Select(c => c.Description).ToArray());
-            foreach (var account in App.State.UserManager.LoggedUser.Accounts)
-            {
-                cmbAccountBudget.Items.Add(account.Name);
-            }
-
-            if (cmbAccountBudget.Items.Count > 0)
-            {
-                cmbAccountBudget.SelectedIndex = 0;
-            }
-            pnlEditBudget.Visible = true;
-        }
-
-        private void btnReset_Click(object sender, EventArgs e)
-        {
-            _currentBudget = null;
-            cmbCategory.SelectedIndex = -1;
-            gbEditBudget.Text = "Edit Budget";
-            cmbCategory.Items.AddRange(CategoryInfo.ExpenseCategories.Select(c => c.Description).ToArray());
-            foreach (var account in App.State.UserManager.LoggedUser.Accounts)
-            {
-                cmbAccountBudget.Items.Add(account.Name);
-            }
-
-            if (cmbAccountBudget.Items.Count > 0)
-            {
-                cmbAccountBudget.SelectedIndex = 0;
-            }
-            txtlimitAmount.Text = _currentBudget.AmountLimit.ToString("F2");
-            pnlEditBudget.Visible = true;
-
+            var container = this.Parent as ElementContainer;
+            container?.CurrentView?.SwitchScreen("add");
+            container?.LockView();
 
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void bEditBudget_Click(object sender, EventArgs e)
         {
-            if (_currentBudget != null)
+
+            var budget = GetSelectedBudget();
+
+            if (budget == null)
             {
-                var confirmation = MessageBox.Show("Are you sure you want to delete this budget?", "Delete Budget", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (confirmation == DialogResult.Yes)
-                {
-                    App.State.UserManager.LoggedUser.Budgets.Remove(_currentBudget);
-
-                    MessageBox.Show("Budget deleted successfully.");
-
-                    pnlEditBudget.Visible = false;
-                    LoadBudgets();
-                }
+                MessageBox.Show("You need to select budget first");
+                return;
             }
-            else
+
+            //Session.SelectedAccountId = budget.AccountsIDs;
+
+            var container = this.Parent as ElementContainer;
+            if (container?.CurrentView is AccountsView view)
             {
-                MessageBox.Show("No budget selected for deletion.");
+                view.SwitchScreen("edit");
+                container.LockView();
+            }
+
+        }
+
+        private void tbDeleteBudget_Click(object sender, EventArgs e)
+        {
+
+            var budget = GetSelectedBudget();
+            if (budget == null)
+            {
+                MessageBox.Show("Please select a budget to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var result = MessageBox.Show(
+                $"Are you sure you want to delete the budgdet '{budget.Name}'?",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                Session.CurrentUser?.Budgets.Remove(budget);
+                RefreshBudgetList();
             }
         }
     }
