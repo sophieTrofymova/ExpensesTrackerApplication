@@ -29,6 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Elements\EditTransactionElement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Elements\AddTransferElement.cs">
       <SubType>UserControl</SubType>
     </Compile>

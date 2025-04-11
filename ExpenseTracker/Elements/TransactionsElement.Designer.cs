@@ -46,8 +46,8 @@ namespace ExpenseTracker.Elements {
             chDate = new ColumnHeader();
             chCategory = new ColumnHeader();
             chAmount = new ColumnHeader();
-            themedButton2 = new ThemedButton();
-            themedButton1 = new ThemedButton();
+            bDeleteTransaction = new ThemedButton();
+            bEditTransaction = new ThemedButton();
             ThemedGroupBox.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox4.SuspendLayout();
@@ -187,7 +187,6 @@ namespace ExpenseTracker.Elements {
             label5.Size = new Size(88, 28);
             label5.TabIndex = 3;
             label5.Text = "Account:";
-            label5.Click += label5_Click;
             // 
             // categoriesDropDown
             // 
@@ -244,8 +243,8 @@ namespace ExpenseTracker.Elements {
             groupBox4.Controls.Add(bAddIncome);
             groupBox4.Controls.Add(bAddExpense);
             groupBox4.Controls.Add(transactionsList);
-            groupBox4.Controls.Add(themedButton2);
-            groupBox4.Controls.Add(themedButton1);
+            groupBox4.Controls.Add(bDeleteTransaction);
+            groupBox4.Controls.Add(bEditTransaction);
             groupBox4.ForeColor = Color.White;
             groupBox4.Location = new Point(23, 233);
             groupBox4.Name = "groupBox4";
@@ -326,31 +325,33 @@ namespace ExpenseTracker.Elements {
             chAmount.Text = "Amount";
             chAmount.Width = 150;
             // 
-            // themedButton2
+            // bDeleteTransaction
             // 
-            themedButton2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            themedButton2.FlatAppearance.BorderSize = 0;
-            themedButton2.FlatStyle = FlatStyle.Flat;
-            themedButton2.Font = new Font("Segoe UI", 12F);
-            themedButton2.Location = new Point(1046, 43);
-            themedButton2.Name = "themedButton2";
-            themedButton2.Size = new Size(89, 40);
-            themedButton2.TabIndex = 5;
-            themedButton2.Text = "Delete";
-            themedButton2.UseVisualStyleBackColor = true;
+            bDeleteTransaction.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            bDeleteTransaction.FlatAppearance.BorderSize = 0;
+            bDeleteTransaction.FlatStyle = FlatStyle.Flat;
+            bDeleteTransaction.Font = new Font("Segoe UI", 12F);
+            bDeleteTransaction.Location = new Point(1046, 43);
+            bDeleteTransaction.Name = "bDeleteTransaction";
+            bDeleteTransaction.Size = new Size(89, 40);
+            bDeleteTransaction.TabIndex = 5;
+            bDeleteTransaction.Text = "Delete";
+            bDeleteTransaction.UseVisualStyleBackColor = true;
+            bDeleteTransaction.Click += bDeleteTransaction_Click;
             // 
-            // themedButton1
+            // bEditTransaction
             // 
-            themedButton1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            themedButton1.FlatAppearance.BorderSize = 0;
-            themedButton1.FlatStyle = FlatStyle.Flat;
-            themedButton1.Font = new Font("Segoe UI", 12F);
-            themedButton1.Location = new Point(1141, 43);
-            themedButton1.Name = "themedButton1";
-            themedButton1.Size = new Size(89, 40);
-            themedButton1.TabIndex = 5;
-            themedButton1.Text = "Edit";
-            themedButton1.UseVisualStyleBackColor = true;
+            bEditTransaction.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            bEditTransaction.FlatAppearance.BorderSize = 0;
+            bEditTransaction.FlatStyle = FlatStyle.Flat;
+            bEditTransaction.Font = new Font("Segoe UI", 12F);
+            bEditTransaction.Location = new Point(1141, 43);
+            bEditTransaction.Name = "bEditTransaction";
+            bEditTransaction.Size = new Size(89, 40);
+            bEditTransaction.TabIndex = 5;
+            bEditTransaction.Text = "Edit";
+            bEditTransaction.UseVisualStyleBackColor = true;
+            bEditTransaction.Click += bEditTransaction_Click;
             // 
             // TransactionsElement
             // 
@@ -389,8 +390,8 @@ namespace ExpenseTracker.Elements {
         private ThemedCheckBox cbTransfers;
         private ThemedButton bResetFilter;
         private ThemedButton bAddExpense;
-        private ThemedButton themedButton2;
-        private ThemedButton themedButton1;
+        private ThemedButton bDeleteTransaction;
+        private ThemedButton bEditTransaction;
         private ThemedButton bAddTransfer;
         private ThemedButton bAddIncome;
     }

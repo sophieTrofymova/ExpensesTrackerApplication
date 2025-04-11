@@ -1,17 +1,5 @@
 ﻿using ExpenseTracker.Controls;
-using Microsoft.VisualBasic.ApplicationServices;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
 using System.Data;
-using System.Drawing;
-using System.Drawing.Printing;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 using WF = System.Windows.Forms;
 
 namespace ExpenseTracker.Elements {
@@ -35,7 +23,7 @@ namespace ExpenseTracker.Elements {
         }
 
 
-        User user = App.State.UserManager.LoggedUser;
+        User user = Session.CurrentUser;
 
         public TransactionsElement(ElementView parentView) : base(parentView) {
             InitializeComponent();
@@ -47,31 +35,94 @@ namespace ExpenseTracker.Elements {
         public override void Init() {
 
 
-            FillCategories();
-            FillAccounts();
-            InitList();
-            FillTransactions();
+            RefreshDropdowns();
 
+            RefreshTransactionList();
 
         }
 
-        public void InitList() {
+        private Transaction? GetSelectedTransaction() {
+            if (transactionsList.SelectedItems.Count == 0)
+                return null;
+
+            return transactionsList.SelectedItems[0].Tag as Transaction;
+        }
+
+        private void RefreshTransactionList() {
+            var transactions = user.Transactions;
+
+            transactionsList.Items.Clear();
             transactionsList.Clear();
+
+            transactionsList.View = View.Details;
+            transactionsList.FullRowSelect = true;
+            transactionsList.MultiSelect = false;
+
             transactionsList.FullRowSelect = true;
             transactionsList.GridLines = true;
 
             transactionsList.Columns.AddRange(
                 new[] {
-                    new WF.ColumnHeader { Text = "Date", Width = 120 },
+                    new WF.ColumnHeader { Text = "Type", Width = 120 },
+                    new WF.ColumnHeader { Text = "Date", Width = 150 },
                     new WF.ColumnHeader { Text = "Category", Width = 180 },
-                    new WF.ColumnHeader { Text = "Amount", Width = 100 },
-                    new WF.ColumnHeader { Text = "Sender Account", Width = 100 },
-                    new WF.ColumnHeader { Text = "Receiver Account", Width = 100 }
+                    new WF.ColumnHeader { Text = "Amount", Width = 150 },
+                    new WF.ColumnHeader { Text = "Sender Account", Width = 200 },
+                    new WF.ColumnHeader { Text = "Receiver Account", Width = 200 }
                 }
             );
+
+
+            foreach (var t in transactions) {
+
+                // if there any category selected, and the transaction category is not equal to the selected category, skip it
+                if (FFCategory != "" && t.CategoryInfo.Description != FFCategory)
+                    continue;
+
+                // if there any account selected, and the transaction sender account is not equal to the selected account, skip it
+                if (FFSelectedAccount != null) {
+                    if (t.SenderAccount != FFSelectedAccount.ID) {
+                        continue;
+                    }
+                }
+
+                // if there any month selected, and the transaction date is not equal to the selected month, skip it
+                if (monthDropDown.Text != "" && t.EffectDate.ToString("MMMM") != monthDropDown.Text) {
+                    continue;
+                }
+                // if income flag turned off and transaction type is income, skip it
+                if ((!FFIncome && t.Type == TransactionType.Income)) {
+                    continue;
+                }
+                // if expense flag turned off and transaction type is expense, skip it
+                if ((!FFExpenses && t.Type == TransactionType.Expense)) {
+                    continue;
+                }
+                // if transfer flag turned off and transaction type is transfer, skip it
+                if ((!FFTransfer && t.Type == TransactionType.Transfer)) {
+                    continue;
+                }
+
+                var item = new ListViewItem(t.Type.ToString());
+                item.SubItems.Add(t.EffectDate.ToString("dd MMM yyyy"));
+                item.SubItems.Add(t.CategoryDescription);
+                item.SubItems.Add(t.Amount.ToCurrencyString(App.State.Settings.CurrencyType));
+
+                Account? sender = user.Accounts.Select(a => a).Where(a => a.ID == t.SenderAccount).FirstOrDefault();
+                Account? receiver = user.Accounts.Select(a => a).Where(a => a.ID == t.ReceiverAccount).FirstOrDefault();
+
+                item.SubItems.Add((sender == null) ? "" : sender.Name);
+                item.SubItems.Add((receiver == null) ? "" : receiver.Name);
+
+                item.Tag = t; // keep original Transaction obj for later use
+
+                transactionsList.Items.Add(item);
+
+            }
         }
 
-        public void FillCategories() {
+
+        public void RefreshDropdowns() {
             var incomeCategories = CategoryInfo.IncomeCategories.Select(c => c.Description).ToList();
             var expenseCategories = CategoryInfo.ExpenseCategories.Select(c => c.Description).ToList();
 
@@ -80,62 +131,15 @@ namespace ExpenseTracker.Elements {
             categoriesDropDown.Items.Clear();
             categoriesDropDown.Items.AddRange(categories.ToArray());
 
-        }
-
-        public void FillAccounts() {
             accountsDropDown.Items.Clear();
             foreach (Account acc in user.Accounts) {
                 accountsDropDown.Items.Add(acc.Name);
             }
+
         }
 
-        public void FillTransactions() {
-            var transactions = user.Transactions;
-            transactionsList.Items.Clear();
-
-            foreach (var transaction in transactions) {
-
-                if (FFCategory != "" && transaction.CategoryInfo.Description != FFCategory)
-                    continue;
-                if (FFSelectedAccount != null) {
-                    if (transaction.SenderAccount != FFSelectedAccount.ID) {
-                        continue;
-                    }
-                }
-                if (monthDropDown.Text != "" && transaction.EffectDate.ToString("MMMM") != monthDropDown.Text) {
-                    continue;
-                }
-
-                if ((!FFIncome && transaction.Type == TransactionType.Income)) {
-                    continue;
-                }
-
-                if ((!FFExpenses && transaction.Type == TransactionType.Expense)) {
-                    continue;
-                }
-
-                if ((!FFTransfer && transaction.Type == TransactionType.Transfer)) {
-                    continue;
-                }
 
 
-                var item = new ListViewItem(transaction.EffectDate.ToString("dd MMM yyyy"));
-                item.SubItems.Add(transaction.CategoryDescription);
-                item.SubItems.Add(transaction.Amount.ToCurrencyString(App.State.Settings.CurrencyType));
-
-
-                Account? sender = user.Accounts.Select(a => a).Where(a => a.ID == transaction.SenderAccount).FirstOrDefault();
-
-                Account? receiver = user.Accounts.Select(a => a).Where(a => a.ID == transaction.ReceiverAccount).FirstOrDefault();
-
-
-
-                item.SubItems.Add((sender == null) ? "" : sender.Name);
-                item.SubItems.Add((receiver == null) ? "" : receiver.Name);
-
-                transactionsList.Items.Add(item);
-            }
-        }
 
 
 
@@ -144,27 +148,27 @@ namespace ExpenseTracker.Elements {
         }
 
         private void categoriesDropDown_SelectedIndexChanged(object sender, EventArgs e) {
-            FillTransactions();
+            RefreshTransactionList();
         }
 
         private void accountsDropDown_SelectedIndexChanged(object sender, EventArgs e) {
-            FillTransactions();
+            RefreshTransactionList();
         }
 
         private void monthDropDown_SelectedIndexChanged(object sender, EventArgs e) {
-            FillTransactions();
+            RefreshTransactionList();
         }
 
         private void cbExpenses_CheckedChanged(object sender, EventArgs e) {
-            FillTransactions();
+            RefreshTransactionList();
         }
 
         private void cbIncome_CheckedChanged(object sender, EventArgs e) {
-            FillTransactions();
+            RefreshTransactionList();
         }
 
         private void cbTransfers_CheckedChanged(object sender, EventArgs e) {
-            FillTransactions();
+            RefreshTransactionList();
         }
 
         private void bResetFilter_Click(object sender, EventArgs e) {
@@ -178,45 +182,51 @@ namespace ExpenseTracker.Elements {
         }
 
         private void bAddExpense_Click(object sender, EventArgs e) {
-
-            var parent = (this.Parent as ElementContainer);
-            ParentView.SwitchScreen("addExpense");
-            parent.LockView();
-
+            SwitchToLocalScreen("addExpense", true);
         }
 
         private void bAddIncome_Click(object sender, EventArgs e) {
-            var parent = (this.Parent as ElementContainer);
-            ParentView.SwitchScreen("addIncome");
-            parent.LockView();
+            SwitchToLocalScreen("addIncome", true);
         }
 
         private void bAddTransfer_Click(object sender, EventArgs e) {
-            var parent = (this.Parent as ElementContainer);
-            ParentView.SwitchScreen("addTransfer");
-            parent.LockView();
+            SwitchToLocalScreen("addTransfer", true);
         }
 
-        private void label7_Click(object sender, EventArgs e) {
 
+        private void bDeleteTransaction_Click(object sender, EventArgs e) {
+            var transaction = GetSelectedTransaction();
+
+            if (transaction == null) {
+                WF.MessageBox.Show("Please select a transaction to delete.", "No Selection", WF.MessageBoxButtons.OK, WF.MessageBoxIcon.Information);
+                return;
+            }
+
+            var confirm = WF.MessageBox.Show(
+                $"Are you sure you want to delete this transaction?\n\n" +
+                $"{transaction.EffectDate:dd MMM yyyy} - {transaction.CategoryDescription} - {transaction.Amount.ToCurrencyString(App.State.Settings.CurrencyType)}",
+                "Confirm Deletion",
+                WF.MessageBoxButtons.YesNo,
+                WF.MessageBoxIcon.Warning
+            );
+
+            if (confirm == WF.DialogResult.Yes) {
+                user.Transactions.Remove(transaction);
+                RefreshTransactionList();
+            }
         }
 
-        private void bCategory_Click(object sender, EventArgs e) {
+        private void bEditTransaction_Click(object sender, EventArgs e) {
+            var transaction = GetSelectedTransaction();
 
+            if (transaction == null) {
+                WF.MessageBox.Show("Please select a transaction to edit.", "No Selection", WF.MessageBoxButtons.OK, WF.MessageBoxIcon.Information);
+                return;
+            }
+
+            Session.SelectedTransactionId = transaction?.ID;
+
+            SwitchToLocalScreen("editTransaction", true);
         }
-
-        private void label2_Click(object sender, EventArgs e) {
-
-        }
-
-        private void cbTransactionType_SelectedIndexChanged(object sender, EventArgs e) {
-            FillCategories();
-        }
-
-        private void label5_Click(object sender, EventArgs e) {
-
-        }
-
-  
     }
 }
