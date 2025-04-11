@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using WF = System.Windows.Forms;
 using ExpenseTracker.Controls;
 using ExpenseTracker.Views;
+using ExpenseTracker.Views.ExpenseTracker;
 
 
 namespace ExpenseTracker.Elements {
@@ -51,7 +52,9 @@ namespace ExpenseTracker.Elements {
 
         private void lvBudgets_MouseDoubleClick(object? sender, MouseEventArgs e)
         {
-            throw new NotImplementedException();
+            var budget = GetSelectedBudget();
+            Session.SelectedBudget = budget;
+
         }
 
         private void RefreshBudgetList()
@@ -125,19 +128,17 @@ namespace ExpenseTracker.Elements {
 
         private void bEditBudget_Click(object sender, EventArgs e)
         {
-
             var budget = GetSelectedBudget();
-
             if (budget == null)
             {
-                MessageBox.Show("You need to select budget first");
+                MessageBox.Show("Please select a budget to edit.");
                 return;
             }
 
-            //Session.SelectedAccountId = budget.AccountsIDs;
+            Session.SelectedBudget = budget;
 
             var container = this.Parent as ElementContainer;
-            if (container?.CurrentView is AccountsView view)
+            if (container?.CurrentView is BudgetsView view)
             {
                 view.SwitchScreen("edit");
                 container.LockView();

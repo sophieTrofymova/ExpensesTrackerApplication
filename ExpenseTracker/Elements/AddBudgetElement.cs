@@ -13,7 +13,7 @@ namespace ExpenseTracker.Elements
 {
     public partial class AddBudgetElement : Element
     {
-        public AddBudgetElement()
+        public AddBudgetElement(ElementView parentView) : base(parentView)
         {
             InitializeComponent();
         }

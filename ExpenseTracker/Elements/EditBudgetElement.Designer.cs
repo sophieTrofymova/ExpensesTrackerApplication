@@ -74,6 +74,7 @@
             bCancelEditBudget.TabIndex = 25;
             bCancelEditBudget.Text = "Cancel";
             bCancelEditBudget.UseVisualStyleBackColor = true;
+            bCancelEditBudget.Click += bCancelEditBudget_Click;
             // 
             // tbLimitAmountEdit
             // 

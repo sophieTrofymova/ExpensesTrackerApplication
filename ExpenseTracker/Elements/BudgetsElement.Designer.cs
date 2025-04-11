@@ -32,9 +32,6 @@ namespace ExpenseTracker.Elements
         {
             Budgets = new ThemedGroupBox();
             lvBudgets = new ListView();
-            btnReset = new Button();
-            btnDelete = new Button();
-            btnAddBudget = new Button();
             tbDeleteBudget = new ThemedButton();
             bEditBudget = new ThemedButton();
             bAddBudget = new ThemedButton();
@@ -48,12 +45,9 @@ namespace ExpenseTracker.Elements
             ThemedGroupBox.Controls.Add(bEditBudget);
             ThemedGroupBox.Controls.Add(tbDeleteBudget);
             ThemedGroupBox.Controls.Add(bAddBudget);
-            ThemedGroupBox.Controls.Add(btnAddBudget);
-            ThemedGroupBox.Controls.Add(btnDelete);
-            ThemedGroupBox.Controls.Add(btnReset);
             ThemedGroupBox.Controls.Add(Budgets);
             ThemedGroupBox.Location = new Point(2, 0);
-            ThemedGroupBox.Size = new Size(1018, 759);
+            ThemedGroupBox.Size = new Size(1034, 777);
             // 
             // Budgets
             // 
@@ -75,13 +69,12 @@ namespace ExpenseTracker.Elements
             lvBudgets.TabIndex = 0;
             lvBudgets.UseCompatibleStateImageBehavior = false;
             // 
-            //
             // tbDeleteBudget
             // 
             tbDeleteBudget.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             tbDeleteBudget.FlatAppearance.BorderSize = 0;
             tbDeleteBudget.FlatStyle = FlatStyle.Flat;
-            tbDeleteBudget.Location = new Point(803, 76);
+            tbDeleteBudget.Location = new Point(819, 76);
             tbDeleteBudget.Name = "tbDeleteBudget";
             tbDeleteBudget.Size = new Size(191, 44);
             tbDeleteBudget.TabIndex = 7;
@@ -94,7 +87,7 @@ namespace ExpenseTracker.Elements
             bEditBudget.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             bEditBudget.FlatAppearance.BorderSize = 0;
             bEditBudget.FlatStyle = FlatStyle.Flat;
-            bEditBudget.Location = new Point(631, 76);
+            bEditBudget.Location = new Point(647, 76);
             bEditBudget.Name = "bEditBudget";
             bEditBudget.Size = new Size(169, 44);
             bEditBudget.TabIndex = 8;
@@ -107,7 +100,7 @@ namespace ExpenseTracker.Elements
             bAddBudget.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             bAddBudget.FlatAppearance.BorderSize = 0;
             bAddBudget.FlatStyle = FlatStyle.Flat;
-            bAddBudget.Location = new Point(456, 76);
+            bAddBudget.Location = new Point(472, 76);
             bAddBudget.Name = "bAddBudget";
             bAddBudget.Size = new Size(169, 44);
             bAddBudget.TabIndex = 9;
@@ -130,9 +123,6 @@ namespace ExpenseTracker.Elements
 
         #endregion
         private ThemedGroupBox Budgets;
-        private Button btnDelete;
-        private Button btnReset;
-        private Button btnAddBudget;
         private ThemedButton tbDeleteBudget;
         private ThemedButton bAddBudget;
         private ThemedButton bEditBudget;

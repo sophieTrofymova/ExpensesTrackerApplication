@@ -6,6 +6,8 @@
 
         public static Guid? SelectedAccountId { get; set; } = null;
 
+        public static Budget? SelectedBudget { get; set; }
+
         public static Account? SelectedAccount() {
             return CurrentUser?.Accounts?.FirstOrDefault(a => a.ID == SelectedAccountId);
         }
