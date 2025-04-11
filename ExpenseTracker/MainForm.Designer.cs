@@ -26,7 +26,7 @@ namespace ExpenseTracker {
         /// </summary>
         private void InitializeComponent() {
             ViewContainer = new ElementContainer();
-            panel1 = new Panel();
+            NavBarHeaderPanel = new Panel();
             bNavBarToogle = new IconButton();
             ViewNameText = new Label();
             panel2 = new Panel();
@@ -42,7 +42,7 @@ namespace ExpenseTracker {
             bMainFormClose = new IconButton();
             bMainFormState = new IconButton();
             bMainFormMinimize = new IconButton();
-            panel1.SuspendLayout();
+            NavBarHeaderPanel.SuspendLayout();
             panel2.SuspendLayout();
             NavBar.SuspendLayout();
             TitleBar.SuspendLayout();
@@ -60,17 +60,17 @@ namespace ExpenseTracker {
             ViewContainer.TabIndex = 7;
             ViewContainer.Load += ViewContainer_Load;
             // 
-            // panel1
+            // NavBarTitlePanel
             // 
-            panel1.BackColor = Color.FromArgb(33, 150, 243);
-            panel1.Controls.Add(bNavBarToogle);
-            panel1.Controls.Add(ViewNameText);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(2, 2);
-            panel1.Margin = new Padding(0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(742, 70);
-            panel1.TabIndex = 9;
+            NavBarHeaderPanel.BackColor = Color.FromArgb(33, 150, 243);
+            NavBarHeaderPanel.Controls.Add(bNavBarToogle);
+            NavBarHeaderPanel.Controls.Add(ViewNameText);
+            NavBarHeaderPanel.Dock = DockStyle.Top;
+            NavBarHeaderPanel.Location = new Point(2, 2);
+            NavBarHeaderPanel.Margin = new Padding(0);
+            NavBarHeaderPanel.Name = "NavBarTitlePanel";
+            NavBarHeaderPanel.Size = new Size(742, 70);
+            NavBarHeaderPanel.TabIndex = 9;
             // 
             // bNavBarToogle
             // 
@@ -102,7 +102,7 @@ namespace ExpenseTracker {
             // 
             panel2.BackColor = Color.FromArgb(241, 241, 241);
             panel2.Controls.Add(ViewContainer);
-            panel2.Controls.Add(panel1);
+            panel2.Controls.Add(NavBarHeaderPanel);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(401, 52);
             panel2.Name = "panel2";
@@ -347,8 +347,8 @@ namespace ExpenseTracker {
             Name = "MainForm";
             Padding = new Padding(2, 52, 2, 2);
             Text = "Form1";
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            NavBarHeaderPanel.ResumeLayout(false);
+            NavBarHeaderPanel.PerformLayout();
             panel2.ResumeLayout(false);
             NavBar.ResumeLayout(false);
             NavBar.PerformLayout();
@@ -359,7 +359,7 @@ namespace ExpenseTracker {
 
         #endregion
         private ElementContainer ViewContainer;
-        private Panel panel1;
+        private Panel NavBarHeaderPanel;
         private Panel panel2;
         private Label ViewNameText;
    

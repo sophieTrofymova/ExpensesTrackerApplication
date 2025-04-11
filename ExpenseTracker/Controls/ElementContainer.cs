@@ -1,7 +1,9 @@
 ﻿
 
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using ExpenseTracker.Elements;
+using ExpenseTracker.Storage;
 using static ExpenseTracker.Elements.ElementView;
 
 namespace ExpenseTracker.Controls
@@ -37,7 +39,7 @@ namespace ExpenseTracker.Controls
             timer.Interval = 1;
             this.Paint += ElementContainer_Paint;
 
-
+            this.BackColor = GetColor(ThemeColor.ViewBackColor);
         }
 
         private void Timer_Tick(object? sender, EventArgs e) {
@@ -81,6 +83,15 @@ namespace ExpenseTracker.Controls
             _lockView = false;
             ViewUnlocked?.Invoke(this, currentView);
         }
+        private Color GetColor(ThemeColor key) {
+            bool isDesignMode = LicenseManager.UsageMode == LicenseUsageMode.Designtime || DesignMode;
+
+            if (isDesignMode)
+                return Theme.GetDefaultColor(key);
+
+            return App.State?.CurrentTheme?.GetColor(key) ?? Theme.GetDefaultColor(key);
+        }
+
 
 
 
