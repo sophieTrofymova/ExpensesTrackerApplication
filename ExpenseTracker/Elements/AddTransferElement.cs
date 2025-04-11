@@ -45,15 +45,11 @@ namespace ExpenseTracker.Elements {
 
             Session.CurrentUser?.Transactions.Add(transaction);
 
-            var container = (this.Parent as ElementContainer);
-            container?.UnlockView();
-            this.ParentView?.SwitchScreen("view");
+            SwitchToLocalScreen("view", false);
         }
 
         private void bCancel_Click(object sender, EventArgs e) {
-            var container = (this.Parent as ElementContainer);
-            container?.UnlockView();
-            this.ParentView?.SwitchScreen("view");
+            SwitchToLocalScreen("view", false);
         }
     }
 }

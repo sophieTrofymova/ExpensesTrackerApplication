@@ -4,12 +4,11 @@ using ExpenseTracker.Controls;
 using ExpenseTracker.Elements;
 using WF = System.Windows.Forms;
 
-namespace ExpenseTracker.Views
-{
+namespace ExpenseTracker.Views {
     public class TransactionsView : ElementView {
 
         public TransactionsView(ElementContainer container) : base(container) {
-            this.Name  = "Transactions"; // view name
+            this.Name = "Transactions"; // view name
             this.screenKey = "view";
 
             this.NumRows = 10;
@@ -18,7 +17,7 @@ namespace ExpenseTracker.Views
             Padding = new System.Windows.Forms.Padding(25);
 
 
-            var screen = new TransactionsElement(this) {
+            var viewTransactions = new TransactionsElement(this) {
                 Title = "Transactions View",
                 Col = 0,
                 Cols = 20,
@@ -26,7 +25,14 @@ namespace ExpenseTracker.Views
                 Rows = 10,
                 AllowDrag = false
             };
-
+            var editTransaction = new EditTransactionElement(this) {
+                Title = "Edit Transaction",
+                Col = 0,
+                Cols = 20,
+                Row = 0,
+                Rows = 10,
+                AllowDrag = false
+            };
 
             var addExpense = new AddExpenseElement(this) {
                 Title = "Add Expense",
@@ -57,11 +63,11 @@ namespace ExpenseTracker.Views
                 AllowDrag = false
             };
 
-
+            screenBuilders.Add("editTransaction", () => new List<Element> { editTransaction });
             screenBuilders.Add("addTransfer", () => new List<Element> { addTransfer });
             screenBuilders.Add("addIncome", () => new List<Element> { addIncome });
             screenBuilders.Add("addExpense", () => new List<Element> { addExpense });
-            screenBuilders.Add("view", () => new List<Element> {screen });
+            screenBuilders.Add("view", () => new List<Element> { viewTransactions });
 
 
             DefaultScreenKey = "view";

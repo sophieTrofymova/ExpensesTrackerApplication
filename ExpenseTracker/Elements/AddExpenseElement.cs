@@ -97,13 +97,15 @@ namespace ExpenseTracker.Elements {
 
             var container = (this.Parent as ElementContainer);
             container?.UnlockView();
-            this.ParentView?.SwitchScreen("view");
+            this.ParentView?.SwitchScreen("view",false);
+
         }
 
         private void bCancel_Click(object sender, EventArgs e) {
-            var container = (this.Parent as ElementContainer);
-            container?.UnlockView();
-            this.ParentView?.SwitchScreen("view");
+            SwitchToLocalScreen("view",false);
         }
+
+
+
     }
 }

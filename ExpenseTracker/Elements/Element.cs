@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
-namespace ExpenseTracker.Elements
-{
+namespace ExpenseTracker.Elements {
 
 
 
-    public partial class Element : UserControl
-    {
+    public partial class Element : UserControl {
 
         // some fields for tracking drag state
         private bool isDragging = false;
@@ -41,8 +39,7 @@ namespace ExpenseTracker.Elements
         public Element() : this(null) { }
 
 
-        public Element(ElementView parentView)
-        {
+        public Element(ElementView parentView) {
             InitializeComponent();
 
             this.ParentView = parentView;
@@ -54,29 +51,41 @@ namespace ExpenseTracker.Elements
             MouseDown += draggablePanel_MouseDown;
             MouseMove += draggablePanel_MouseMove;
             MouseUp += draggablePanel_MouseUp;
-            //this.BackColor = MainForm.AppState.Settings.CurrentTheme.GetColor( Storage.ThemeColor.ElementBackColor);
-            //this.ThemedGroupBox.BackColor =  MainForm.AppState.Settings.CurrentTheme.GetColor(Storage.ThemeColor.ElementBackColor);
-            //this.ThemedGroupBox.ForeColor = MainForm.AppState.Settings.CurrentTheme.GetColor(Storage.ThemeColor.CaptionColor);
+
         }
 
         /// <summary>
         /// Ov
         /// </summary>
         public virtual void Init() {
-            
+
         }
 
+   
 
-        private void DragAdjust()
-        {
-            if (isDragAllowed)
-            {
+        /// <summary>
+        /// Method to switch between local view screens.
+        /// </summary>
+        /// <param name="key">Local screen name</param>
+        /// <param name="modal">Locked or not locked view</param>
+        public void SwitchToLocalScreen(string key, bool modal) {
+
+            if (!modal)
+                this.ParentView?.Container?.UnlockView();
+
+            this.ParentView?.SwitchScreen(key);
+
+            if (modal)
+                this.ParentView?.Container?.LockView();
+        }
+
+        private void DragAdjust() {
+            if (isDragAllowed) {
                 Padding = new Padding(5, 35, 5, 5);
                 ThemedGroupBox.Dock = DockStyle.None;
                 ThemedGroupBox.Location = new Point(5, 35);
             }
-            else
-            {
+            else {
 
                 Padding = new Padding(5);
                 ThemedGroupBox.Dock = DockStyle.Fill;
@@ -85,11 +94,9 @@ namespace ExpenseTracker.Elements
         }
 
 
-        private void draggablePanel_MouseDown(object sender, MouseEventArgs e)
-        {
+        private void draggablePanel_MouseDown(object sender, MouseEventArgs e) {
 
-            if (isDragAllowed)
-            {
+            if (isDragAllowed) {
                 // we do drag now
                 isDragging = true;
                 // store start pos of mouse relative to panel
@@ -97,13 +104,10 @@ namespace ExpenseTracker.Elements
             }
         }
 
-        private void draggablePanel_MouseMove(object sender, MouseEventArgs e)
-        {
+        private void draggablePanel_MouseMove(object sender, MouseEventArgs e) {
 
-            if (isDragAllowed)
-            {
-                if (isDragging)
-                {
+            if (isDragAllowed) {
+                if (isDragging) {
                     // get the new location based on the offset
                     var newLoc = Location;
                     newLoc.X += e.X - startOffset.X;
@@ -120,11 +124,9 @@ namespace ExpenseTracker.Elements
             }
         }
 
-        private void draggablePanel_MouseUp(object sender, MouseEventArgs e)
-        {
+        private void draggablePanel_MouseUp(object sender, MouseEventArgs e) {
 
-            if (isDragAllowed)
-            {
+            if (isDragAllowed) {
                 // stop dragging
                 isDragging = false;
             }

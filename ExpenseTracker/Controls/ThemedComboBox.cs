@@ -19,14 +19,17 @@ namespace ExpenseTracker.Controls {
         }
 
         protected override void OnPaint(PaintEventArgs e) {
+            bool isDisabled = !this.Enabled;
+
             if (e?.Graphics == null || Width <= 0 || Height <= 0) return;
 
             try {
                 var g = e.Graphics;
 
-                var backColor = GetColor(ThemeColor.ComboBoxBackColor);
-                var foreColor = GetColor(ThemeColor.ComboBoxForeColor);
-                var borderColor = GetColor(ThemeColor.AccentColor);
+                var backColor = GetColor(ThemeColor.ComboBoxBackColor, isDisabled);
+                var foreColor = GetColor(ThemeColor.ComboBoxForeColor, isDisabled);
+                var borderColor = GetColor(ThemeColor.AccentColor, isDisabled);
+
 
                 g.Clear(backColor);
 
@@ -50,6 +53,12 @@ namespace ExpenseTracker.Controls {
         }
 
         protected override void OnDrawItem(DrawItemEventArgs e) {
+
+            bool isDisabled = !this.Enabled;
+
+
+
+
             if (e.Index < 0) {
                 base.OnDrawItem(e);
                 return;
@@ -60,12 +69,12 @@ namespace ExpenseTracker.Controls {
                 var isSelected = (e.State & DrawItemState.Selected) == DrawItemState.Selected;
 
                 var backColor = isSelected
-                    ? GetColor(ThemeColor.ComboBoxSelectedItemBackColor)
-                    : GetColor(ThemeColor.ComboBoxBackColor);
+                    ? GetColor(ThemeColor.ComboBoxSelectedItemBackColor, isDisabled)
+                    : GetColor(ThemeColor.ComboBoxBackColor, isDisabled);
 
                 var foreColor = isSelected
-                    ? GetColor(ThemeColor.ComboBoxSelectedItemForeColor)
-                    : GetColor(ThemeColor.ComboBoxForeColor);
+                    ? GetColor(ThemeColor.ComboBoxSelectedItemForeColor, isDisabled)
+                    : GetColor(ThemeColor.ComboBoxForeColor, isDisabled);
 
 
                 using var bgBrush = new SolidBrush(backColor);
@@ -92,13 +101,20 @@ namespace ExpenseTracker.Controls {
             g.FillPolygon(brush, arrow);
         }
 
-        private Color GetColor(ThemeColor key) {
+        private Color GetColor(ThemeColor key, bool isDisabled = false) {
             bool isDesignMode = LicenseManager.UsageMode == LicenseUsageMode.Designtime || DesignMode;
 
-            if (isDesignMode)
+            if (isDesignMode || App.State?.CurrentTheme == null)
                 return Theme.GetDefaultColor(key);
 
-            return App.State?.CurrentTheme?.GetColor(key) ?? Theme.GetDefaultColor(key);
+            var color = App.State.CurrentTheme.GetColor(key);
+
+            // blend into gray if disabled
+            if (isDisabled)
+                return ControlPaint.Dark(color, 0.5f); // you can tweak that factor
+
+            return color;
         }
+
     }
 }

@@ -16,14 +16,13 @@ namespace ExpenseTracker
 
 
 
+        public static Account? SelectedAccount() {
+            return CurrentUser?.Accounts?.FirstOrDefault(a => a.ID == SelectedAccountId);
+        }
+
         public static Budget? SelectedBudget()
         {
             return CurrentUser?.Budgets?.FirstOrDefault(a => a.ID == SelectedBudgetId);
-        }
-
-        public static Account? SelectedAccount()
-        {
-            return CurrentUser?.Accounts?.FirstOrDefault(a => a.ID == SelectedAccountId);
         }
 
         public static Transaction? SelectedTransaction()
